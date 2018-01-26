@@ -11,11 +11,12 @@ import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
-import android.media.Image;
 import android.media.ImageReader;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
+import android.view.TextureView;
 
 import com.unixonly.fooslive.Util.SizeComparator;
 
@@ -33,6 +34,7 @@ import java.util.concurrent.Semaphore;
  */
 
 public class CameraSetup {
+    private static final String TAG = "Fooslive.CameraSetup";
     private static final int STATE_PREVIEW = 0;
 
     /***
@@ -43,46 +45,46 @@ public class CameraSetup {
     private static final int STATE_WAITING_NON_PRECAPTURE = 3;
     private static final int STATE_PICTURE_TAKEN = 4;
 
-    private int displayWidth;
-    private int displayHeight;
+    private int mDisplayWidth;
+    private int mDisplayHeight;
 
-    private CameraManager cameraManager;
-    private CameraDevice camera;
-    private ImageReader imageReader;
-    private CameraCaptureSession captureSession;
+    private CameraManager mCameraManager;
+    private CameraDevice mCamera;
+    private ImageReader mImageReader;
 
     private int currentState = STATE_PREVIEW;
 
-    private CaptureRequest.Builder previewRequestBuilder;
-    private CaptureRequest previewRequest;
+    private CaptureRequest.Builder mPreviewRequestBuilder;
+    private CaptureRequest mPreviewRequest;
+    private CameraCaptureSession mCaptureSession;
 
-    private Semaphore openCloseCameraLock;
-    private SurfaceTexture drawingTexture;
+    private Semaphore mOpenCloseCameraLock;
+    private TextureView mDrawingTexture;
 
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(@NonNull CameraDevice cameraDevice) {
-            // This method is called when the camera is opened.  We start camera preview here.
-            openCloseCameraLock.release();
-            camera = cameraDevice;
+            // This method is called when the mCamera is opened.  We start mCamera preview here.
+            mOpenCloseCameraLock.release();
+            mCamera = cameraDevice;
             createCameraPreviewSession();
         }
 
         @Override
         public void onDisconnected(@NonNull CameraDevice cameraDevice) {
-            openCloseCameraLock.release();
+            mOpenCloseCameraLock.release();
             cameraDevice.close();
-            camera = null;
+            mCamera = null;
         }
 
         @Override
         public void onError(@NonNull CameraDevice cameraDevice, int error) {
-            openCloseCameraLock.release();
+            mOpenCloseCameraLock.release();
             cameraDevice.close();
-            camera = null;
+            mCamera = null;
             /***
              * #TODO
-             * Figure out what happens to the activity on camera error
+             * Figure out what happens to the activity on mCamera error
              */
         }
     };
@@ -92,27 +94,26 @@ public class CameraSetup {
         private void process(CaptureResult result) {
             switch (currentState) {
                 case STATE_PREVIEW: {
-                    // We have nothing to do when the camera preview is working normally.
+                    // We have nothing to do when the mCamera preview is working normally.
                     break;
                 }
             }
         }
     };
 
-    public CameraSetup(SurfaceTexture texture, int displayWidth, int displayHeight) {
-        System.out.println(texture);
-        this.drawingTexture = texture;
-        this.displayWidth = displayWidth;
-        this.displayHeight = displayHeight;
-        this.openCloseCameraLock = new Semaphore(1);
-        this.imageReader = ImageReader.newInstance(displayWidth, displayHeight, ImageFormat.JPEG, 1);
+    public CameraSetup(TextureView texture, int mDisplayWidth, int mDisplayHeight) {
+        this.mDrawingTexture = texture;
+        this.mDisplayWidth = mDisplayWidth;
+        this.mDisplayHeight = mDisplayHeight;
+        this.mOpenCloseCameraLock = new Semaphore(1);
+        this.mImageReader = ImageReader.newInstance(mDisplayWidth, mDisplayHeight, ImageFormat.JPEG, 1);
     }
     public void init(Context context) {
-        this.cameraManager = (CameraManager)context.getSystemService(Context.CAMERA_SERVICE);
-        chooseCamera(cameraManager);
+        mCameraManager = (CameraManager)context.getSystemService(Context.CAMERA_SERVICE);
+        chooseCamera(mCameraManager);
     }
     private void chooseCamera(CameraManager manager) {
-        String[] cameraIds = null;
+        String[] cameraIds;
         try {
             cameraIds = manager.getCameraIdList();
 
@@ -120,97 +121,64 @@ public class CameraSetup {
                 CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
 
                 // Check if its back facing
-                int facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (facing == CameraCharacteristics.LENS_FACING_FRONT)
+                if (characteristics.get(CameraCharacteristics.LENS_FACING) ==
+                        CameraCharacteristics.LENS_FACING_FRONT)
                     continue;
 
                 StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                 Size[] sizes = map.getOutputSizes(SurfaceTexture.class);
 
-                Size toSet = null;
-                List<Size> biggerThanTexture = new ArrayList<>();
-                List<Size> smallerThanTexture = new ArrayList<>();
-                for (Size size : sizes) {
-                    if (size.getWidth() <= this.displayWidth && size.getHeight() <= this.displayHeight) {
-                        biggerThanTexture.add(size);
-                    } else {
-                        smallerThanTexture.add(size);
-                    }
-                }
-
-                if (biggerThanTexture.size() > 0) {
-                    toSet = Collections.min(biggerThanTexture, new SizeComparator());
-                } else {
-                    toSet = Collections.max(smallerThanTexture, new SizeComparator());
-                }
-
                 manager.openCamera(cameraId, stateCallback, null);
             }
         } catch (CameraAccessException e) {
-            /***
-             * #TODO
-             * Handle camera access exception
-             */
+            Log.e(TAG, "Error occurred while accessing the camera!", e);
         }
     }
     private void createCameraPreviewSession() {
         try {
-            // We configure the size of default buffer to be the size of camera preview we want.
-            this.drawingTexture.setDefaultBufferSize(displayWidth, displayHeight);
+            SurfaceTexture texture = mDrawingTexture.getSurfaceTexture();
+            texture.setDefaultBufferSize(mDisplayWidth, mDisplayHeight);
 
-            // This is the output Surface we need to start preview.
-            Surface surface = new Surface(drawingTexture);
+            Surface surface = new Surface(texture);
 
-            // We set up a CaptureRequest.Builder with the output Surface.
-            previewRequestBuilder
-                    = camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
-            previewRequestBuilder.addTarget(surface);
+            mPreviewRequestBuilder
+                    = mCamera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+            mPreviewRequestBuilder.addTarget(surface);
 
-            // Here, we create a CameraCaptureSession for camera preview.
-            camera.createCaptureSession(Arrays.asList(surface, imageReader.getSurface()),
+            mCamera.createCaptureSession(Arrays.asList(surface, mImageReader.getSurface()),
                     new CameraCaptureSession.StateCallback() {
                         @Override
                         public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
-                            // The camera is already closed
-                            if (null == camera) {
+                            // The mCamera is already closed
+                            if (null == mCamera) {
                                 return;
                             }
 
                             // When the session is ready, we start displaying the preview.
-                            captureSession = cameraCaptureSession;
+                            mCaptureSession = cameraCaptureSession;
                             try {
-                                // Auto focus should be continuous for camera preview.
-                                previewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
+                                // Auto focus should be continuous for mCamera preview.
+                                mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
                                         CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
 
-                                // Finally, we start displaying the camera preview.
-                                previewRequest = previewRequestBuilder.build();
-                                captureSession.setRepeatingRequest(previewRequest,
+                                // Finally, we start displaying the mCamera preview.
+                                mPreviewRequest = mPreviewRequestBuilder.build();
+                                mCaptureSession.setRepeatingRequest(mPreviewRequest,
                                         captureCallback, null);
                             } catch (CameraAccessException e) {
-                                e.printStackTrace();
+                                Log.e(TAG, "Error occurred while accessing the camera!", e);
                             }
                         }
 
                         @Override
                         public void onConfigureFailed(
                                 @NonNull CameraCaptureSession cameraCaptureSession) {
-                            /***
-                             * #TODO
-                             * Handle configuration here
-                             */
+                            Log.e(TAG, "Error occured while configuring the camera!");
                         }
                     }, null
             );
         } catch (CameraAccessException e) {
-            /***
-             * #TODO
-             * Handle camera exception here
-             */
+            Log.e(TAG, "Error occurred while accessing the camera!", e);
         }
-    }
-
-    public Image grabImage() {
-        return this.imageReader.acquireLatestImage();
     }
 }
