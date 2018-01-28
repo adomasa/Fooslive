@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfKeyPoint;
-import org.opencv.features2d.FeatureDetector;
 
 public class MenuActivity extends AppCompatActivity {
 
