@@ -19,42 +19,24 @@ import org.opencv.core.Scalar;
 
 public class ObjectDetector {
     private ColorDetector mDetector;
-    /***
-     * #TODO
-     * Create the GameController class
-     */
+    // TODO: Create the GameController class
     // private GameController mGameController;
     private float mMulX;
     private float mMulY;
     private Paint mPaintBall;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private static float mTraceStrokeWidth;
 
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private static int mTraceMaxAlpha;
 
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private static int mTraceDivisor;
 
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private static int mTraceToAdd;
 
-    /***
-     * #TODO
-     * Pass GameController to constructor
-     */
+    // TODO: Pass GameController to constructor
     public ObjectDetector(float mulX, float mulY, ColorDetector detector) {
         mMulX = mulX;
         mMulY = mulY;
@@ -78,10 +60,7 @@ public class ObjectDetector {
 
         boolean ballDetected = false;
 
-        /***
-         * #TODO
-         * Test this part
-         */
+        // TODO: Test this part
         Mat image = new Mat();
         Utils.bitmapToMat(bitmap, image);
         mDetector.image = image;
@@ -98,21 +77,14 @@ public class ObjectDetector {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
         if (ballDetected) {
-            /***
-             * #TODO
-             * Set coordinates in the GameController class
-             */
+            // TODO: Set coordinates in the GameController class
             // mGameController.setLastBallCoordinates();
         } //else
         // mGameController.setLastBallCoordinates(null);
 
         Path path = new Path();
 
-        /***
-         * #TODO
-         * Set the points from GameController
-         *  for drawing
-         */
+        // TODO: Set the points from GameController for drawing
         KeyPoint[] points = null;
         int toPaint = 10;
         boolean startSet = false;

@@ -19,94 +19,46 @@ import org.opencv.imgproc.Imgproc;
 public class ColorDetector {
     public static String TAG = ColorDetector.class.toString();
 
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private static int DefaultThreshold;
 
     private boolean mBoxSet = false;
     private RectF mBox;
-    /***
-     * #TODO
-     * Set value from app.config
-     * */
+    // TODO: Set value from app.config
     private int mBoxWidth;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mBoxHeight;
     private int mFramesLost = 0;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mFramesLostToNewBoundingBox;
     private PointF mLastBlob;
     private int mLastSize = 0;
 
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mMinBlobSize;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mHsvDivisor;
-    /***
-     * #TODO
-     * Move value to app.config
-     */
+    // TODO: Move value to app.config
     private float mSaturationMultiplier = 1.3f;
-    /***
-     * #TODO
-     * Move value to app.config
-     */
+    // TODO: Move value to app.config
     private float mValueMultiplier = 1.3f;
 
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mMulDeltaX;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mMulDeltaY;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mMulDeltaWidth;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mMulDeltaHeight;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mMinWidth;
-    /***
-     * #TODO
-     * Set value from app.config
-     */
+    // TODO: Set value from app.config
     private int mMinHeight;
 
-    /***
-     * #TODO
-     * Move value to app.config
-     */
+    // TODO: Move value to app.config
     private int mMinAddition = 5;
-    /***
-     * #TODO
-     * Move value to app.config
-     */
+    // TODO: Move value to app.config
     private int mMaxAddition = 5;
 
     public Mat image;
