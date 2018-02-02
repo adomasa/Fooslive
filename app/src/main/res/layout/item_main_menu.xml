@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/chooseModeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/buttons_distance"
@@ -15,7 +15,7 @@
         android:minHeight="40dp"
         android:minWidth="250dp"
         android:stateListAnimator="@null"
-        android:text="@string/start"
+        android:text="@string/menu_choose_mode"
         android:textAllCaps="false"
         android:textColor="@color/button_text" />
 
@@ -28,7 +28,7 @@
         android:minHeight="40dp"
         android:minWidth="250dp"
         android:stateListAnimator="@null"
-        android:text="@string/settings"
+        android:text="@string/menu_settings"
         android:textAllCaps="false"
         android:textColor="@color/button_text" />
 
@@ -41,7 +41,7 @@
         android:minHeight="40dp"
         android:minWidth="250dp"
         android:stateListAnimator="@null"
-        android:text="@string/history"
+        android:text="@string/menu_history"
         android:textAllCaps="false"
         android:textColor="@color/button_text" />
 
@@ -53,7 +53,7 @@
         android:minHeight="40dp"
         android:minWidth="250dp"
         android:stateListAnimator="@null"
-        android:text="@string/info"
+        android:text="@string/menu_info"
         android:textAllCaps="false"
         android:textColor="@color/button_text" />
 

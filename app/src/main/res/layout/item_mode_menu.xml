@@ -15,7 +15,7 @@
         android:minHeight="40dp"
         android:minWidth="250dp"
         android:stateListAnimator="@null"
-        android:text="@string/live"
+        android:text="@string/menu_live"
         android:textAllCaps="false"
         android:textColor="@color/button_text" />
 
@@ -28,7 +28,7 @@
         android:minHeight="40dp"
         android:minWidth="250dp"
         android:stateListAnimator="@null"
-        android:text="@string/from_file"
+        android:text="@string/menu_from_file"
         android:textAllCaps="false"
         android:textColor="@color/button_text" />
 

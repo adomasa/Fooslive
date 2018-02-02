@@ -22,7 +22,7 @@
         android:gravity="center"
         android:id="@+id/appVersion"
         android:typeface="normal"
-        android:text="@string/app_version"
+        android:text="@string/label_version"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_marginBottom="@dimen/info_margin"
         android:gravity="center"
         android:id="@+id/credits"
-        android:text="@string/credits" />
+        android:text="@string/app_credits" />
 
     <TextView
         android:layout_width="match_parent"

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pref_sounds_values">
+        <item>@string/pref_sound_mario_label</item>
+    </array>
+</resources>

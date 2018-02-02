@@ -1,90 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!--Global-->
-	<string name="app_name">Fooslive</string>
-	<string name="app_version">Version:  1.0</string>
-	<string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="team1_label">TEAM 1</string>
-    <string name="team2_label">TEAM 2</string>
-    <string name="initial_speed_value">0</string>
-    <string name="initial_timer_value">00:00</string>
-    <!--Menu-->
-	<string name="main_menu">Main menu</string>
-	<string name="start">Start</string>
-    <string name="choose_mode">Choose mode</string>
-	<string name="history">History</string>
-    <string name="settings">Settings</string>
-    <string name="info">Info</string>
-    <string name="live">Live</string>
-    <string name="from_file">From file</string>
-    <string name="main_menu_title">Title</string>
-    <!--Settings-->
-    <string name="logout">Logout</string>
-    <string name="team1_score_sound_label">Team 1 score</string>
-    <string name="team2_score_sound_label">Team 2 score</string>
-    <string name="team1_win_sound_label">Team 1 win</string>
-    <string name="team2_win_sound_label">Team 2 win</string>
-    <string name="sync_settings_title">History</string>
-    <string name="sync_settings_description">Sync game results with web automatically</string>
-    <string name="sound_active_title">Sounds</string>
-    <string name="sound_active_description">Enable or disable game sounds</string>
-    <string name="team1_title">Team 1 title</string>
-    <string name="team1_title_info">Team on the left from phone perspective</string>
-    <string name="team2_title_label">Team 2 title</string>
-    <string name="team2_title_info">Team on the right from phone perspective</string>
-	<!--History-->
-	<string name="error_loading">Oops! Something went wrong :(</string>
-    <string name="history_empty">No records found. Record some games!</string>
-    <!--Game-->
-    <string name="start_game">Start game</string>
-    <string name="red_team_goal">Red team scored!</string>
-    <string name="blue_team_goal">Blue team scored!</string>
-    <string name="end_game">End game</string>
-	<string name="score_format_end_game">{0}  :  {1}</string>
-    <string name="score_format">{0} : {1}</string>
-    <string name="select_ball_color">Select the ball\'s color</string>
-    <string name="speed_unit">cm/s</string>
-    <string name="timer_format">{0}:{1}</string>
-    <string name="add_point">+</string>
-    <string name="remove_point">-</string>
-    <string name="speed_format">0.00</string>
-    <!--End game-->
-    <string name="duration_label">Duration</string>
-    <string name="table_activity_zones_label">Table activity zones</string>
-    <string name="avg_ball_speed_label">AVG ball speed</string>
-    <string name="max_speed_label">MAX speed</string>
-    <string name="fastest_goal_label">Fastest goal</string>
-	<!--Info-->
-	<string name="app_description">This app allows for tracking and assigning points for a given foosball match.
+    <string name="app_name">Fooslive</string>
+    <string name="app_description">This app allows for tracking and assigning points for a given foosball match.
     Currently, the app tracks the ball using color, so the ball must stand out of it\'s environment.</string>
-	<string name="credits">Developed by "Gargdžų Banga" team</string>
+    <string name="app_credits">Developed by Gargdžų Banga and Unix-only teams</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_start">Start</string>
+    <string name="action_logout">Logout</string>
+    <string name="label_version">Version</string>
+    <string name="label_team1">Team 1</string>
+    <string name="label_team2">Team 2</string>
+    <!--Menu-->
+    <string name="title_main_menu">Main menu</string>
+    <string name="menu_choose_mode">Choose mode</string>
+    <string name="menu_history">History</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_info">Info</string>
+    <string name="menu_live">Live</string>
+    <string name="menu_from_file">From file</string>
+    <!--History-->
+    <string name="error_loading_history">Oops! Something went wrong :(</string>
+    <string name="error_history_empty">No records found. Record some games!</string>
+    <!--Game-->
+    <string name="action_start_game">Start game</string>
+    <string name="action_end_game">End game</string>
+    <string name="msg_goal">%s scored!</string>
+    <string name="action_select_ball_color">Select the ball\'s color</string>
+    <string name="action_add_point" translatable="false">+</string>
+    <string name="action_remove_point" translatable="false">-</string>
+    <string name="value_timer_default" translatable="false">00:00</string>
+    <string name="units_speed" translatable="false">cm/s</string>
+    <string name="format_timer" translatable="false">mm:ss</string>
+    <string name="format_score_end_game" translatable="false">%0$3d:%1$3d</string>
+    <string name="format_score_in_game" translatable="false">%0$2d:%1$2d</string>
+    <string name="format_speed" translatable="false">%.2f</string>
+    <!--End game-->
+    <string name="label_duration">Duration</string>
+    <string name="label_table_activity_zones">Table activity zones</string>
+    <string name="label_avg_ball_speed">AVG ball speed</string>
+    <string name="label_max_speed">MAX speed</string>
+    <string name="label_fastest_goal">Fastest goal</string>
     <!--Camera request-->
-	<string name="camera_request_explanation_title">Camera access request</string>
-	<string name="camera_request_explanation_content">Camera access is required to record and analyse live game.</string>
-	<string name="camera_access_missing">The application does not have access to record live game.</string>
+    <string name="title_camera_request_explanation">Camera access request</string>
+    <string name="msg_camera_request_explanation">Camera access is required to record and analyse live game.</string>
+    <string name="error_camera_access_missing">The application does not have access to record live game.</string>
     <!--SharedPref-->
-    <string name="preference_file_key">fooslive_pref</string> 
-    <string name="saved_team1_goal">TEAM1_SCORE</string>
-    <string name="saved_team1_goal_default">defaultMarioGoal</string>
-    <string name="saved_team2_goal">TEAM2_SCORE</string>
-    <string name="saved_team2_goal_default">defaultMarioGoal</string>
-    <string name="saved_team1_win">TEAM1_WIN</string>
-    <string name="saved_team1_win_default">defaultMarioGoal</string>
-    <string name="saved_team2_win">TEAM2_WIN</string>
-    <string name="saved_team2_win_default">defaultMarioGoal</string>
-    <string name="saved_sound_enabled">SOUND_ENABLED</string>
-    <string name="saved_sync_enabled">SYNC_ENABLED</string>
-    <string name="saved_team1_name">TEAM1_NAME</string>
-    <string name="saved_team1_name_default">Team 1</string>
-    <string name="saved_team2_name">TEAM2_NAME</string>
-    <string name="saved_team2_name_default">Team 2</string>
-    <string name="saved_auto_login">AUTO_LOGIN</string>
-    <string name="mario_goal_sound">Mario Goal Sound</string>
-    <string name="mario_win_sound">Mario Win Sound</string>
+    <string name="pref_sound_team1_goal_label" translatable="false">Team 1 score sound</string>
+    <string name="pref_sound_team1_goal_key" translatable="false">team1_goal_sound</string>
+    <string name="pref_sound_team1_goal_default" translatable="false"></string>
+
+    <string name="pref_sound_team1_win_label" translatable="false">Team 1 win sound</string>
+    <string name="pref_sound_team1_win_key" translatable="false">team1_win_sound</string>
+    <string name="pref_sound_team1_win_default" translatable="false"></string>
+
+    <string name="pref_sound_team2_goal_label" translatable="false">Team 2 score sound</string>
+    <string name="pref_sound_team2_goal_key" translatable="false">team2_goal_sound</string>
+    <string name="pref_sound_team2_goal_default" translatable="false"></string>
+
+    <string name="pref_sound_team2_win_label" translatable="false">Team 1 win sound</string>
+    <string name="pref_sound_team2_win_key" translatable="false">team2_win_sound</string>
+    <string name="pref_sound_team2_win_default" translatable="false"></string>
+
+    <string name="pref_sounds_label">Enable sounds</string>
+    <string name="pref_sounds_key" translatable="false">sounds_enabled</string>
+
+    <string name="pref_sync_key" translatable="false">sync_enabled</string>
+    <string name="pref_sync_settings_label">Sync game results with web automatically</string>
+
+    <string name="pref_auto_login_key" translatable="false">auto_login</string>
+
+    <string name="pref_title_team1_label">Team 1 title (team on the left)</string>
+    <string name="pref_title_team1" translatable="false">team1_name</string>
+    <string name="pref_title_team1_default">@string/label_team1</string>
+
+    <string name="pref_title_team2_label">Team 2 title (team on the right)</string>
+    <string name="pref_title_team2" translatable="false">team2_name</string>
+    <string name="pref_title_team2_default">@string/label_team2</string>
+
+    <string name="pref_sound_mario_label">Mario</string>
+
     <!--Login-->
-    <string name="google_oauth_client_id">insert_key_here</string>
-    <string name="google_user_data_key">USER_DATA</string>
-    <string name="google_id_key">ID</string>
-    <string name="google_id_name">NAME</string>
+    <string name="google_oauth_client_id" translatable="false"/>
+    <string name="google_user_data_key" translatable="false"/>
+    <string name="google_id_key" translatable="false" />
+    <string name="google_id_name" translatable="false" />
 </resources>

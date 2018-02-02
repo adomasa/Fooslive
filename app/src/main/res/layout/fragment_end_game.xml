@@ -39,7 +39,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/team1_label"
+                    android:text="@string/label_team1"
                     android:textColor="#ffffffff" />
 
                 <TextView
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/team2_label"
+                    android:text="@string/label_team2"
                     android:textColor="#ffffffff" />
 
                 <TextView
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/duration_label"
+                android:text="@string/label_duration"
                 android:textColor="#ffffffff"
                 android:textSize="12sp" />
 
@@ -135,7 +135,7 @@
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_below="@+id/durationContainer"
-            android:text="@string/table_activity_zones_label"
+            android:text="@string/label_table_activity_zones"
             android:textColor="#ffffffff" />
 
         <ImageView
@@ -186,7 +186,7 @@
                         android:layout_width="wrap_content"
                         android:layout_toEndOf="@id/avgBallSpeedValue"
                         android:paddingTop="3dp"
-                        android:text="@string/speed_unit"
+                        android:text="@string/units_speed"
                         android:textColor="@android:color/white"
                         android:textSize="12sp" />
 
@@ -196,7 +196,7 @@
                     android:id="@+id/avgBallSpeedLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/avg_ball_speed_label"
+                    android:text="@string/label_avg_ball_speed"
                     android:layout_below="@id/avgBallSpeedValueContainer"
                     android:layout_centerHorizontal="true"
                     android:textColor="#ffffffff"
@@ -235,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_toEndOf="@id/maxBallSpeedValue"
                         android:paddingTop="3dp"
-                        android:text="@string/speed_unit"
+                        android:text="@string/units_speed"
                         android:textColor="@android:color/white"
                         android:textSize="12sp" />
 
@@ -247,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/maxBallSpeedValueContainer"
-                    android:text="@string/max_speed_label"
+                    android:text="@string/label_max_speed"
                     android:textColor="#ffffffff"
                     android:textSize="12sp" />
 
@@ -278,7 +278,7 @@
                     android:id="@+id/fastestGoalLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fastest_goal_label"
+                    android:text="@string/label_fastest_goal"
                     android:textColor="#ffffffff"
                     android:textSize="12sp" />
 
