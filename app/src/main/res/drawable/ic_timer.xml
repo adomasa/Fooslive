@@ -1,4 +1,5 @@
-﻿<vector xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="18dp"
     android:width="18dp"
     android:tint="#FFFFFF"

@@ -1,24 +1,94 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-  <style name="FoosbalTheme" parent="FoosbalTheme.Base">
-      true</style>
-  <style name="FoosbalTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimary">@color/primary</item>
-    <item name="colorPrimaryDark">@color/primary_dark</item>
-    <item name="colorAccent">@color/accent</item>
-    <item name="android:windowBackground">@color/window_background</item>
-    <item name="windowActionModeOverlay">true</item>
-	<item name="android:windowActivityTransitions">true</item>
-    <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Button.Custom</item>
-  </style>
-    
-  <style name="FoosbalTheme.Splash" parent ="FoosbalTheme">
-    <item name="android:windowFullscreen">true</item>
-	<item name="android:windowBackground">@drawable/splash_screen</item>
-  </style>
+    <style name="FoosbalTheme" parent="FoosbalTheme.Base"/>
 
-<style name="TextAppearance.AppCompat.Button.Custom">
-    <item name="android:textColor">@android:color/black</item>
-</style>
+    <style name="FoosbalTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Button.Custom</item>
+    </style>
+
+    <style name="FoosbalTheme.Splash" parent ="FoosbalTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Button.Custom">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="FoosbalTheme.MenuButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/buttons_distance</item>
+        <item name="android:background">@drawable/selector_menu_button</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/button_text</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:minWidth">250dp</item>
+    </style>
+
+    <style name="FoosbalTheme.BigLogo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_logo</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <!--<item name="android:contentDescription">@string/app_logo_description</item>-->
+    </style>
     
+    <style name="FoosbalTheme.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Title</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <style name="FoosbalTheme.ScoreButton">
+        <item name="android:layout_width">51dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/selector_game_button</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+    </style>
+
+    <style name="FoosbalTheme.ArrowImage">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:padding">50dp</item>
+        <item name="android:scaleX">3</item>
+        <item name="android:scaleY">3</item>
+        <item name="android:layout_margin">50dp</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
+    <style name="FoosbalTheme.InGameTeamLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:maxLength">17</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="FoosbalTheme.StatsBackground">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:layout_marginStart">3dp</item>
+        <item name="android:layout_marginEnd">3dp</item>
+        <item name="android:src">"@color/end_game_status"</item>
+    </style>
+
 </resources>

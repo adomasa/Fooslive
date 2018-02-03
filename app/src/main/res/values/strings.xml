@@ -4,6 +4,7 @@
     <string name="app_description">This app allows for tracking and assigning points for a given foosball match.
     Currently, the app tracks the ball using color, so the ball must stand out of it\'s environment.</string>
     <string name="app_credits">Developed by Gargdžų Banga and Unix-only teams</string>
+    <string name="app_logo_description">Application\'s logo which depicts table football player</string>
     <string name="action_dismiss">Dismiss</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_start">Start</string>
@@ -17,8 +18,8 @@
     <string name="menu_history">History</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_info">Info</string>
-    <string name="menu_live">Live</string>
-    <string name="menu_from_file">From file</string>
+    <string name="menu_live_game">Live</string>
+    <string name="menu_recorded_game">From file</string>
     <!--History-->
     <string name="error_loading_history">Oops! Something went wrong :(</string>
     <string name="error_history_empty">No records found. Record some games!</string>
@@ -39,7 +40,7 @@
     <string name="label_duration">Duration</string>
     <string name="label_table_activity_zones">Table activity zones</string>
     <string name="label_avg_ball_speed">AVG ball speed</string>
-    <string name="label_max_speed">MAX speed</string>
+    <string name="label_max_ball_speed">MAX ball speed</string>
     <string name="label_fastest_goal">Fastest goal</string>
     <!--Camera request-->
     <string name="title_camera_request_explanation">Camera access request</string>

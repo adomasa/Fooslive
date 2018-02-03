@@ -9,35 +9,33 @@
     android:layout_marginEnd="20dp">
 
     <ImageView
-        android:id="@+id/appLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_logo"
+        android:id="@+id/image_app_logo"
+        android:contentDescription="@string/app_logo_description"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp" />
+        style="@style/FoosbalTheme.BigLogo" />
 
     <TextView
+        android:id="@+id/text_app_version"
+        android:text="@string/label_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:id="@+id/appVersion"
         android:typeface="normal"
-        android:text="@string/label_version"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
 
     <TextView
+        android:id="@+id/text_app_credits"
+        android:text="@string/app_credits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/info_margin"
-        android:gravity="center"
-        android:id="@+id/credits"
-        android:text="@string/app_credits" />
+        android:gravity="center" />
 
     <TextView
+        android:id="@+id/text_app_description"
+        android:text="@string/app_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/appDescription"
-        android:text="@string/app_description" />
+        android:gravity="center" />
 
 </LinearLayout>
