@@ -5,9 +5,10 @@
     Currently, the app tracks the ball using color, so the ball must stand out of it\'s environment.</string>
     <string name="app_credits">Developed by Gargdžų Banga and Unix-only teams</string>
     <string name="app_logo_description">Application\'s logo which depicts table football player</string>
+    <string name="action_start">Start</string>
+    <string name="action_save">Save</string>
     <string name="action_dismiss">Dismiss</string>
     <string name="action_cancel">Cancel</string>
-    <string name="action_start">Start</string>
     <string name="action_logout">Logout</string>
     <string name="label_version">Version</string>
     <string name="label_team1">Team 1</string>
@@ -47,43 +48,55 @@
     <string name="msg_camera_request_explanation">Camera access is required to record and analyse live game.</string>
     <string name="error_camera_access_missing">The application does not have access to record live game.</string>
     <!--SharedPref-->
-    <string name="pref_sound_team1_goal_label" translatable="false">Team 1 score sound</string>
-    <string name="pref_sound_team1_goal_key" translatable="false">team1_goal_sound</string>
-    <string name="pref_sound_team1_goal_default" translatable="false"></string>
+    <string name="pref_title_sound_goal_team1">Team 1 goal sound</string>
+    <string name="pref_key_sound_goal_team1" translatable="false">team1_goal_sound</string>
+    <string name="pref_default_sound_goal_team1" translatable="false"></string>
 
-    <string name="pref_sound_team1_win_label" translatable="false">Team 1 win sound</string>
-    <string name="pref_sound_team1_win_key" translatable="false">team1_win_sound</string>
-    <string name="pref_sound_team1_win_default" translatable="false"></string>
+    <string name="pref_title_sound_win_team1">Team 1 win sound</string>
+    <string name="pref_key_sound_win_team1" translatable="false">team1_win_sound</string>
+    <string name="pref_default_sound_win_team1" translatable="false"></string>
 
-    <string name="pref_sound_team2_goal_label" translatable="false">Team 2 score sound</string>
-    <string name="pref_sound_team2_goal_key" translatable="false">team2_goal_sound</string>
-    <string name="pref_sound_team2_goal_default" translatable="false"></string>
+    <string name="pref_title_sound_goal_team2">Team 2 goal sound</string>
+    <string name="pref_key_sound_goal_team2" translatable="false">team2_goal_sound</string>
+    <string name="pref_default_sound_goal_team2" translatable="false"></string>
 
-    <string name="pref_sound_team2_win_label" translatable="false">Team 1 win sound</string>
-    <string name="pref_sound_team2_win_key" translatable="false">team2_win_sound</string>
-    <string name="pref_sound_team2_win_default" translatable="false"></string>
+    <string name="pref_title_sound_win_team2">Team 2 win sound</string>
+    <string name="pref_key_sound_win_team2" translatable="false">team2_win_sound</string>
+    <string name="pref_default_sound_win_team2" translatable="false"></string>
 
-    <string name="pref_sounds_label">Enable sounds</string>
-    <string name="pref_sounds_key" translatable="false">sounds_enabled</string>
+    <string name="pref_title_sounds">Sounds</string>
+    <string name="pref_key_sounds" translatable="false">sounds_enabled</string>
+    <string name="pref_description_sounds">In-game events feedback</string>
 
-    <string name="pref_sync_key" translatable="false">sync_enabled</string>
-    <string name="pref_sync_settings_label">Sync game results with web automatically</string>
+    <string name="pref_title_sync">Sync data</string>
+    <string name="pref_key_sync" translatable="false">sync_enabled</string>
+    <string name="pref_description_sync">Sync game results with clouds automatically</string>
 
-    <string name="pref_auto_login_key" translatable="false">auto_login</string>
+    <string name="pref_key_auto_login" translatable="false">auto_login</string>
 
-    <string name="pref_title_team1_label">Team 1 title (team on the left)</string>
-    <string name="pref_title_team1" translatable="false">team1_name</string>
-    <string name="pref_title_team1_default">@string/label_team1</string>
+    <string name="pref_title_name_team1">Team 1 title (team on the left)</string>
+    <string name="pref_key_name_team1" translatable="false">team1_name</string>
+    <string name="pref_default_name_team1" translatable="false">@string/label_team1</string>
 
-    <string name="pref_title_team2_label">Team 2 title (team on the right)</string>
-    <string name="pref_title_team2" translatable="false">team2_name</string>
-    <string name="pref_title_team2_default">@string/label_team2</string>
+    <string name="pref_title_name_team2">Team 2 title (team on the right)</string>
+    <string name="pref_key_name_team2" translatable="false">team2_name</string>
+    <string name="pref_default_name_team2" translatable="false">@string/label_team2</string>
 
-    <string name="pref_sound_mario_label">Mario</string>
+    <string name="sound_title_mario_end">Mario end</string>
+    <string name="sound_mario_end" translatable="false">sound_mario_end</string>
+    <string name="sound_title_mario_coin">Mario coin</string>
+    <string name="sound_mario_coin" translatable="false">sound_mario_coin</string>
+    <string name="sound_title_crowd">Crowd</string>
+    <string name="sound_crowd" translatable="false">sound_crowd</string>
+    <string name="sound_title_minimal">Minimal space</string>
+    <string name="sound_minimal" translatable="false">sound_minimal</string>
 
     <!--Login-->
     <string name="google_oauth_client_id" translatable="false"/>
     <string name="google_user_data_key" translatable="false"/>
-    <string name="google_id_key" translatable="false" />
-    <string name="google_id_name" translatable="false" />
+    <string name="google_id_key" translatable="false"/>
+    <string name="google_id_name" translatable="false"/>
+
+    <string name="silent">\?Silent?</string>
+
 </resources>
