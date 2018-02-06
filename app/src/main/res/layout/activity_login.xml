@@ -9,13 +9,13 @@
         android:text="@string/app_name"
         android:layout_above="@+id/appLogoLogin"
         android:layout_centerHorizontal="true"
-        style="@style/FoosbalTheme.Title"/>
+        style="@style/FoosballTheme.Title"/>
 
     <ImageView
         android:id="@+id/appLogoLogin"
         android:layout_centerInParent="true"
         android:contentDescription="@string/app_logo_description"
-        style="@style/FoosbalTheme.BigLogo"/>
+        style="@style/FoosballTheme.BigLogo"/>
 
     <com.google.android.gms.common.SignInButton
         android:layout_below="@+id/appLogoLogin"

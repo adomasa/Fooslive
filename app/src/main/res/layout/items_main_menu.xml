@@ -9,21 +9,21 @@
     <Button
         android:id="@+id/button_game_modes"
         android:text="@string/menu_choose_mode"
-        style="@style/FoosbalTheme.MenuButton"/>
+        style="@style/FoosballTheme.MenuButton"/>
 
     <Button
         android:id="@+id/button_settings"
-        android:text="@string/menu_settings"
-        style="@style/FoosbalTheme.MenuButton"/>
+        android:text="@string/activity_settings"
+        style="@style/FoosballTheme.MenuButton"/>
 
     <Button
         android:id="@+id/button_history"
-        android:text="@string/menu_history"
-        style="@style/FoosbalTheme.MenuButton"/>
+        android:text="@string/activity_history"
+        style="@style/FoosballTheme.MenuButton"/>
 
     <Button
         android:id="@+id/button_info"
-        android:text="@string/menu_info"
-        style="@style/FoosbalTheme.MenuButton"/>
+        android:text="@string/activity_info"
+        style="@style/FoosballTheme.MenuButton"/>
 
 </LinearLayout>

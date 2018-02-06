@@ -10,6 +10,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.preference.DialogPreference;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 
@@ -77,8 +78,7 @@ public class ExtraRingtonePreference extends DialogPreference {
     }
 
     private Uri uriFromRaw(String name) {
-        int resId = mContext.getResources().getIdentifier(name, "raw", mContext.getPackageName());
-        return Uri.parse("android.resource://" + mContext.getPackageName() + "/" + resId);
+        return Uri.parse("android.resource://" + mContext.getPackageName() + "/raw/" + name);
     }
 
     public String getExtraRingtoneTitle(CharSequence name) {
@@ -95,42 +95,37 @@ public class ExtraRingtonePreference extends DialogPreference {
 
         String ringtoneTitle = null;
 
-        if (mValue != null) {
+        if (mValue == null) return super.getSummary();
 
-            if (mValue.length() == 0)
-                ringtoneTitle = mContext.getString(R.string.silent);
+        if (mValue.isEmpty()) ringtoneTitle = mContext.getString(R.string.sound_silent_title);
 
-            Uri mValueUri = Uri.parse(mValue);
-            if (ringtoneTitle == null && mExtraRingtones != null && mExtraRingtoneTitles != null) {
+        Uri valueUri = Uri.parse(mValue);
 
-                for (int i = 0; i < mExtraRingtones.length; i++) {
-                    Uri uriExtra = uriFromRaw(mExtraRingtones[i].toString());
-                    if (uriExtra.equals(mValueUri)) {
-                        ringtoneTitle = mExtraRingtoneTitles[i].toString();
-                        break;
-                    }
-                }
-            }
+        // titleFromExtraRingtones
+        if (ringtoneTitle == null && mExtraRingtones != null && mExtraRingtoneTitles != null) {
 
-            if (ringtoneTitle == null) {
-                Ringtone ringtone = RingtoneManager.getRingtone(mContext, mValueUri);
-                if (ringtone != null) {
-                    String title = ringtone.getTitle(mContext);
-                    if (title != null && title.length() > 0) {
-                        ringtoneTitle = title;
-                    }
+            for (int i = 0; i < mExtraRingtones.length; i++) {
+                Uri uriExtra = uriFromRaw(mExtraRingtones[i].toString());
+                if (uriExtra.equals(valueUri)) {
+                    ringtoneTitle = mExtraRingtoneTitles[i].toString();
+                    break;
                 }
             }
         }
 
-        CharSequence summary = super.getSummary();
 
-        if (ringtoneTitle != null) {
-//            if (summary != null)
-//                return String.format(summary.toString(), ringtoneTitle);
-//            else
-            return ringtoneTitle;
-        } else return summary;
+        // title from system-wide ringtones
+        if (ringtoneTitle == null) {
+            Ringtone ringtone = RingtoneManager.getRingtone(mContext, valueUri);
+            if (ringtone != null) {
+                String title = ringtone.getTitle(mContext);
+                if (!TextUtils.isEmpty(title)) {
+                    ringtoneTitle = title;
+                }
+            }
+        }
+
+        return (ringtoneTitle != null) ? ringtoneTitle : super.getSummary();
     }
 
     @Override
@@ -148,7 +143,7 @@ public class ExtraRingtonePreference extends DialogPreference {
         }
 
         if (mShowSilent)
-            sounds.put(mContext.getString(R.string.silent), Uri.parse(""));
+            sounds.put(mContext.getString(R.string.sound_silent_title), Uri.parse(""));
 
         if (mShowDefault) {
             Uri uriDefault = RingtoneManager.getDefaultUri(mRingtoneType);
@@ -171,21 +166,21 @@ public class ExtraRingtonePreference extends DialogPreference {
 
             public void onClick(DialogInterface dialog, int which) {
 
-                if (mRingtone != null)
-                    mRingtone.stop();
+                if (mRingtone != null) mRingtone.stop();
 
                 Uri uri = uriArray[which];
 
-                if (uri != null) {
-                    if (uri.toString().length() > 0) {
-                        mRingtone = RingtoneManager.getRingtone(mContext, uri);
-                        if (mRingtone != null) {
-                            mRingtone.play();
-                        }
-                    }
-                    mValue = uri.toString();
-                } else mValue = null;
+                if (uri == null) {
+                    mValue = null;
+                    return;
+                }
 
+                if (uri.toString().length() > 0) {
+                    mRingtone = RingtoneManager.getRingtone(mContext, uri);
+                    if (mRingtone != null) mRingtone.play();
+                }
+
+                mValue = uri.toString();
             }
         });
 

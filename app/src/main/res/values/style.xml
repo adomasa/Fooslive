@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <style name="FoosbalTheme" parent="FoosbalTheme.Base"/>
 
-    <style name="FoosbalTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="FoosballTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <!--<item name="android:background">@color/primary</item>-->
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="windowActionModeOverlay">true</item>
@@ -13,7 +11,10 @@
         <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Button.Custom</item>
     </style>
 
-    <style name="FoosbalTheme.Splash" parent ="FoosbalTheme">
+    <style name="FoosballTheme" parent="FoosballTheme.Base"/>
+
+
+    <style name="FoosballTheme.Splash" parent ="FoosballTheme.Base">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
@@ -22,7 +23,7 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="FoosbalTheme.MenuButton">
+    <style name="FoosballTheme.MenuButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/buttons_distance</item>
@@ -33,15 +34,14 @@
         <item name="android:minWidth">250dp</item>
     </style>
 
-    <style name="FoosbalTheme.BigLogo">
+    <style name="FoosballTheme.BigLogo">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_logo_200dp</item>
         <item name="android:layout_marginBottom">30dp</item>
-        <!--<item name="android:contentDescription">@string/app_logo_description</item>-->
     </style>
     
-    <style name="FoosbalTheme.Title">
+    <style name="FoosballTheme.Title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">40sp</item>
@@ -50,7 +50,7 @@
         <item name="android:layout_marginBottom">20dp</item>
     </style>
 
-    <style name="FoosbalTheme.ScoreButton">
+    <style name="FoosballTheme.ScoreButton">
         <item name="android:layout_width">51dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:background">@drawable/selector_game_button</item>
@@ -60,7 +60,7 @@
         <item name="android:layout_marginTop">3dp</item>
     </style>
 
-    <style name="FoosbalTheme.ArrowImage">
+    <style name="FoosballTheme.ArrowImage">
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -72,7 +72,7 @@
         <item name="android:adjustViewBounds">true</item>
     </style>
 
-    <style name="FoosbalTheme.InGameTeamLabel">
+    <style name="FoosballTheme.InGameTeamLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAllCaps">true</item>
@@ -83,12 +83,57 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="FoosbalTheme.StatsBackground">
+    <style name="FoosballTheme.StatsBackground">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">54dp</item>
         <item name="android:layout_marginStart">3dp</item>
         <item name="android:layout_marginEnd">3dp</item>
         <item name="android:src">@color/end_game_status</item>
+    </style>
+
+    <style name="FoosballTheme.EndGameTeamName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLength">@integer/max_name_length</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">24sp</item>
+
+    </style>
+    <style name="FoosballTheme.EndGameTeamLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textColor">@android:color/white</item>
+
+    </style>
+    <style name="FoosballTheme.EndGameStatsLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="FoosballTheme.EndGameComponentStatsLabel" parent="FoosballTheme.EndGameStatsLabel">
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+
+    <style name="FoosballTheme.EndGameComponentStatsUnit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="FoosballTheme.EndGameComponentStatsValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

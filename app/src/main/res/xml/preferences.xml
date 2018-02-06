@@ -29,7 +29,7 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/pref_title_name_team1"
-            tools:summary="Vėjainis"/>
+            tools:summary="Vėjainis (team on the left)"/>
 
         <EditTextPreference
             android:defaultValue="@string/pref_default_name_team2"
@@ -37,7 +37,7 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/pref_title_name_team2"
-            tools:summary="Potrankiai"/>
+            tools:summary="Potrankiai (team on the right)"/>
 
     </PreferenceCategory>
 
@@ -46,42 +46,46 @@
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_goal_team1"
             android:title="@string/pref_title_sound_goal_team1"
-            android:defaultValue="default"
+            android:defaultValue="@string/sound_mario_coin"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
             auto:extraRingtones="@array/pref_sounds_values"
-            auto:extraRingtoneTitles="@array/pref_sounds_titles"/>
+            auto:extraRingtoneTitles="@array/pref_sounds_titles"
+            tools:summary="@string/sound_title_mario_coin"/>
 
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_win_team1"
             android:title="@string/pref_title_sound_win_team1"
-            android:defaultValue="default"
+            android:defaultValue="@string/sound_crowd"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
             auto:extraRingtones="@array/pref_sounds_values"
-            auto:extraRingtoneTitles="@array/pref_sounds_titles"/>
+            auto:extraRingtoneTitles="@array/pref_sounds_titles"
+            tools:summary="@string/sound_title_mario_coin"/>
 
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_goal_team2"
             android:title="@string/pref_title_sound_goal_team2"
-            android:defaultValue="default"
+            android:defaultValue="@string/sound_mario_coin"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
             auto:extraRingtones="@array/pref_sounds_values"
-            auto:extraRingtoneTitles="@array/pref_sounds_titles"/>
+            auto:extraRingtoneTitles="@array/pref_sounds_titles"
+            tools:summary="@string/sound_title_mario_coin"/>
 
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_win_team2"
             android:title="@string/pref_title_sound_win_team2"
-            android:defaultValue="default"
+            android:defaultValue="@string/sound_crowd"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
             auto:extraRingtones="@array/pref_sounds_values"
-            auto:extraRingtoneTitles="@array/pref_sounds_titles"/>
+            auto:extraRingtoneTitles="@array/pref_sounds_titles"
+            tools:summary="@string/sound_title_mario_coin"/>
 
     </PreferenceCategory>
 

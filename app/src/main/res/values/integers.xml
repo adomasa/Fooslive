@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="max_chars_slider">10</integer>
+    <integer name="max_name_length">20</integer>
+    <integer name="value_speed_default">0</integer>
+</resources>

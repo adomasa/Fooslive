@@ -12,7 +12,7 @@
         android:id="@+id/image_app_logo"
         android:contentDescription="@string/app_logo_description"
         android:layout_marginTop="15dp"
-        style="@style/FoosbalTheme.BigLogo" />
+        style="@style/FoosballTheme.BigLogo" />
 
     <TextView
         android:id="@+id/text_app_version"

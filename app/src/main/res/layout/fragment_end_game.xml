@@ -14,49 +14,31 @@
 
     <TextView
         android:id="@+id/text_team1_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:text="@string/label_team1"
-        android:textColor="#ffffffff"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/FoosballTheme.EndGameTeamLabel"/>
 
     <TextView
         android:id="@+id/text_team1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_team1_label"
-        android:maxLength="11"
-        android:textAppearance="@android:style/TextAppearance.Material"
-        android:textColor="#ffffffff"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/text_team1_label"
         app:layout_constraintTop_toBottomOf="@+id/text_team1_label"
-        tools:text="Bangelė" />
+        style="@style/FoosballTheme.EndGameTeamName"
+        tools:text="Bangelės" />
 
 
     <TextView
         android:id="@+id/text_team2_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:text="@string/label_team2"
-        android:textColor="#ffffffff"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/FoosballTheme.EndGameTeamLabel"/>
 
     <TextView
         android:id="@+id/text_team2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_team2_label"
-        android:maxLength="11"
-        android:textAppearance="@android:style/TextAppearance.Material"
-        android:textColor="#ffffffff"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/text_team2_label"
         app:layout_constraintTop_toBottomOf="@+id/text_team2_label"
+        style="@style/FoosballTheme.EndGameTeamName"
         tools:text="Vėjelis" />
 
 
@@ -77,16 +59,11 @@
 
     <TextView
         android:id="@+id/text_duration_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:text="@string/label_duration"
-        android:textColor="#ffffffff"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/text_score"
         app:layout_constraintStart_toStartOf="@+id/text_score"
-        app:layout_constraintTop_toBottomOf="@+id/text_score" />
+        app:layout_constraintTop_toBottomOf="@+id/text_score"
+        style="@style/FoosballTheme.EndGameStatsLabel"/>
 
     <TextView
         android:id="@+id/text_duration"
@@ -102,16 +79,11 @@
 
     <TextView
         android:id="@+id/text_heat_map_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/label_table_activity_zones"
-        android:textAlignment="center"
-        android:textColor="#ffffffff"
         app:layout_constraintEnd_toEndOf="@+id/text_duration"
         app:layout_constraintStart_toStartOf="@+id/text_duration"
-        app:layout_constraintTop_toBottomOf="@+id/text_duration" />
+        app:layout_constraintTop_toBottomOf="@+id/text_duration"
+        style="@style/FoosballTheme.EndGameStatsLabel"/>
 
     <ImageView
         android:id="@+id/image_heat_map"
@@ -124,18 +96,14 @@
         app:layout_constraintBottom_toTopOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_heat_map_label" />
+        app:layout_constraintTop_toBottomOf="@+id/text_heat_map_label"
+        android:contentDescription="@string/description_heat_map" />
 
     <ProgressBar
         android:id="@+id/progress_heatmap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
         android:indeterminate="true"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/include"

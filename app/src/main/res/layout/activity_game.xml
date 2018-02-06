@@ -39,7 +39,7 @@
                 android:layout_alignParentStart="true"
                 android:textAlignment="textStart"
                 android:layout_alignTop="@+id/text_score"
-                style="@style/FoosbalTheme.InGameTeamLabel"/>
+                style="@style/FoosballTheme.InGameTeamLabel"/>
 
             <TextView
                 android:id="@+id/text_score"
@@ -58,7 +58,7 @@
                 android:layout_alignTop="@+id/text_score"
                 android:text="@string/label_team2"
                 android:textAlignment="textEnd"
-                style="@style/FoosbalTheme.InGameTeamLabel"/>
+                style="@style/FoosballTheme.InGameTeamLabel"/>
 
             <ImageView
                 android:id="@+id/image_ball_speed"
@@ -100,7 +100,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="11dp"
-                android:maxLength="@integer/max_chars"
+                android:maxLength="@integer/max_chars_slider"
                 android:paddingTop="4dp"
                 android:textColor="@color/status_text"
                 tools:text="Team 1 goal!" />
@@ -133,7 +133,7 @@
             android:id="@+id/image_arrow_top"
             android:src="@drawable/ic_arrow_up_24dp"
             android:layout_gravity="top|center_horizontal"
-            style="@style/FoosbalTheme.ArrowImage"
+            style="@style/FoosballTheme.ArrowImage"
             tools:ignore="ContentDescription"
             tools:visibility="visible" />
 
@@ -142,7 +142,7 @@
             android:src="@drawable/ic_arrow_up_24dp"
             android:layout_gravity="center|start"
             android:rotation="-90"
-            style="@style/FoosbalTheme.ArrowImage"
+            style="@style/FoosballTheme.ArrowImage"
             tools:ignore="ContentDescription"
             tools:visibility="visible" />
 
@@ -151,7 +151,7 @@
             android:layout_gravity="center|end"
             android:rotation="90"
             android:src="@drawable/ic_arrow_up_24dp"
-            style="@style/FoosbalTheme.ArrowImage"
+            style="@style/FoosballTheme.ArrowImage"
             tools:ignore="ContentDescription"
             tools:visibility="visible" />
 
@@ -160,7 +160,7 @@
             android:src="@drawable/ic_arrow_up_24dp"
             android:layout_gravity="bottom|center_horizontal"
             android:rotation="180"
-            style="@style/FoosbalTheme.ArrowImage"
+            style="@style/FoosballTheme.ArrowImage"
             tools:ignore="ContentDescription"
             tools:visibility="visible" />
 
@@ -174,14 +174,14 @@
 
             <Button
                 android:id="@+id/button_add_score_team1"
-                style="@style/FoosbalTheme.ScoreButton"
+                style="@style/FoosballTheme.ScoreButton"
                 android:layout_above="@+id/button_remove_score_team1"
                 android:layout_alignParentStart="true"
                 android:text="@string/action_add_point" />
 
             <Button
                 android:id="@+id/button_remove_score_team1"
-                style="@style/FoosbalTheme.ScoreButton"
+                style="@style/FoosballTheme.ScoreButton"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:text="@string/action_remove_point" />
@@ -202,14 +202,14 @@
 
             <Button
                 android:id="@+id/button_add_score_team2"
-                style="@style/FoosbalTheme.ScoreButton"
+                style="@style/FoosballTheme.ScoreButton"
                 android:layout_above="@+id/button_remove_score_team2"
                 android:layout_alignParentEnd="true"
                 android:text="@string/action_add_point" />
 
             <Button
                 android:id="@+id/button_remove_score_team2"
-                style="@style/FoosbalTheme.ScoreButton"
+                style="@style/FoosballTheme.ScoreButton"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:text="@string/action_remove_point" />
