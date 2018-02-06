@@ -18,12 +18,7 @@ import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 
-import com.unixonly.fooslive.Util.SizeComparator;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -102,11 +97,11 @@ public class CameraSetup {
     };
 
     public CameraSetup(TextureView texture, int mDisplayWidth, int mDisplayHeight) {
-        this.mDrawingTexture = texture;
-        this.mDisplayWidth = mDisplayWidth;
-        this.mDisplayHeight = mDisplayHeight;
-        this.mOpenCloseCameraLock = new Semaphore(1);
-        this.mImageReader = ImageReader.newInstance(mDisplayWidth, mDisplayHeight, ImageFormat.JPEG, 1);
+        mDrawingTexture = texture;
+        mDisplayWidth = mDisplayWidth;
+        mDisplayHeight = mDisplayHeight;
+        mOpenCloseCameraLock = new Semaphore(1);
+        mImageReader = ImageReader.newInstance(mDisplayWidth, mDisplayHeight, ImageFormat.JPEG, 1);
     }
     public void init(Context context) {
         mCameraManager = (CameraManager)context.getSystemService(Context.CAMERA_SERVICE);
@@ -128,6 +123,7 @@ public class CameraSetup {
                 StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                 Size[] sizes = map.getOutputSizes(SurfaceTexture.class);
 
+                // TODO: Check if app has permission to access camera
                 manager.openCamera(cameraId, stateCallback, null);
             }
         } catch (CameraAccessException e) {
