@@ -88,6 +88,7 @@ public class ObjectDetector {
         KeyPoint[] points = null;
         int toPaint = 10;
         boolean startSet = false;
+        ballDetected = true;
         for (int i = points.length - 1; i > 0; i --) {
             if (points[i] == null) {
                 toPaint --;

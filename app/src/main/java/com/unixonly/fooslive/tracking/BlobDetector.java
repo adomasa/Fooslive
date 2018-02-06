@@ -13,7 +13,7 @@ public class BlobDetector {
     public BlobDetector() {
         mDetector = FeatureDetector.create(FeatureDetector.SIMPLEBLOB);
     }
-    public void GetBlobs(Mat filteredImage, MatOfKeyPoint blobs) {
+    public void getBlobs(Mat filteredImage, MatOfKeyPoint blobs) {
         mDetector.detect(filteredImage, blobs);
     }
 }

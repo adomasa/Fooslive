@@ -3,7 +3,6 @@ package com.unixonly.fooslive.tracking;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.constraint.solver.widgets.Rectangle;
 
 import org.opencv.core.Core;
 import org.opencv.core.KeyPoint;
@@ -81,18 +80,27 @@ public class ColorDetector {
         Imgproc.cvtColor(image, image, Imgproc.COLOR_RGB2HSV);
 
         // Calculate the lower and upper bounds
-        Scalar lowerLimit = new Scalar(hsv.val[0] - Threshold / mHsvDivisor,
-                                        hsv.val[1] - Threshold * mSaturationMultiplier,
-                                        hsv.val[2] - Threshold * mValueMultiplier );
-        Scalar upperLimit = new Scalar(hsv.val[0] + Threshold / mHsvDivisor,
-                                        hsv.val[1] + Threshold * mSaturationMultiplier,
-                                        hsv.val[2] + Threshold * mValueMultiplier);
+        double lowerHue = hsv.val[0] - Threshold / mHsvDivisor;
+        double lowerSaturation = hsv.val[1] - Threshold * mSaturationMultiplier;
+        double lowerValue = hsv.val[2] - Threshold * mValueMultiplier;
+
+        double upperHue = hsv.val[0] + Threshold / mHsvDivisor;
+        double upperSaturation = hsv.val[1] + Threshold * mSaturationMultiplier;
+        double upperValue = hsv.val[2] + Threshold * mValueMultiplier;
+
+        Scalar lowerLimit = new Scalar(lowerHue,
+                                        lowerSaturation,
+                                        lowerValue);
+        Scalar upperLimit = new Scalar(upperHue,
+                                        upperSaturation,
+                                        upperValue);
+
 
         // Filter the hsv image by color
         Core.inRange(image, lowerLimit, upperLimit, image);
 
         MatOfKeyPoint blobs = new MatOfKeyPoint();
-        mDetector.GetBlobs(image, blobs);
+        mDetector.getBlobs(image, blobs);
 
         if ( mFramesLost > mFramesLostToNewBoundingBox || !mBoxSet) {
             mBox = new RectF((float)image.size().width / 2 - mBoxWidth / 2,

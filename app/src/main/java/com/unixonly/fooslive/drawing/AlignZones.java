@@ -60,7 +60,7 @@ public class AlignZones {
 //                    new PointF(lowerTopRightX, topY),
 //                    new PointF(bottomLeftX, bottomY),
 //                    new PointF(bottomRightX, bottomY)
-//        }, ECaptureMode.Live);
+//        }, ECaptureMode.LIVE);
 
         return canvas;
     }
