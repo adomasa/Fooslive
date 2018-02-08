@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Fooslive</string>
-    <string name="app_description">This app allows for tracking and assigning points for a given foosball match.
-    Currently, the app tracks the ball using color, so the ball must stand out of it\'s environment.</string>
+    <string name="app_description">This app allows for tracking and assigning points for a given
+        foosball match. Currently, the app tracks the ball using color, so the ball must stand out
+        of it\'s environment.</string>
     <string name="app_credits">Developed by Gargdžų Banga and Unix-only teams</string>
-    <string name="app_logo_description">Application\'s logo which depicts table football player</string>
+    <string name="app_logo_description">Application\'s logo which depicts table football
+        player</string>
     <string name="action_start">Start</string>
     <string name="action_save">Save</string>
     <string name="action_dismiss">Dismiss</string>
@@ -46,24 +48,26 @@
     <string name="label_fastest_goal">Fastest goal</string>
     <!--Camera request-->
     <string name="title_camera_request_explanation">Camera access request</string>
-    <string name="msg_camera_request_explanation">Camera access is required to record and analyse live game.</string>
-    <string name="error_camera_access_missing">The application does not have access to record live game.</string>
+    <string name="msg_camera_request_explanation">Camera access is required to record and analyse
+        live game.</string>
+    <string name="error_camera_access_missing">The application does not have access to record live
+        game.</string>
     <!--SharedPref-->
     <string name="pref_title_sound_goal_team1">Team 1 goal sound</string>
     <string name="pref_key_sound_goal_team1" translatable="false">team1_goal_sound</string>
-    <string name="pref_default_sound_goal_team1" translatable="false"></string>
+    <string name="pref_default_sound_goal_team1" translatable="false">@string/sound_mario_coin</string>
 
     <string name="pref_title_sound_win_team1">Team 1 win sound</string>
     <string name="pref_key_sound_win_team1" translatable="false">team1_win_sound</string>
-    <string name="pref_default_sound_win_team1" translatable="false"></string>
+    <string name="pref_default_sound_win_team1" translatable="false">@string/sound_crowd</string>
 
     <string name="pref_title_sound_goal_team2">Team 2 goal sound</string>
     <string name="pref_key_sound_goal_team2" translatable="false">team2_goal_sound</string>
-    <string name="pref_default_sound_goal_team2" translatable="false"></string>
+    <string name="pref_default_sound_goal_team2" translatable="false">@string/sound_mario_coin</string>
 
     <string name="pref_title_sound_win_team2">Team 2 win sound</string>
     <string name="pref_key_sound_win_team2" translatable="false">team2_win_sound</string>
-    <string name="pref_default_sound_win_team2" translatable="false"></string>
+    <string name="pref_default_sound_win_team2" translatable="false">@string/sound_crowd</string>
 
     <string name="pref_title_sounds">Sounds</string>
     <string name="pref_key_sounds" translatable="false">sounds_enabled</string>
@@ -72,8 +76,6 @@
     <string name="pref_title_sync">Sync data</string>
     <string name="pref_key_sync" translatable="false">sync_enabled</string>
     <string name="pref_description_sync">Sync game results with clouds automatically</string>
-
-    <string name="pref_key_auto_login" translatable="false">auto_login</string>
 
     <string name="pref_title_name_team1">Team 1 title</string>
     <string name="pref_key_name_team1" translatable="false">team1_name</string>
@@ -102,6 +104,7 @@
     <string name="error_bad_format">Bad format</string>
     <string name="pref_description_name_team1">&#160;(team on the left)</string>
     <string name="pref_description_name_team2">&#160;(team on the right)</string>
-    <string name="description_heat_map">This image represents ball\'s activity zones on the table</string>
+    <string name="description_heat_map">This image represents ball\'s activity zones on the
+        table</string>
 
 </resources>

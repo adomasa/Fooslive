@@ -6,14 +6,14 @@
     <PreferenceCategory android:title="General">
 
         <SwitchPreference
-            android:defaultValue="@bool/pref_sounds_enabled_default"
+            android:defaultValue="@bool/pref_default_sounds"
             android:icon="@drawable/ic_volume_accent_24dp"
             android:key="@string/pref_key_sounds"
             android:summary="@string/pref_description_sounds"
             android:title="@string/pref_title_sounds" />
 
         <SwitchPreference
-            android:defaultValue="@bool/pref_sync_enabled_default"
+            android:defaultValue="@bool/pref_default_sync"
             android:icon="@drawable/ic_sync_accent_24dp"
             android:key="switch_preference_sync"
             android:summary="@string/pref_description_sync"
@@ -46,7 +46,7 @@
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_goal_team1"
             android:title="@string/pref_title_sound_goal_team1"
-            android:defaultValue="@string/sound_mario_coin"
+            android:defaultValue="@string/pref_default_sound_goal_team1"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
@@ -57,7 +57,7 @@
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_win_team1"
             android:title="@string/pref_title_sound_win_team1"
-            android:defaultValue="@string/sound_crowd"
+            android:defaultValue="@string/pref_default_sound_win_team1"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
@@ -68,7 +68,7 @@
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_goal_team2"
             android:title="@string/pref_title_sound_goal_team2"
-            android:defaultValue="@string/sound_mario_coin"
+            android:defaultValue="@string/pref_default_sound_goal_team2"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
@@ -79,7 +79,7 @@
         <com.unixonly.fooslive.ExtraRingtonePreference
             android:key="@string/pref_key_sound_win_team2"
             android:title="@string/pref_title_sound_win_team2"
-            android:defaultValue="@string/sound_crowd"
+            android:defaultValue="@string/pref_default_sound_win_team2"
             auto:ringtoneType="notification"
             auto:showSilent="true"
             auto:showDefault="true"
