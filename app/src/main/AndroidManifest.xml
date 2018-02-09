@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.unixonly.fooslive">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".MenuActivity"
-            android:label="@string/activity_settings"
+            android:label="@string/title_settings"
             android:launchMode="singleTop"/>
 
         <activity android:name=".SplashActivity">

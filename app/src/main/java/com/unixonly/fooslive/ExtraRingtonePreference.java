@@ -14,6 +14,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 
+import com.unixonly.fooslive.R;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,6 +25,7 @@ import java.util.TreeMap;
  * @source https://stackoverflow.com/questions/25046662/how-can-i-add-my-apps-custom-ringtones-in-res-raw-folder-to-a-ringtonepreferenc
  * @author https://stackoverflow.com/users/661589/gavriel
  * @status Not completely adapted
+ * TODO: adapt code from web
  */
 public class ExtraRingtonePreference extends DialogPreference {
 
