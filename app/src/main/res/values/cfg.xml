@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Values from old cfg file -->
+    <!-- # GameActivity -->
+    <integer name="sliding_text_delay">120</integer>
+    <!--<integer name="format_speed">10</integer>-->
+    <!-- ## Camera -->
+    <integer name="camera_width">1280</integer>
+    <integer name="camera_height">720</integer>
+    <integer name="preview_width">400</integer>
+    <integer name="preview_height">225</integer>
+    <!-- ## Vibration -->
+    <integer name="vibration_pattern_timing1">0</integer>
+    <integer name="vibration_pattern_timing2">100</integer>
+    <integer name="vibration_pattern_timing3">1000</integer>
+    <integer name="vibration_repeat_index">2</integer>
+    <!-- ## Sensors -->
+    <integer name="sensors_pitch_offset">2</integer>
+    <integer name="sensors_roll_offset">2</integer>
+    <integer name="sensors_suggested_pitch_min">35</integer>
+    <integer name="sensors_suggested_pitch_max">50</integer>
+    <integer name="sensors_max_roll_deviation">4</integer>
+    <!-- # GameController -->
+    <integer name="maximum_ball_coordinate_number">100</integer>
+    <integer name="goal_frames_to_count_goal">20</integer>
+    <float name="percentage_of_side">0.3</float>
+    <!-- # DatabaseManager -->
+    <string name="api_url" />
+    <integer name="api_timeout">1000</integer>
+    <string name="format_insert_game"></string>
+    <string name="format_insert_goal"></string>
+    <string name="format_insert_event"></string>
+    <string name="format_get_history"></string>
+    <!-- # ColorDetector -->
+    <integer name="default_threshold">35</integer>
+    <integer name="starting_box_width">40</integer>
+    <integer name="starting_box_height">40</integer>
+    <integer name="frames_lost_to_new_bounding_box">40</integer>
+    <integer name="min_blob_size">10</integer>
+
+    <integer name="multiplier_delta_x">5</integer>
+    <integer name="multiplier_delta_y">5</integer>
+    <integer name="multiplier_delta_width">3</integer>
+    <integer name="multiplier_delta_height">3</integer>
+    <integer name="min_width">30</integer>
+    <integer name="min_height">30</integer>
+    <!-- # AlignZones -->
+    <integer name="align_zones_stroke_width">4</integer>
+    <float name="bottom_left_x_mul">0.25</float>
+    <float name="bottom_right_x_mul">0.75</float>
+    <float name="bottom_y_mul">0.9209</float>
+    <float name="upper_bottom_left_x_mul">0.03</float>
+    <float name="upper_bottom_right_x_mul">0.97</float>
+    <float name="upper_bottom_y_mul">0.8023</float>
+    <float name="lower_top_left_x_mul">0.2</float>
+    <float name="lower_top_right_x_mul">0.8</float>
+    <float name="lower_top_y_mul">0.35</float>
+    <float name="top_left_x_mul">0.42</float>
+    <float name="top_right_x_mul">0.58</float>
+    <float name="top_y_mul">0.2994</float>
+    <!-- # RowChecker -->
+    <float name="row_one">0.1158</float>
+    <float name="row_two">0.0623</float>
+    <float name="row_three">0.0865</float>
+    <float name="row_four">0.1005 </float>
+    <float name="row_five">0.1145</float>
+    <float name="row_six">0.1348</float>
+    <float name="row_seven">0.1832</float>
+    <float name="row_eight">0.2124</float>
+    <float name="percentage_video">0.125</float>
+    <!-- ## Misc -->
+    <float name="real_height">1.4224</float>
+    <float name="real_height">0.762</float>
+    <integer name="color_zone_count">1</integer>
+    <!-- ## Ball trace effect -->
+    <integer name="trace_max_alpha">200</integer>
+    <integer name="trace_divisor">10</integer>
+    <integer name="trace_to_add">50</integer>
+    <!-- # Object detector -->
+    <integer name="ball_stroke_width">5</integer>
+    <integer name="rect_stroke_width">16</integer>
+    <!-- ## Heatmap -->
+    <integer name="zones_width">60</integer>
+    <integer name="zones_height">60</integer>
+    <integer name="trail_alpha_max">255</integer>
+    <integer name="max_hue">255</integer>
+    <integer name="max_saturation">180</integer>
+    <integer name="max_value">0</integer>
+    <integer name="blur_iterations">11</integer>
+</resources>
