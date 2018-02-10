@@ -24,7 +24,7 @@ public class MainMenuButtonsFragment extends Fragment {
 
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(TAG, getString(R.string.title_menu));
+        args.putString(getString(R.string.argument_title), getString(R.string.title_menu));
         ((MainMenuFragment)getParentFragment())
                 .mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 

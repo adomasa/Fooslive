@@ -22,7 +22,7 @@ public class InfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(TAG, getString(R.string.title_info));
+        args.putString(getString(R.string.argument_title), getString(R.string.title_info));
         mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 
         return inflater.inflate(R.layout.fragment_info, container, false);

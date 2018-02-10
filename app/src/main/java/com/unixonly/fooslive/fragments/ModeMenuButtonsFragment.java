@@ -41,7 +41,7 @@ public class ModeMenuButtonsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(TAG, getString(R.string.title_menu_modes));
+        args.putString(getString(R.string.argument_title), getString(R.string.title_menu_modes));
         ((MainMenuFragment)getParentFragment())
                 .mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 

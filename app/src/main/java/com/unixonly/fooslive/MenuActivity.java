@@ -96,8 +96,7 @@ public class MenuActivity extends AppCompatActivity implements OnFragmentInterac
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         if (saveState) transaction.addToBackStack(null);
-        transaction.replace(R.id.menu_content, mFragment)
-                .commit();
+        transaction.replace(R.id.menu_content, mFragment).commit();
     }
 
     @Override

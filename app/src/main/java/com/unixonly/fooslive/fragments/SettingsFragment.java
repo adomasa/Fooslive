@@ -32,7 +32,7 @@ public class SettingsFragment extends PreferenceFragment implements
 
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(TAG, getString(R.string.title_settings));
+        args.putString(getString(R.string.argument_title), getString(R.string.title_settings));
         mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 
         addPreferencesFromResource(R.xml.preferences);
