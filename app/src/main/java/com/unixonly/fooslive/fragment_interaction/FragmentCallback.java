@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.fragment_utils;
+package com.unixonly.fooslive.fragment_interaction;
 
 import android.support.annotation.IntDef;
 

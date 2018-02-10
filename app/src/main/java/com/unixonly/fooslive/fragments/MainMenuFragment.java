@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unixonly.fooslive.R;
-import com.unixonly.fooslive.fragment_utils.OnFragmentInteractionListener;
+import com.unixonly.fooslive.fragment_interaction.OnFragmentInteractionListener;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -55,12 +55,7 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        mListener = (OnFragmentInteractionListener) context;
     }
 
     @Override

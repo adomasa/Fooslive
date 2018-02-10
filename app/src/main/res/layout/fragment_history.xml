@@ -27,11 +27,12 @@
             android:id="@+id/historyRecyclerView"
             android:scrollbars="vertical"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_fragment_history" />
+            tools:listitem="@layout/item_fragment_history"
+            tools:visibility="visible"/>
     </FrameLayout>
 </layout>

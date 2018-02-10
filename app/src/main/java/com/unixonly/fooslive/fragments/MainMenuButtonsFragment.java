@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.unixonly.fooslive.R;
 import com.unixonly.fooslive.databinding.FragmentItemsMainMenuBinding;
-import com.unixonly.fooslive.fragment_utils.FragmentCallback;
+import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
 
-import static com.unixonly.fooslive.fragment_utils.FragmentCallback.ACTION_NAVIGATE_TO;
+import static com.unixonly.fooslive.fragment_interaction.FragmentCallback.ACTION_NAVIGATE_TO;
 
 public class MainMenuButtonsFragment extends Fragment {
     public static final String TAG = "MainMenuButtonsFragment";
@@ -24,7 +24,7 @@ public class MainMenuButtonsFragment extends Fragment {
 
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(getString(R.string.argument_title), getString(R.string.title_menu));
+        args.putInt(getString(R.string.argument_title), R.string.title_menu);
         ((MainMenuFragment)getParentFragment())
                 .mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 

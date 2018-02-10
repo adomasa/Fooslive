@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.fragment_utils;
+package com.unixonly.fooslive.fragment_interaction;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

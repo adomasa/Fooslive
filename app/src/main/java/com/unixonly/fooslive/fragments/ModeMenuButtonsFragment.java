@@ -21,9 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.unixonly.fooslive.GameActivity;
 import com.unixonly.fooslive.R;
 import com.unixonly.fooslive.databinding.FragmentItemsModeMenuBinding;
-import com.unixonly.fooslive.fragment_utils.FragmentCallback;
+import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,7 +42,7 @@ public class ModeMenuButtonsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(getString(R.string.argument_title), getString(R.string.title_menu_modes));
+        args.putInt(getString(R.string.argument_title), R.string.title_menu_modes);
         ((MainMenuFragment)getParentFragment())
                 .mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 
@@ -51,7 +52,7 @@ public class ModeMenuButtonsFragment extends Fragment {
         mBinding.buttonLiveGame.setOnClickListener((View v) -> {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             {
-                startCameraActivity(null);
+                startGameActivity(null);
             }
             else
             {
@@ -79,7 +80,7 @@ public class ModeMenuButtonsFragment extends Fragment {
                 PackageManager.PERMISSION_GRANTED)
         {
             // already has permission
-            startCameraActivity(null);
+            startGameActivity(null);
             return;
         }
         // need to request permission
@@ -122,10 +123,10 @@ public class ModeMenuButtonsFragment extends Fragment {
      * Start GameActivity
      * @param data contains video uri for GameActivity
      */
-    private void startCameraActivity(@Nullable Uri data)
+    private void startGameActivity(@Nullable Uri data)
     {
-        Class dummy = getClass();
-        Intent intent = new Intent(getActivity(), dummy);
+
+        Intent intent = new Intent(getActivity(), GameActivity.class);
         // Set video uri as game activity intent data
         if (data != null) intent.setData(data);
         startActivity(intent);
@@ -139,7 +140,7 @@ public class ModeMenuButtonsFragment extends Fragment {
         }
 
         if (resultCode == RESULT_OK) {
-            startCameraActivity(data.getData());
+            startGameActivity(data.getData());
             return;
         }
 
@@ -153,7 +154,7 @@ public class ModeMenuButtonsFragment extends Fragment {
         if (requestCode != OPEN_CAMERA_REQUEST) return;
 
         if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED)
-            startCameraActivity(null);
+            startGameActivity(null);
         else
             Snackbar.make(mBinding.getRoot(),
                         getString(R.string.error_camera_access_missing),

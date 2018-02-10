@@ -13,8 +13,8 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.unixonly.fooslive.R;
-import com.unixonly.fooslive.fragment_utils.FragmentCallback;
-import com.unixonly.fooslive.fragment_utils.OnFragmentInteractionListener;
+import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
+import com.unixonly.fooslive.fragment_interaction.OnFragmentInteractionListener;
 
 public class SettingsFragment extends PreferenceFragment implements
         SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
@@ -32,7 +32,7 @@ public class SettingsFragment extends PreferenceFragment implements
 
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(getString(R.string.argument_title), getString(R.string.title_settings));
+        args.putInt(getString(R.string.argument_title), R.string.title_settings);
         mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 
         addPreferencesFromResource(R.xml.preferences);
@@ -113,12 +113,7 @@ public class SettingsFragment extends PreferenceFragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        mListener = (OnFragmentInteractionListener) context;
     }
 
     @Override

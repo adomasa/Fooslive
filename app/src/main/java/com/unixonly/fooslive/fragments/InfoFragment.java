@@ -10,19 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unixonly.fooslive.R;
-import com.unixonly.fooslive.fragment_utils.FragmentCallback;
-import com.unixonly.fooslive.fragment_utils.OnFragmentInteractionListener;
+import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
+import com.unixonly.fooslive.fragment_interaction.OnFragmentInteractionListener;
 
 public class InfoFragment extends Fragment {
     public static final String TAG = "InfoFragment";
 
-    protected OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Update top bar title
         Bundle args = new Bundle();
-        args.putString(getString(R.string.argument_title), getString(R.string.title_info));
+        args.putInt(getString(R.string.argument_title), R.string.title_info);
         mListener.onFragmentCallback(FragmentCallback.ACTION_SET_TITLE, args);
 
         return inflater.inflate(R.layout.fragment_info, container, false);
@@ -31,12 +31,7 @@ public class InfoFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        mListener = (OnFragmentInteractionListener) context;
     }
 
     @Override
