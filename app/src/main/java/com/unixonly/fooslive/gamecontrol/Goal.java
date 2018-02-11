@@ -12,11 +12,15 @@ import java.util.Queue;
  * Created by paulius on 2/4/18.
  */
 
+/**
+ * Contains the data related to a particular goal, which
+ * occurred during the game
+ */
 public class Goal {
     // TODO: Set value from app.config
-    public static double REAL_TABLE_WIDTH;
+    public static double sRealTableWidth;
     // TODO: Set value from app.config
-    public static double REAL_TABLE_HEIGHT;
+    public static double sRealTableHeight;
 
     private PointF[] mPoints;
 
@@ -41,18 +45,21 @@ public class Goal {
 
         int i = 0;
         Iterator<PointF> iterator = points.iterator();
-        for (;iterator.hasNext();i ++)
-            mPoints[i] = iterator.next();
+        for (;iterator.hasNext();i ++) mPoints[i] = iterator.next();
 
-        double mulX = REAL_TABLE_WIDTH / (tablePoints.right - tablePoints.left);
-        double mulY = REAL_TABLE_HEIGHT / (tablePoints.bottom - tablePoints.top);
+        double mulX = sRealTableWidth / (tablePoints.right - tablePoints.left);
+        double mulY = sRealTableHeight / (tablePoints.bottom - tablePoints.top);
 
         mulX *= UnitUtils.metersToCentimeters(1);
         mulY *= UnitUtils.metersToCentimeters(1);
 
+        calculateSpeeds(mulX, mulY);
+    }
+
+    private void calculateSpeeds(double mulX, double mulY) {
         PointF lastPoint = null;
-        int lostFrameCounter = 0;
-        i = 0;
+        int lostFrameCount = 0;
+        int i = 0;
         for (PointF point : mPoints) {
             if (lastPoint == null)
             {
@@ -62,22 +69,33 @@ public class Goal {
 
             if (point == null)
             {
-                lostFrameCounter++;
+                lostFrameCount++;
                 i++;
                 continue;
             }
 
-            mSpeeds[i] = Math.sqrt( (point.x * mulX - lastPoint.x * mulX) * (point.x * mulX - lastPoint.x * mulX) +
-                    (point.y * mulY - lastPoint.y * mulY) * (point.y * mulY - lastPoint.y * mulY) );
-            mSpeeds[i] /= lostFrameCounter + 1.0f;
+            mSpeeds[i] = Math.sqrt((point.x * mulX - lastPoint.x * mulX) * (point.x * mulX - lastPoint.x * mulX) +
+                    (point.y * mulY - lastPoint.y * mulY) * (point.y * mulY - lastPoint.y * mulY));
+            mSpeeds[i] /= lostFrameCount + 1.0f;
 
-            if (mMaxSpeed < mSpeeds[i])
-                mMaxSpeed = mSpeeds[i];
+            if (mMaxSpeed < mSpeeds[i]) mMaxSpeed = mSpeeds[i];
 
             i++;
 
             lastPoint = point;
-            lostFrameCounter = 0;
+            lostFrameCount = 0;
         }
+    }
+
+    public double[] getSpeeds() {
+        return mSpeeds;
+    }
+
+    public double getMaxSpeed() {
+        return mMaxSpeed;
+    }
+
+    public long getDuration() {
+        return mDuration;
     }
 }

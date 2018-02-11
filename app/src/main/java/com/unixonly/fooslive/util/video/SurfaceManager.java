@@ -38,7 +38,7 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
             SurfaceTexture = surface;
 
             // Check if we use video mode
-            if (_activity.GameMode == ECaptureMode.RECORDING) {
+            if (_activity.GameMode == CaptureMode.RECORDING) {
                 Surface = new Surface(surface);
                 _activity.SetUpRecordMode(w, h);
             }
@@ -70,7 +70,7 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
 
         // TODO
         /*
-        if (!_activity.DetectBall(canvas))
+        if (!_activity.detectBall(canvas))
         {
             // Remove all drawings
             canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);

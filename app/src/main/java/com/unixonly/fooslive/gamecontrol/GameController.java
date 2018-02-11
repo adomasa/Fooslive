@@ -3,7 +3,6 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.enums.ECaptureMode;
 import com.unixonly.fooslive.enums.EGoalEvent;
 import com.unixonly.fooslive.interfaces.OnGoalEventListener;
 
@@ -17,24 +16,24 @@ import java.util.Queue;
 public class GameController {
     private static final int TABLE_POINT_NUMBER = 4;
     // TODO: Set value from app.config
-    private static int MAXIMUM_BALL_COORDINATE_NUMBER;
+    private static int sMaximumBallCoordinateNumber;
     // TODO: Set value from app.config
-    private static int HEAT_MAP_ZONES_WIDTH;
+    private static int sHeatMapZoneWidth;
     // TODO: Set value from app.config
-    private static int HEAT_MAP_ZONES_HEIGHT;
+    private static int sHeatMapZoneHeight;
     // TODO: Set value from app.config
-    private static float PERCENTAGE_OF_SIDE;
+    private static float sPercentageOfSide;
 
     private OnGoalEventListener mListener;
 
     private ZoneInfo mZones;
 
-    private int mRedScore;
-    private int mBlueScore;
+    private int mTeam1Score;
+    private int mTeam2Score;
 
     private PositionChecker mPositionChecker;
 
-    private PointF[] lastBallCoordinates;
+    private PointF[] mLastBallCoordinates;
     private Queue<PointF> mBallCoordinates;
 
     private double mCurrentSpeed;
@@ -47,19 +46,17 @@ public class GameController {
         mPositionChecker = new PositionChecker();
     }
 
-    public void setTable(PointF[] points, ECaptureMode captureMode) {
-        if (points.length != TABLE_POINT_NUMBER)
-            return;
-
+    public void setTable(PointF[] points) {
+        if (points.length != TABLE_POINT_NUMBER) return;
 
         // Calculate the different zones, using the points given
         mPositionChecker.setZoneOne(new RectF(points[0].x,
                                     points[0].y,
                                     points[1].x,
-                                    points[1].y + (points[2].y - points[0].y) * PERCENTAGE_OF_SIDE));
+                                    points[1].y + (points[2].y - points[0].y) * sPercentageOfSide));
 
         mPositionChecker.setZoneTwo(new RectF(points[0].x,
-                mPositionChecker.getZoneOne().bottom + (1.0f - PERCENTAGE_OF_SIDE * 2) * (points[2].y - points[0].y),
+                mPositionChecker.getZoneOne().bottom + (1.0f - sPercentageOfSide * 2) * (points[2].y - points[0].y),
                 points[3].x,
                 points[3].y));
 
@@ -68,20 +65,19 @@ public class GameController {
                 mPositionChecker.getZoneOne().top,
                 mPositionChecker.getZoneTwo().right,
                 mPositionChecker.getZoneTwo().bottom),
-                HEAT_MAP_ZONES_WIDTH,
-                HEAT_MAP_ZONES_HEIGHT);
+                sHeatMapZoneWidth,
+                sHeatMapZoneHeight);
     }
 
     public PointF getLastBallCoordinates() {
-        return lastBallCoordinates[0];
+        return mLastBallCoordinates[0];
     }
 
     public void setLastBallCoordinates(PointF point) {
-        if (mBallCoordinates.size() == MAXIMUM_BALL_COORDINATE_NUMBER)
-            mBallCoordinates.remove();
+        if (mBallCoordinates.size() == sMaximumBallCoordinateNumber) mBallCoordinates.remove();
 
-        lastBallCoordinates[1] = lastBallCoordinates[0];
-        lastBallCoordinates[0] = point;
+        mLastBallCoordinates[1] = mLastBallCoordinates[0];
+        mLastBallCoordinates[0] = point;
 
         mZones.assignValue(point);
 
@@ -90,16 +86,16 @@ public class GameController {
         mPositionChecker.onNewFrame(point,
                                     this);
 
-        mCurrentSpeed = mPositionChecker.calculateSpeed(lastBallCoordinates[0],
-                                                        lastBallCoordinates[1]);
+        mCurrentSpeed = mPositionChecker.calculateSpeed(mLastBallCoordinates[0],
+                                                        mLastBallCoordinates[1]);
 
         if (point != null) {
-            mAverageSpeed = ((mAverageSpeed * mAverageSpeedCounter) + mCurrentSpeed) / (mAverageSpeedCounter + 1);
+            mAverageSpeed = ((mAverageSpeed * mAverageSpeedCounter)
+                    + mCurrentSpeed) / (mAverageSpeedCounter + 1);
             mAverageSpeedCounter++;
         }
 
-        if (mMaxSpeed < mCurrentSpeed)
-            mMaxSpeed = mCurrentSpeed;
+        if (mMaxSpeed < mCurrentSpeed) mMaxSpeed = mCurrentSpeed;
     }
 
     void fireGoalEvent(EGoalEvent eventType) {
@@ -118,20 +114,20 @@ public class GameController {
         return mPositionChecker;
     }
 
-    public void setRedScore(int score) {
-        mRedScore = score;
+    public void setTeam1Score(int score) {
+        mTeam1Score = score;
     }
 
-    public void setBlueScore(int score) {
-        mBlueScore = score;
+    public void setTeam2Score(int score) {
+        mTeam2Score = score;
     }
 
-    public int getRedScore() {
-        return mRedScore;
+    public int getTeam1Score() {
+        return mTeam1Score;
     }
 
-    public int getBlueScore() {
-        return mBlueScore;
+    public int getTeam2Score() {
+        return mTeam2Score;
     }
 
     public void setOnGoalEventListener(OnGoalEventListener listener) {

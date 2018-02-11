@@ -15,11 +15,11 @@ import java.util.Queue;
 
 public class PositionChecker {
     // TODO: Set value from app.config
-    private static float REAL_TABLE_WIDTH;
+    private static float sRealTableWidth;
     // TODO: Set value from app.config
-    private static float REAL_TABLE_HEIGHT;
+    private static float sRealTableHeight;
     // TODO: Set value from app.config
-    private static int GOAL_FRAMES_TO_COUNT_GOAL;
+    private static int sGoalFramesToCountGoal;
 
     private double mMulX;
     private double mMulY;
@@ -45,22 +45,20 @@ public class PositionChecker {
         if (mZoneOne == null || mZoneTwo == null)
             return;
 
-        mMulX = UnitUtils.metersToCentimeters(1) * ( REAL_TABLE_WIDTH / (mZoneTwo.right - mZoneTwo.left) );
-        mMulY = UnitUtils.metersToCentimeters(1) * ( REAL_TABLE_HEIGHT / (mZoneTwo.bottom - mZoneOne.top) );
+        mMulX = UnitUtils.metersToCentimeters(1) * ( sRealTableWidth / (mZoneTwo.right - mZoneTwo.left) );
+        mMulY = UnitUtils.metersToCentimeters(1) * ( sRealTableHeight / (mZoneTwo.bottom - mZoneOne.top) );
     }
 
     public void onNewFrame(PointF lastBallCoordinates,
                            GameController gameController) {
         // Check if this particular point signals that the ball is lost
-        if (lastBallCoordinates == null)
-        {
-            if (mFramesLost == GOAL_FRAMES_TO_COUNT_GOAL)
-            {
+        if (lastBallCoordinates == null) {
+            if (mFramesLost == sGoalFramesToCountGoal) {
                 // It is, so check if a goal is about to occur
-                if (mBallInFirstGoalZone)
-                {
+                // TODO: Investigate if everything is ok here
+                if (mBallInFirstGoalZone) {
                     // Fire the goal event for the first team
-                    gameController.setBlueScore(gameController.getBlueScore() + 1);
+                    gameController.setTeam2Score(gameController.getTeam2Score() + 1);
                     gameController.fireGoalEvent(EGoalEvent.BlueGoal);
 
                     mGoals.add(new Goal(gameController.getBallCoordinates(),
@@ -81,11 +79,10 @@ public class PositionChecker {
                     return;
                 }
 
-                if (!mBallInSecondGoalZone)
-                    return;
+                if (!mBallInSecondGoalZone) return;
 
                 // Fire the goal event for the second team
-                gameController.setRedScore(gameController.getRedScore() + 1);
+                gameController.setTeam1Score(gameController.getTeam1Score() + 1);
                 gameController.fireGoalEvent(EGoalEvent.RedGoal);
 
                 mGoals.add(new Goal(gameController.getBallCoordinates(),
@@ -106,10 +103,8 @@ public class PositionChecker {
             else
                 mFramesLost ++;
         }
-        else
-        {
-            if (mGoalOccured)
-            {
+        else {
+            if (mGoalOccured) {
                 mTimestampStart = GameTimer.sTime;
                 mGoalOccured = false;
             }
@@ -117,39 +112,48 @@ public class PositionChecker {
             // It isn't, so reset the counter
             mFramesLost = 0;
 
-            // Check if the ball is in the first zone
-            if (mZoneOne.contains(lastBallCoordinates.x, lastBallCoordinates.y))
-            {
-                mBallInFirstGoalZone = true;
-            }
-            else
-                // Check if the ball is in the second zone
-                if (mZoneTwo.contains(lastBallCoordinates.x, lastBallCoordinates.y))
-                {
-                    mBallInSecondGoalZone = true;
-                }
-                else
-                {
-                    mBallInFirstGoalZone = false;
-                }
+            // Check if the ball is in either of the zones
+            mBallInFirstGoalZone = mZoneOne.contains(lastBallCoordinates.x, lastBallCoordinates.y);
+            mBallInSecondGoalZone = mZoneTwo.contains(lastBallCoordinates.x, lastBallCoordinates.y);
         }
     }
 
+    /**
+     * Calculates the difference between two points
+     * @param one
+     * The coordinates of the first point
+     * @param two
+     * The coordinates of the second point
+     * @return
+     * The difference between the points
+     */
     public double calculateSpeed(PointF one, PointF two)
     {
-        if (one == null || two == null)
-            return 0;
-        else
-            return Math.sqrt(
-                (one.x * mMulX - two.x * mMulX) * (one.x * mMulX - two.x * mMulX) +
+        double toReturn = 0;
+
+        if (one == null || two == null) toReturn = 0;
+        else toReturn = Math.sqrt(
+                        (one.x * mMulX - two.x * mMulX) * (one.x * mMulX - two.x * mMulX) +
                         (one.y * mMulY - two.y * mMulY) * (one.y * mMulY - two.y * mMulY));
+
+        return toReturn;
     }
 
+    /**
+     * A setter for the first team's goal zone
+     * @param zone
+     * A RectF, containing the coordinates of the zone
+     */
     public void setZoneOne(RectF zone) {
         mZoneOne = zone;
         calculateMultipliers();
     }
 
+    /**
+     * A setter for the second team's goal zone
+     * @param zone
+     * A RectF, containing the coordinates of the zone
+     */
     public void setZoneTwo(RectF zone) {
         mZoneTwo = zone;
         calculateMultipliers();

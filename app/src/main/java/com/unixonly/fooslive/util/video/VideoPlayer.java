@@ -20,7 +20,7 @@ public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedLi
         mActivity = (Activity)context;
         mDisposed = false;
         try {
-            super.setDataSource(context, mActivity.getIntent().getData());
+            setDataSource(context, mActivity.getIntent().getData());
             // TODO: Assign a surface to VideoPlayer
             /* super.setSurface(mActivity.SurfaceManager.Surface); */;
             super.prepare();
@@ -32,8 +32,7 @@ public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedLi
         super.setOnCompletionListener(this);
     }
 
-    public void onCompletion(MediaPlayer mediaPlayer)
-    {
+    public void onCompletion(MediaPlayer mediaPlayer) {
         if (!mDisposed)
         {
             mediaPlayer.release();
@@ -42,16 +41,8 @@ public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedLi
         // TODO
         /* _activity.ShowEndGameScreen(); */
     }
-    public void release()
-    {
-        if (mDisposed)
-            return;
 
-        super.release();
-        mDisposed = true;
-    }
-    public void onPrepared(MediaPlayer mediaPlayer)
-    {
+    public void onPrepared(MediaPlayer mediaPlayer) {
         // Load video
         mediaPlayer.start();
 

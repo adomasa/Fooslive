@@ -9,6 +9,10 @@ import java.util.TimerTask;
  * Created by paulius on 2/6/18.
  */
 
+@Deprecated
+/**
+ * This class is pending a rework and shouldn't be used
+ */
 public class GameTimer extends TimerTask {
     public static long sTime;
 

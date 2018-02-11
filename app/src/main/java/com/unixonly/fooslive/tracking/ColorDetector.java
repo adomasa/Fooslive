@@ -15,11 +15,15 @@ import org.opencv.imgproc.Imgproc;
  * Created by paulius on 1/27/18.
  */
 
+/**
+ * This class is responsible for detecting a foosball ball
+ * from a given image
+ */
 public class ColorDetector {
     public static String TAG = ColorDetector.class.toString();
 
     // TODO: Set value from app.config
-    private static int DefaultThreshold;
+    private static int sDefaultThreshold;
 
     private boolean mBoxSet = false;
     private RectF mBox;
@@ -68,33 +72,30 @@ public class ColorDetector {
     private int mMinAllowed;
     private int mMaxAllowed;
 
-    public ColorDetector()
-    {
-        Threshold = DefaultThreshold;
+    public ColorDetector() {
+        Threshold = sDefaultThreshold;
         mBox = new RectF();
         mDetector = new BlobDetector();
     }
 
-    public boolean DetectBall(Scalar hsv, Rect rect, Rect blobBox) {
+    /**
+     * Detects a ball from a given image
+     * @param hsv
+     * The hsv values of the ball, which is to be detected
+     * @param rect
+     * Defines the rectangle of the blob
+     * @param blobBox
+     * Defines the area in which the algorithm searches for the ball
+     * @return
+     * True if a ball is found. False otherwise
+     */
+    public boolean detectBall(Scalar hsv, Rect rect, Rect blobBox) {
         // Convert RGB to HSV
         Imgproc.cvtColor(image, image, Imgproc.COLOR_RGB2HSV);
 
         // Calculate the lower and upper bounds
-        double lowerHue = hsv.val[0] - Threshold / mHsvDivisor;
-        double lowerSaturation = hsv.val[1] - Threshold * mSaturationMultiplier;
-        double lowerValue = hsv.val[2] - Threshold * mValueMultiplier;
-
-        double upperHue = hsv.val[0] + Threshold / mHsvDivisor;
-        double upperSaturation = hsv.val[1] + Threshold * mSaturationMultiplier;
-        double upperValue = hsv.val[2] + Threshold * mValueMultiplier;
-
-        Scalar lowerLimit = new Scalar(lowerHue,
-                                        lowerSaturation,
-                                        lowerValue);
-        Scalar upperLimit = new Scalar(upperHue,
-                                        upperSaturation,
-                                        upperValue);
-
+        Scalar lowerLimit = calculateLowerBound(hsv);
+        Scalar upperLimit = calculateUpperBound(hsv);
 
         // Filter the hsv image by color
         Core.inRange(image, lowerLimit, upperLimit, image);
@@ -103,10 +104,10 @@ public class ColorDetector {
         mDetector.getBlobs(image, blobs);
 
         if ( mFramesLost > mFramesLostToNewBoundingBox || !mBoxSet) {
-            mBox = new RectF((float)image.size().width / 2 - mBoxWidth / 2,
-                    (float)image.size().height / 2 - mBoxHeight / 2,
-                    (float)image.size().width / 2 + mBoxWidth / 2,
-                    (float)image.size().height / 2 + mBoxHeight / 2);
+            mBox = new RectF(((float)image.size().width- mBoxWidth) / 2,
+                    ((float)image.size().height - mBoxHeight) / 2,
+                    ((float)image.size().width + mBoxWidth) / 2,
+                    ((float)image.size().height + mBoxHeight) / 2);
             mFramesLost = 0;
             mBoxSet = true;
         }
@@ -114,7 +115,7 @@ public class ColorDetector {
         image = null;
 
         if (blobs.size().empty()) {
-            mFramesLost ++;
+            mFramesLost++;
             return false;
         }
 
@@ -158,6 +159,23 @@ public class ColorDetector {
             return false;
         }
     }
+
+    private Scalar calculateLowerBound(Scalar hsv) {
+        double lowerHue = hsv.val[0] - Threshold / (double)mHsvDivisor;
+        double lowerSaturation = hsv.val[1] - Threshold * mSaturationMultiplier;
+        double lowerValue = hsv.val[2] - Threshold * mValueMultiplier;
+
+        return new Scalar(lowerHue, lowerSaturation, lowerValue);
+    }
+
+    private Scalar calculateUpperBound(Scalar hsv) {
+        double upperHue = hsv.val[0] + Threshold / (double)mHsvDivisor;
+        double upperSaturation = hsv.val[1] + Threshold * mSaturationMultiplier;
+        double upperValue = hsv.val[2] + Threshold * mValueMultiplier;
+
+        return new Scalar(upperHue, upperSaturation, upperValue);
+    }
+
     private void updateBox(KeyPoint blob) {
         if (blob == null)
             return;
