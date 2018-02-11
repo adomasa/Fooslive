@@ -17,25 +17,27 @@ import java.lang.annotation.RetentionPolicy;
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
 
+    // Live mode holding guidelines indication flags
     private static final int DISPLAY_TOP = 1;
     private static final int DISPLAY_BOT = 1 << 1;
     private static final int DISPLAY_LEFT = 1 << 2;
     private static final int DISPLAY_RIGHT = 1 << 3;
 
-    @IntDef(flag=true, value={
+    @IntDef(flag = true, value = {
             DISPLAY_TOP,
             DISPLAY_BOT,
             DISPLAY_LEFT,
             DISPLAY_RIGHT
     })
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Guidelines {}
+    private @interface Guidelines {}
 
     private ActivityGameBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideSystemUI();
         setContentView(R.layout.activity_menu);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_game);
     }
@@ -67,6 +69,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * TODO: move to separate UI utils class
      * Update image visibility
      * @param image ImageView instance reference
      * @param toVisible visible if true, invisible if false
@@ -76,5 +79,15 @@ public class GameActivity extends AppCompatActivity {
             image.setVisibility(View.VISIBLE);
         else
             image.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideSystemUI() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 }

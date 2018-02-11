@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 
-import com.unixonly.fooslive.R;
+import com.unixonly.fooslive.utils.UriManager;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -24,8 +24,7 @@ import java.util.TreeMap;
 /**
  * @source https://stackoverflow.com/questions/25046662/how-can-i-add-my-apps-custom-ringtones-in-res-raw-folder-to-a-ringtonepreferenc
  * @author https://stackoverflow.com/users/661589/gavriel
- * @status Not completely adapted
- * TODO: adapt code from web
+ * @status Adapted
  */
 public class ExtraRingtonePreference extends DialogPreference {
 
@@ -36,23 +35,30 @@ public class ExtraRingtonePreference extends DialogPreference {
     private boolean mShowSilent;
     private boolean mShowDefault;
     private CharSequence[] mExtraRingtones;
-    private CharSequence[] mExtraRingtoneTitles;
+    private CharSequence[] mExtraRingtonesTitles;
+    private UriManager mUriManager;
 
     public ExtraRingtonePreference(Context context, AttributeSet attrs) {
-
         super(context, attrs);
 
         mContext = context;
 
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ExtraRingtonePreference, 0, 0);
+        final TypedArray attributes = context.obtainStyledAttributes(attrs,
+                R.styleable.ExtraRingtonePreference, 0, 0);
 
-        mRingtoneType = a.getInt(R.styleable.ExtraRingtonePreference_ringtoneType, RingtoneManager.TYPE_RINGTONE);
-        mShowDefault = a.getBoolean(R.styleable.ExtraRingtonePreference_showDefault, true);
-        mShowSilent = a.getBoolean(R.styleable.ExtraRingtonePreference_showSilent, true);
-        mExtraRingtones = a.getTextArray(R.styleable.ExtraRingtonePreference_extraRingtones);
-        mExtraRingtoneTitles = a.getTextArray(R.styleable.ExtraRingtonePreference_extraRingtoneTitles);
+        mRingtoneType = attributes.getInt(R.styleable.ExtraRingtonePreference_ringtoneType,
+                RingtoneManager.TYPE_RINGTONE);
+        mShowDefault = attributes.getBoolean(R.styleable.ExtraRingtonePreference_showDefault,
+                true);
+        mShowSilent = attributes.getBoolean(R.styleable.ExtraRingtonePreference_showSilent,
+                true);
+        mExtraRingtones = attributes.getTextArray(
+                R.styleable.ExtraRingtonePreference_extraRingtones);
+        mExtraRingtonesTitles = attributes.getTextArray(
+                R.styleable.ExtraRingtonePreference_extraRingtoneTitles);
+        attributes.recycle();
 
-        a.recycle();
+        mUriManager = new UriManager(context);
     }
 
     public ExtraRingtonePreference(Context context) {
@@ -80,55 +86,43 @@ public class ExtraRingtonePreference extends DialogPreference {
         return list;
     }
 
-    private Uri uriFromRaw(String name) {
-        return Uri.parse("android.resource://" + mContext.getPackageName() + "/raw/" + name);
-    }
-
+    /**
+     * Retrieve custom ringtone title
+     * @param name custom ringtone name
+     * @return title on success, null on failed search
+     */
     public String getExtraRingtoneTitle(CharSequence name) {
-        if (mExtraRingtones != null && mExtraRingtoneTitles != null) {
-            int index = Arrays.asList(mExtraRingtones).indexOf(name);
-            return mExtraRingtoneTitles[index].toString();
-        }
+        if (mExtraRingtones == null || mExtraRingtonesTitles == null) return null;
 
-        return null;
+        int index = Arrays.asList(mExtraRingtones).indexOf(name);
+        return mExtraRingtonesTitles[index].toString();
+
     }
 
     @Override
     public CharSequence getSummary() {
-
-        String ringtoneTitle = null;
-
         if (mValue == null) return super.getSummary();
-
-        if (mValue.isEmpty()) ringtoneTitle = mContext.getString(R.string.sound_silent_title);
+        // Check whether value has silend mode indication(empty string)
+        if (mValue.isEmpty()) return mContext.getString(R.string.sound_silent_title);
 
         Uri valueUri = Uri.parse(mValue);
 
-        // titleFromExtraRingtones
-        if (ringtoneTitle == null && mExtraRingtones != null && mExtraRingtoneTitles != null) {
-
+        // Look through custom ringtones from raw folder
+        if (mExtraRingtones != null && mExtraRingtonesTitles != null) {
             for (int i = 0; i < mExtraRingtones.length; i++) {
-                Uri uriExtra = uriFromRaw(mExtraRingtones[i].toString());
-                if (uriExtra.equals(valueUri)) {
-                    ringtoneTitle = mExtraRingtoneTitles[i].toString();
-                    break;
-                }
+                Uri uriExtra = mUriManager.uriFromRaw(mExtraRingtones[i].toString());
+                if (uriExtra.equals(valueUri)) return mExtraRingtonesTitles[i].toString();
             }
         }
 
-
-        // title from system-wide ringtones
-        if (ringtoneTitle == null) {
-            Ringtone ringtone = RingtoneManager.getRingtone(mContext, valueUri);
-            if (ringtone != null) {
-                String title = ringtone.getTitle(mContext);
-                if (!TextUtils.isEmpty(title)) {
-                    ringtoneTitle = title;
-                }
-            }
+        // Look through system-wide ringtones
+        Ringtone ringtone = RingtoneManager.getRingtone(mContext, valueUri);
+        if (ringtone != null) {
+            String title = ringtone.getTitle(mContext);
+            if (!TextUtils.isEmpty(title)) return title;
         }
 
-        return (ringtoneTitle != null) ? ringtoneTitle : super.getSummary();
+        return super.getSummary();
     }
 
     @Override
@@ -136,69 +130,66 @@ public class ExtraRingtonePreference extends DialogPreference {
 
         final Map<String, Uri> sounds = new LinkedHashMap<>();
 
+        // Collect custom ringtones
         if (mExtraRingtones != null) {
             for (CharSequence extraRingtone : mExtraRingtones) {
-                Uri uri = uriFromRaw(extraRingtone.toString());
+                Uri uri = mUriManager.uriFromRaw(extraRingtone.toString());
                 String title = getExtraRingtoneTitle(extraRingtone);
 
                 sounds.put(title, uri);
             }
         }
 
-        if (mShowSilent)
-            sounds.put(mContext.getString(R.string.sound_silent_title), Uri.parse(""));
+        // Add silent option
+        if (mShowSilent) sounds.put(mContext.getString(R.string.sound_silent_title), Uri.parse(""));
 
+        // Get default ringtone
         if (mShowDefault) {
             Uri uriDefault = RingtoneManager.getDefaultUri(mRingtoneType);
-            if (uriDefault != null) {
-                Ringtone ringtoneDefault = RingtoneManager.getRingtone(mContext, uriDefault);
-                if (ringtoneDefault != null) {
-                    sounds.put(ringtoneDefault.getTitle(mContext), uriDefault);
-                }
+            Ringtone ringtoneDefault = RingtoneManager.getRingtone(mContext, uriDefault);
+            if (ringtoneDefault != null) {
+                sounds.put(ringtoneDefault.getTitle(mContext), uriDefault);
             }
         }
 
+        // Collect system-wide ringtones
         sounds.putAll(getSounds(mRingtoneType));
 
         final String[] titleArray = sounds.keySet().toArray(new String[0]);
         final Uri[] uriArray = sounds.values().toArray(new Uri[0]);
-
+        // Determine current ringtone position in dialog list
         int index = mValue != null ? Arrays.asList(uriArray).indexOf(Uri.parse(mValue)) : -1;
 
-        builder.setSingleChoiceItems(titleArray, index, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(titleArray, index, (DialogInterface dialog, int which) -> {
+            // On dialog item click
 
-            public void onClick(DialogInterface dialog, int which) {
+            if (mRingtone != null) mRingtone.stop();
 
-                if (mRingtone != null) mRingtone.stop();
+            Uri uriNewRingtone = uriArray[which];
 
-                Uri uri = uriArray[which];
-
-                if (uri == null) {
-                    mValue = null;
-                    return;
-                }
-
-                if (uri.toString().length() > 0) {
-                    mRingtone = RingtoneManager.getRingtone(mContext, uri);
-                    if (mRingtone != null) mRingtone.play();
-                }
-
-                mValue = uri.toString();
+            if (uriNewRingtone == null) {
+                mValue = null;
+                return;
             }
-        });
 
-        builder.setPositiveButton(R.string.action_save, this);
-        builder.setNegativeButton(R.string.action_cancel, this);
+            // If user chose silent mode, halt
+            if (uriNewRingtone.toString().isEmpty()) {
+                mValue = uriNewRingtone.toString();
+                return;
+            }
 
+            mRingtone = RingtoneManager.getRingtone(mContext, uriNewRingtone);
+            if (mRingtone != null) mRingtone.play();
+        })
+                .setPositiveButton(R.string.action_save, this)
+                .setNegativeButton(R.string.action_cancel, this);
     }
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
-
         super.onDialogClosed(positiveResult);
 
-        if (mRingtone != null)
-            mRingtone.stop();
+        if (mRingtone != null) mRingtone.stop();
 
         if (positiveResult && callChangeListener(mValue)) {
             persistString(mValue);
@@ -218,16 +209,13 @@ public class ExtraRingtonePreference extends DialogPreference {
             return;
         }
 
-        if (mExtraRingtones != null && defaultValue != null && defaultValue.toString().length() > 0) {
-
+        if (mExtraRingtones != null && defaultValue != null && !defaultValue.toString().isEmpty()) {
             int index = Arrays.asList(mExtraRingtones).indexOf((CharSequence) defaultValue);
 
-            mValue = (index >= 0) ?
-                    uriFromRaw(defaultValue.toString()).toString() : (String)defaultValue;
-
-        } else {
+            mValue = (index >= 0) ? mUriManager.uriFromRaw(defaultValue.toString()).toString() :
+                    (String)defaultValue;
+        } else
             mValue = (String)defaultValue;
-        }
 
         persistString(mValue);
     }
