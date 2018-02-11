@@ -69,6 +69,11 @@ public class ExtraRingtonePreference extends DialogPreference {
         return mValue;
     }
 
+    /**
+     * Retrieve system-wide sounds based on their type
+     * @param type sound type e.g. alerts, notifications, etc.
+     * @return Map collection of ringtones titles and uris
+     */
     private Map<String, Uri> getSounds(int type) {
 
         RingtoneManager ringtoneManager = new RingtoneManager(mContext);
