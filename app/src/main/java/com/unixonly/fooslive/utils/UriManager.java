@@ -3,10 +3,6 @@ package com.unixonly.fooslive.utils;
 import android.content.Context;
 import android.net.Uri;
 
-/**
- * Created by ramu on 11/02/2018.
- */
-
 public class UriManager {
     private Context mContext;
 

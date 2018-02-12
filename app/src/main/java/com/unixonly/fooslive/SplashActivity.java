@@ -1,10 +1,10 @@
 package com.unixonly.fooslive;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+
+import com.unixonly.fooslive.utils.PropertiesManager;
 
 public class SplashActivity extends AppCompatActivity {
     public static final String TAG = "SplashActivity";
@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Initialise high CPU consuming code here
-
+        PropertiesManager.load(this);
         startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         finish();
     }
