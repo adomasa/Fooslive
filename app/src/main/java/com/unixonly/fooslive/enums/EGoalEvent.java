@@ -1,6 +1,6 @@
 package com.unixonly.fooslive.enums;
 
 public enum EGoalEvent {
-    BlueGoal,
-    RedGoal
+    Team2Goal,
+    Team1Goal
 }

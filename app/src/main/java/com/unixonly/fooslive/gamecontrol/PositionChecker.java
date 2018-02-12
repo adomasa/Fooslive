@@ -24,16 +24,16 @@ public class PositionChecker {
     private double mMulX;
     private double mMulY;
 
-    private RectF mZoneOne;
-    private RectF mZoneTwo;
+    private RectF mTeam2Zone;
+    private RectF mTeam1Zone;
 
     private boolean mGoalOccured;
     private long mTimestampStart;
 
     private Queue<Goal> mGoals;
 
-    private boolean mBallInFirstGoalZone = false;
-    private boolean mBallInSecondGoalZone = false;
+    private boolean mBallInTeam2Zone = false;
+    private boolean mBallInTeam1Zone = false;
     private int mFramesLost;
 
     public PositionChecker() {
@@ -42,11 +42,11 @@ public class PositionChecker {
 
     private void calculateMultipliers()
     {
-        if (mZoneOne == null || mZoneTwo == null)
+        if (mTeam2Zone == null || mTeam1Zone == null)
             return;
 
-        mMulX = UnitUtils.metersToCentimeters(1) * ( sRealTableWidth / (mZoneTwo.right - mZoneTwo.left) );
-        mMulY = UnitUtils.metersToCentimeters(1) * ( sRealTableHeight / (mZoneTwo.bottom - mZoneOne.top) );
+        mMulX = UnitUtils.metersToCentimeters(1) * ( sRealTableWidth / (mTeam1Zone.right - mTeam1Zone.left) );
+        mMulY = UnitUtils.metersToCentimeters(1) * ( sRealTableHeight / (mTeam1Zone.bottom - mTeam2Zone.top) );
     }
 
     public void onNewFrame(PointF lastBallCoordinates,
@@ -56,48 +56,48 @@ public class PositionChecker {
             if (mFramesLost == sGoalFramesToCountGoal) {
                 // It is, so check if a goal is about to occur
                 // TODO: Investigate if everything is ok here
-                if (mBallInFirstGoalZone) {
+                if (mBallInTeam2Zone) {
                     // Fire the goal event for the first team
                     gameController.setTeam2Score(gameController.getTeam2Score() + 1);
-                    gameController.fireGoalEvent(EGoalEvent.BlueGoal);
+                    gameController.fireGoalEvent(EGoalEvent.Team2Goal);
 
                     mGoals.add(new Goal(gameController.getBallCoordinates(),
-                            new RectF(mZoneOne.left,
-                                    mZoneOne.top,
-                                    mZoneTwo.right,
-                                    mZoneTwo.bottom),
+                            new RectF(mTeam2Zone.left,
+                                    mTeam2Zone.top,
+                                    mTeam1Zone.right,
+                                    mTeam1Zone.bottom),
                                     mTimestampStart,
                                     GameTimer.sTime,
                                     true));
 
                     // Reset variables to their starting values
                     mFramesLost = 0;
-                    mBallInFirstGoalZone = false;
-                    mBallInSecondGoalZone = false;
+                    mBallInTeam2Zone = false;
+                    mBallInTeam1Zone = false;
                     mGoalOccured = true;
 
                     return;
                 }
 
-                if (!mBallInSecondGoalZone) return;
+                if (!mBallInTeam1Zone) return;
 
                 // Fire the goal event for the second team
                 gameController.setTeam1Score(gameController.getTeam1Score() + 1);
-                gameController.fireGoalEvent(EGoalEvent.RedGoal);
+                gameController.fireGoalEvent(EGoalEvent.Team1Goal);
 
                 mGoals.add(new Goal(gameController.getBallCoordinates(),
-                        new RectF(mZoneOne.left,
-                                mZoneOne.top,
-                                mZoneTwo.right,
-                                mZoneTwo.bottom),
+                        new RectF(mTeam2Zone.left,
+                                mTeam2Zone.top,
+                                mTeam1Zone.right,
+                                mTeam1Zone.bottom),
                                 mTimestampStart,
                                 GameTimer.sTime,
                                 false));
 
                 // Reset variables to their starting values
                 mFramesLost = 0;
-                mBallInFirstGoalZone = false;
-                mBallInSecondGoalZone = false;
+                mBallInTeam2Zone = false;
+                mBallInTeam1Zone = false;
                 mGoalOccured = true;
             }
             else
@@ -113,8 +113,8 @@ public class PositionChecker {
             mFramesLost = 0;
 
             // Check if the ball is in either of the zones
-            mBallInFirstGoalZone = mZoneOne.contains(lastBallCoordinates.x, lastBallCoordinates.y);
-            mBallInSecondGoalZone = mZoneTwo.contains(lastBallCoordinates.x, lastBallCoordinates.y);
+            mBallInTeam2Zone = mTeam2Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
+            mBallInTeam1Zone = mTeam1Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
         }
     }
 
@@ -145,7 +145,7 @@ public class PositionChecker {
      * A RectF, containing the coordinates of the zone
      */
     public void setZoneOne(RectF zone) {
-        mZoneOne = zone;
+        mTeam2Zone = zone;
         calculateMultipliers();
     }
 
@@ -155,15 +155,15 @@ public class PositionChecker {
      * A RectF, containing the coordinates of the zone
      */
     public void setZoneTwo(RectF zone) {
-        mZoneTwo = zone;
+        mTeam1Zone = zone;
         calculateMultipliers();
     }
 
     RectF getZoneOne() {
-        return mZoneOne;
+        return mTeam2Zone;
     }
 
     RectF getZoneTwo() {
-        return mZoneTwo;
+        return mTeam1Zone;
     }
 }
