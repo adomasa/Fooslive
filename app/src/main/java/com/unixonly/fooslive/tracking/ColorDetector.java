@@ -122,14 +122,10 @@ public class ColorDetector {
         KeyPoint biggestBlob = null;
         for (KeyPoint blob : blobs.toArray()) {
             if (mBox.contains((float)blob.pt.x, (float)blob.pt.y) ) {
-                if (mMinAllowed == 0)
-                    mMinAllowed = (int)blob.size;
-                else
-                    if (mMinAllowed > blob.size)
-                        mMinAllowed = (int)blob.size - mMinAddition;
+                if (mMinAllowed == 0) mMinAllowed = (int)blob.size;
+                else if (mMinAllowed > blob.size) mMinAllowed = (int)blob.size - mMinAddition;
 
-                if (mMaxAllowed < blob.size)
-                    mMaxAllowed = (int)blob.size + mMaxAddition;
+                if (mMaxAllowed < blob.size) mMaxAllowed = (int)blob.size + mMaxAddition;
 
                 biggestBlob = blob;
                 mFramesLost = 0;

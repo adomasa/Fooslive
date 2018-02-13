@@ -4,6 +4,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import com.unixonly.fooslive.constants.GoalEventType;
+import com.unixonly.fooslive.constants.TeamType;
 import com.unixonly.fooslive.util.UnitUtils;
 
 import java.util.LinkedList;
@@ -66,9 +67,7 @@ public class PositionChecker {
                                     mTeam2Zone.top,
                                     mTeam1Zone.right,
                                     mTeam1Zone.bottom),
-                                    mTimestampStart,
-                                    GameTimer.sTime,
-                                    true));
+                                    TeamType.TEAM_2));
 
                     // Reset variables to their starting values
                     mFramesLost = 0;
@@ -90,9 +89,7 @@ public class PositionChecker {
                                 mTeam2Zone.top,
                                 mTeam1Zone.right,
                                 mTeam1Zone.bottom),
-                                mTimestampStart,
-                                GameTimer.sTime,
-                                false));
+                                TeamType.TEAM_1));
 
                 // Reset variables to their starting values
                 mFramesLost = 0;
@@ -105,7 +102,6 @@ public class PositionChecker {
         }
         else {
             if (mGoalOccured) {
-                mTimestampStart = GameTimer.sTime;
                 mGoalOccured = false;
             }
 

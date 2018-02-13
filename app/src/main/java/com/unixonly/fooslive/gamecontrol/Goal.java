@@ -28,32 +28,24 @@ public class Goal {
     private final double[] mSpeeds;
     private double mMaxSpeed;
 
-    private final long mTimestampStart;
-    private final long mTimestampEnd;
-
     // Which team scored: true if blue, false otherwise
     private @TeamType.Team int mTeamColor;
 
     private long mDuration;
 
     /**
+     * TODO: Add start and end timestamps when a timer is implemented
      * @param points
      * The coordinates of the ball before the goal
      * @param tablePoints
      * The coordinates of the table corners. These are used for speed calculation
-     * @param start
-     * The timestamp of the most historic coordinates
-     * @param end
-     * The timestamp of the latest coordinates
      * @param team
      * Which team scored
      */
     public Goal(Queue<PointF> points, RectF tablePoints,
-                long start, long end, @TeamType.Team int team) {
+                @TeamType.Team int team) {
         mPoints = new PointF[points.size()];
         mSpeeds = new double[points.size()];
-        mTimestampStart = start;
-        mTimestampEnd = end;
         mMaxSpeed = 0;
 
         int i = 0;
