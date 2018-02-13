@@ -3,7 +3,7 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.enums.EGoalEvent;
+import com.unixonly.fooslive.constants.GoalEventType;
 import com.unixonly.fooslive.util.UnitUtils;
 
 import java.util.LinkedList;
@@ -59,7 +59,7 @@ public class PositionChecker {
                 if (mBallInTeam2Zone) {
                     // Fire the goal event for the first team
                     gameController.setTeam2Score(gameController.getTeam2Score() + 1);
-                    gameController.fireGoalEvent(EGoalEvent.Team2Goal);
+                    gameController.fireGoalEvent(GoalEventType.TEAM_2_GOAL);
 
                     mGoals.add(new Goal(gameController.getBallCoordinates(),
                             new RectF(mTeam2Zone.left,
@@ -83,7 +83,7 @@ public class PositionChecker {
 
                 // Fire the goal event for the second team
                 gameController.setTeam1Score(gameController.getTeam1Score() + 1);
-                gameController.fireGoalEvent(EGoalEvent.Team1Goal);
+                gameController.fireGoalEvent(GoalEventType.TEAM_1_GOAL);
 
                 mGoals.add(new Goal(gameController.getBallCoordinates(),
                         new RectF(mTeam2Zone.left,

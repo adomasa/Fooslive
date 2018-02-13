@@ -9,6 +9,6 @@ package com.unixonly.fooslive.interfaces;
  * This interface is pending a rework and shouldn't
  * be used
  */
-public interface  OnTimerUpdateListener {
+public interface OnTimerUpdateListener {
     void onTimerUpdate();
 }

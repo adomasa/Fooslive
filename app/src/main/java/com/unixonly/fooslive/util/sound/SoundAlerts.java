@@ -2,7 +2,7 @@ package com.unixonly.fooslive.util.sound;
 
 import android.content.Context;
 
-import com.unixonly.fooslive.enums.EAlert;
+import com.unixonly.fooslive.constants.AlertType;
 
 /**
  * Created by paulius on 2/6/18.
@@ -21,21 +21,21 @@ public class SoundAlerts {
         mContext = context;
     }
 
-    public void play(EAlert alertType) {
+    public void play(@AlertType.Type int alertType) {
         switch (alertType) {
-            case TEAM_1_GOAL: {
+            case AlertType.TEAM_1_GOAL: {
                 mTeam1GoalPlayer.play();
                 break;
             }
-            case TEAM_1_WIN: {
+            case AlertType.TEAM_1_WIN: {
                 mTeam1WinPlayer.play();
                 break;
             }
-            case TEAM_2_GOAL: {
+            case AlertType.TEAM_2_GOAL: {
                 mTeam2GoalPlayer.play();
                 break;
             }
-            case TEAM_2_WIN: {
+            case AlertType.TEAM_2_WIN: {
                 mTeam2WinPlayer.play();
                 break;
             }

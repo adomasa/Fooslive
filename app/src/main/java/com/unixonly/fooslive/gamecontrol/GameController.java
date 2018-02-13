@@ -3,7 +3,7 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.enums.EGoalEvent;
+import com.unixonly.fooslive.constants.GoalEventType;
 import com.unixonly.fooslive.interfaces.OnGoalEventListener;
 
 import java.util.LinkedList;
@@ -98,7 +98,7 @@ public class GameController {
         if (mMaxSpeed < mCurrentSpeed) mMaxSpeed = mCurrentSpeed;
     }
 
-    void fireGoalEvent(EGoalEvent eventType) {
+    void fireGoalEvent(@GoalEventType.GoalType int eventType) {
         mListener.onGoal(eventType);
     }
 
