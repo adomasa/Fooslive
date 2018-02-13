@@ -3,6 +3,7 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
+import com.unixonly.fooslive.constants.TeamType;
 import com.unixonly.fooslive.util.UnitUtils;
 
 import java.util.Iterator;
@@ -25,18 +26,18 @@ public class Goal {
     private PointF[] mPoints;
 
     private final double[] mSpeeds;
-    private final double mMaxSpeed;
+    private double mMaxSpeed;
 
     private final long mTimestampStart;
     private final long mTimestampEnd;
 
     // Which team scored: true if blue, false otherwise
-    private boolean mTeamColor;
+    private @TeamType.Team int mTeamColor;
 
     private long mDuration;
 
     public Goal(Queue<PointF> points, RectF tablePoints,
-                long start, long end, boolean team) {
+                long start, long end, @TeamType.Team int team) {
         mPoints = new PointF[points.size()];
         mSpeeds = new double[points.size()];
         mTimestampStart = start;
