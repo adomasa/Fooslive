@@ -14,7 +14,7 @@ import java.util.Queue;
  */
 
 public class GameController {
-    private static final int TABLE_POINT_NUMBER = 4;
+    private static final int TABLE_CORNER_COUNT = 4;
     // TODO: Set value from app.config
     private static int sMaximumBallCoordinateNumber;
     // TODO: Set value from app.config
@@ -38,7 +38,7 @@ public class GameController {
 
     private double mCurrentSpeed;
     private double mAverageSpeed;
-    private long mAverageSpeedCounter;
+    private long mAverageSpeedCount;
     private double mMaxSpeed;
 
     public GameController() {
@@ -47,24 +47,24 @@ public class GameController {
     }
 
     public void setTable(PointF[] points) {
-        if (points.length != TABLE_POINT_NUMBER) return;
+        if (points.length != TABLE_CORNER_COUNT) return;
 
         // Calculate the different zones, using the points given
-        mPositionChecker.setZoneOne(new RectF(points[0].x,
+        mPositionChecker.setTeam2Zone(new RectF(points[0].x,
                                     points[0].y,
                                     points[1].x,
                                     points[1].y + (points[2].y - points[0].y) * sPercentageOfSide));
 
-        mPositionChecker.setZoneTwo(new RectF(points[0].x,
-                mPositionChecker.getZoneOne().bottom + (1.0f - sPercentageOfSide * 2) * (points[2].y - points[0].y),
+        mPositionChecker.setTeam1Zone(new RectF(points[0].x,
+                mPositionChecker.getTeam2Zone().bottom + (1.0f - sPercentageOfSide * 2) * (points[2].y - points[0].y),
                 points[3].x,
                 points[3].y));
 
         mZones = new ZoneInfo(new RectF(
-                mPositionChecker.getZoneOne().left,
-                mPositionChecker.getZoneOne().top,
-                mPositionChecker.getZoneTwo().right,
-                mPositionChecker.getZoneTwo().bottom),
+                mPositionChecker.getTeam2Zone().left,
+                mPositionChecker.getTeam2Zone().top,
+                mPositionChecker.getTeam1Zone().right,
+                mPositionChecker.getTeam1Zone().bottom),
                 sHeatMapZoneWidth,
                 sHeatMapZoneHeight);
     }
@@ -90,9 +90,9 @@ public class GameController {
                                                         mLastBallCoordinates[1]);
 
         if (point != null) {
-            mAverageSpeed = ((mAverageSpeed * mAverageSpeedCounter)
-                    + mCurrentSpeed) / (mAverageSpeedCounter + 1);
-            mAverageSpeedCounter++;
+            mAverageSpeed = ((mAverageSpeed * mAverageSpeedCount)
+                    + mCurrentSpeed) / (mAverageSpeedCount + 1);
+            mAverageSpeedCount++;
         }
 
         if (mMaxSpeed < mCurrentSpeed) mMaxSpeed = mCurrentSpeed;

@@ -144,7 +144,7 @@ public class PositionChecker {
      * @param zone
      * A RectF, containing the coordinates of the zone
      */
-    public void setZoneOne(RectF zone) {
+    public void setTeam2Zone(RectF zone) {
         mTeam2Zone = zone;
         calculateMultipliers();
     }
@@ -154,16 +154,16 @@ public class PositionChecker {
      * @param zone
      * A RectF, containing the coordinates of the zone
      */
-    public void setZoneTwo(RectF zone) {
+    public void setTeam1Zone(RectF zone) {
         mTeam1Zone = zone;
         calculateMultipliers();
     }
 
-    RectF getZoneOne() {
+    RectF getTeam2Zone() {
         return mTeam2Zone;
     }
 
-    RectF getZoneTwo() {
+    RectF getTeam1Zone() {
         return mTeam1Zone;
     }
 }
