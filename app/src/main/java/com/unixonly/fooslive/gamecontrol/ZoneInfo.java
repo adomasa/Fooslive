@@ -33,8 +33,7 @@ public class ZoneInfo {
     }
 
     public void assignValue(PointF point) {
-        if (point == null)
-            return;
+        if (point == null) return;
 
         float x = point.x - mTopLeftX;
         float y = point.y - mTopLeftY;
@@ -47,21 +46,30 @@ public class ZoneInfo {
 
             for (int i = -2; i < 3; i++) {
                 for (int j = -2; j < 3; j++) {
-                    if ((posX + i < mWidth && posX + i > 0) &&
-                            (posY + j < mHeight && posY + j > 0)) {
-                        // Defines the outermost points from the center
-                        if ((i == -2 || i == 2) && (j == -2 || j == 2))
-                            mValues[posY + j][posX + i] += mToAddZone3;
-                        else
-                            // Defines the points, which surround the center point
-                            if ((i == -1 || i == 1) && (j == -1 || j == 1))
-                                mValues[posY + j][posX + i] += mToAddZone2;
-                            else
-                                // Defines the center point
-                                mValues[posY + j][posX + i] += mToAddZone1;
+                        addToZone(posX, posY, i, j);
                     }
                 }
             }
+        }
+
+    private void addToZone(int posX, int posY, int i, int j) {
+        if ((posX + i < mWidth && posX + i > 0) &&
+                (posY + j < mHeight && posY + j > 0)) {
+
+            // Defines the outermost points from the center
+            if ((i == -2 || i == 2) && (j == -2 || j == 2)) {
+                mValues[posY + j][posX + i] += mToAddZone3;
+                return;
+            }
+
+            // Defines the points, which surround the center point
+            if ((i == -1 || i == 1) && (j == -1 || j == 1)) {
+                mValues[posY + j][posX + i] += mToAddZone2;
+                return;
+            }
+
+            // Defines the center point
+            mValues[posY + j][posX + i] += mToAddZone1;
         }
     }
 

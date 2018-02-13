@@ -36,6 +36,18 @@ public class Goal {
 
     private long mDuration;
 
+    /**
+     * @param points
+     * The coordinates of the ball before the goal
+     * @param tablePoints
+     * The coordinates of the table corners. These are used for speed calculation
+     * @param start
+     * The timestamp of the most historic coordinates
+     * @param end
+     * The timestamp of the latest coordinates
+     * @param team
+     * Which team scored
+     */
     public Goal(Queue<PointF> points, RectF tablePoints,
                 long start, long end, @TeamType.Team int team) {
         mPoints = new PointF[points.size()];
