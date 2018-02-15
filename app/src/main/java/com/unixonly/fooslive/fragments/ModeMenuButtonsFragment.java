@@ -71,15 +71,13 @@ public class ModeMenuButtonsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void getCameraPermission() {
         if (getContext().checkSelfPermission(Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_GRANTED)
-        {
+                PackageManager.PERMISSION_GRANTED) {
             // already has permission
             startGameActivity(null);
             return;
         }
         // need to request permission
-        if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA))
-        {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
             // explain to the user why we need to use the camera
             getRequestDialog().show();
             return;
@@ -87,7 +85,7 @@ public class ModeMenuButtonsFragment extends Fragment {
 
         //Finally request permissions with the list of permissions and Id
         ActivityCompat.requestPermissions(getActivity(),
-                new String[]{Manifest.permission.READ_CONTACTS},
+                new String[]{ Manifest.permission.READ_CONTACTS },
                 OPEN_CAMERA_REQUEST);
     }
 
@@ -117,8 +115,7 @@ public class ModeMenuButtonsFragment extends Fragment {
      * Start GameActivity
      * @param data contains video uri for GameActivity
      */
-    private void startGameActivity(@Nullable Uri data)
-    {
+    private void startGameActivity(@Nullable Uri data) {
 
         Intent intent = new Intent(getActivity(), GameActivity.class);
         // Set video uri as game activity intent data
@@ -147,13 +144,13 @@ public class ModeMenuButtonsFragment extends Fragment {
                                            @NonNull int[] grantResults) {
         if (requestCode != OPEN_CAMERA_REQUEST) return;
 
-        if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED)
-            startGameActivity(null);
-        else
+        if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) startGameActivity(null);
+        else {
             Snackbar.make(mBinding.getRoot(),
-                        getString(R.string.error_camera_access_missing),
-                        Snackbar.LENGTH_LONG)
+                    getString(R.string.error_camera_access_missing),
+                    Snackbar.LENGTH_LONG)
                     .show();
+        }
 
     }
 }
