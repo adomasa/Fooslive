@@ -22,7 +22,6 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         } catch (IOException e) {
             Log.e(TAG, "Couldn't load configuration file. Terminating application.");
-
         } finally {
             finish();
         }
