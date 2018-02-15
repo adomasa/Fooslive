@@ -50,15 +50,9 @@ public class ModeMenuButtonsFragment extends Fragment {
                 false);
 
         mBinding.buttonLiveGame.setOnClickListener((View v) -> {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            {
-                startGameActivity(null);
-            }
-            else
-            {
-                // API 23+ demands runtime requests
-                getCameraPermission();
-            }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) startGameActivity(null);
+            // API 23+ demands runtime requests
+            else getCameraPermission();
         });
 
         mBinding.buttonRecordedGame.setOnClickListener((View v) -> {

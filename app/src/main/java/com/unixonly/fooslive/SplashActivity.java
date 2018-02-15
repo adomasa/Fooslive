@@ -3,8 +3,11 @@ package com.unixonly.fooslive;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.unixonly.fooslive.utils.PropertiesManager;
+
+import java.io.IOException;
 
 public class SplashActivity extends AppCompatActivity {
     public static final String TAG = "SplashActivity";
@@ -14,7 +17,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Initialise high CPU consuming code here
-        PropertiesManager.load(this);
+        try {
+            PropertiesManager.load(this);
+        } catch (IOException e) {
+            Log.e(TAG, "Couldn't load configuration file. Terminating application.");
+            finish();
+        }
+
         startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         finish();
     }

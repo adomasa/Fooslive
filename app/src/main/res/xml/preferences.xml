@@ -13,9 +13,15 @@
             android:title="@string/pref_title_sounds" />
 
         <SwitchPreference
+            android:defaultValue="@bool/pref_default_vibration"
+            android:icon="@drawable/ic_vibration_accent_24dp"
+            android:key="@string/pref_key_vibration"
+            android:summary="@string/pref_description_vibration"
+            android:title="@string/pref_title_vibration" />
+        <SwitchPreference
             android:defaultValue="@bool/pref_default_sync"
             android:icon="@drawable/ic_sync_accent_24dp"
-            android:key="switch_preference_sync"
+            android:key="@string/pref_key_sync"
             android:summary="@string/pref_description_sync"
             android:title="@string/pref_title_sync" />
 

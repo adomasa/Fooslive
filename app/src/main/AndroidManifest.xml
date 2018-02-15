@@ -19,6 +19,9 @@
             android:label="@string/title_settings"
             android:launchMode="singleTop"/>
 
+        <activity android:name=".GameActivity"
+            android:launchMode="singleTop"/>
+
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
