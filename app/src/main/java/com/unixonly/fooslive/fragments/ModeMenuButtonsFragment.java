@@ -26,6 +26,7 @@ import com.unixonly.fooslive.R;
 import com.unixonly.fooslive.databinding.FragmentItemsModeMenuBinding;
 import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class ModeMenuButtonsFragment extends Fragment {
@@ -134,6 +135,8 @@ public class ModeMenuButtonsFragment extends Fragment {
             startGameActivity(data.getData());
             return;
         }
+
+        if (resultCode == RESULT_CANCELED) return;
 
         Snackbar.make(mBinding.getRoot(), getString(R.string.error_unknown), Snackbar.LENGTH_LONG)
                 .show();

@@ -27,10 +27,6 @@ public class MenuActivity extends AppCompatActivity implements OnFragmentInterac
     private Fragment mFragment;
     private Fragment mPreviousFragment;
 
-    static {
-        System.loadLibrary("opencv_java3");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

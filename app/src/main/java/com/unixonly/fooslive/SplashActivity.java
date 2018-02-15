@@ -12,13 +12,17 @@ import java.io.IOException;
 public class SplashActivity extends AppCompatActivity {
     public static final String TAG = "SplashActivity";
 
+    static {
+        System.loadLibrary("opencv_java3");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialise high CPU consuming code here
         try {
             PropertiesManager.load(this);
+            // Initialise high CPU consuming code here
             startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         } catch (IOException e) {
             Log.e(TAG, "Couldn't load configuration file. Terminating application.");
