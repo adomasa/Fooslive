@@ -19,12 +19,12 @@ public class SplashActivity extends AppCompatActivity {
         // Initialise high CPU consuming code here
         try {
             PropertiesManager.load(this);
+            startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         } catch (IOException e) {
             Log.e(TAG, "Couldn't load configuration file. Terminating application.");
+
+        } finally {
             finish();
         }
-
-        startActivity(new Intent(SplashActivity.this, MenuActivity.class));
-        finish();
     }
 }
