@@ -21,13 +21,9 @@ public class MeasurementUtils {
      * The difference between the points
      */
     public static double calculateSpeed(PointF one, PointF two, double mulX, double mulY) {
-        double toReturn = 0;
-
-        if (one == null || two == null) toReturn = 0;
-        else toReturn = Math.sqrt(
+        if (one == null || two == null) return 0;
+        else return Math.sqrt(
                 Math.pow((one.x * mulX - two.x * mulX), 2) +
                         Math.pow((one.y * mulY - two.y * mulY), 2));
-
-        return toReturn;
     }
 }
