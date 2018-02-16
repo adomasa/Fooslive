@@ -1,12 +1,8 @@
-package com.unixonly.fooslive.Util;
+package com.unixonly.fooslive.utils;
 
 import android.util.Size;
 
 import java.util.Comparator;
-
-/**
- * Created by paulius on 1/24/18.
- */
 
 public class SizeComparator implements Comparator<Size> {
     @Override
