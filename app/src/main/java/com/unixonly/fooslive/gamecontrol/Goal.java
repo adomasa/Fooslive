@@ -62,6 +62,13 @@ public class Goal {
         calculateSpeeds(mulX, mulY);
     }
 
+    /**
+     * Calculates speeds for all points preceding the goal
+     * @param mulX
+     * The x upscaling constant
+     * @param mulY
+     * The y upscaling constant
+     */
     private void calculateSpeeds(double mulX, double mulY) {
         PointF lastPoint = null;
         int lostFrameCount = 0;
