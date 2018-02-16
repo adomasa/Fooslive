@@ -45,45 +45,7 @@ public class PositionChecker {
             if (mFramesLost == sGoalFramesToCountGoal) {
                 // It is, so check if a goal is about to occur
                 // TODO: Investigate if everything is ok here
-                if (mBallInTeam2Zone) {
-                    // Fire the goal event for the first team
-                    gameController.setTeam2Score(gameController.getTeam2Score() + 1);
-                    gameController.fireGoalEvent(GoalEventType.TEAM_2_GOAL);
-
-                    mGoals.add(new Goal(gameController.getBallCoordinates(),
-                            new RectF(mTeam2Zone.left,
-                                    mTeam2Zone.top,
-                                    mTeam1Zone.right,
-                                    mTeam1Zone.bottom),
-                                    TeamType.TEAM_2));
-
-                    // Reset variables to their starting values
-                    mFramesLost = 0;
-                    mBallInTeam2Zone = false;
-                    mBallInTeam1Zone = false;
-                    mGoalOccured = true;
-
-                    return;
-                }
-
-                if (!mBallInTeam1Zone) return;
-
-                // Fire the goal event for the second team
-                gameController.setTeam1Score(gameController.getTeam1Score() + 1);
-                gameController.fireGoalEvent(GoalEventType.TEAM_1_GOAL);
-
-                mGoals.add(new Goal(gameController.getBallCoordinates(),
-                        new RectF(mTeam2Zone.left,
-                                mTeam2Zone.top,
-                                mTeam1Zone.right,
-                                mTeam1Zone.bottom),
-                                TeamType.TEAM_1));
-
-                // Reset variables to their starting values
-                mFramesLost = 0;
-                mBallInTeam2Zone = false;
-                mBallInTeam1Zone = false;
-                mGoalOccured = true;
+                assignGoal(gameController);
             }
             else
                 mFramesLost ++;
@@ -97,6 +59,41 @@ public class PositionChecker {
         // Check if the ball is in either of the zones
         mBallInTeam2Zone = mTeam2Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
         mBallInTeam1Zone = mTeam1Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
+    }
+
+    private void assignGoal(GameController gameController) {
+        if (!mBallInTeam1Zone) return;
+        if (!mBallInTeam2Zone) return;
+
+        if (mBallInTeam2Zone) {
+            // Fire the goal event for the second team
+            gameController.setTeam2Score(gameController.getTeam2Score() + 1);
+            gameController.fireGoalEvent(GoalEventType.TEAM_2_GOAL);
+
+            mGoals.add(new Goal(gameController.getBallCoordinates(),
+                    new RectF(mTeam2Zone.left,
+                            mTeam2Zone.top,
+                            mTeam1Zone.right,
+                            mTeam1Zone.bottom),
+                    TeamType.TEAM_2));
+        } else {
+            // Fire the goal event for the first team
+            gameController.setTeam1Score(gameController.getTeam1Score() + 1);
+            gameController.fireGoalEvent(GoalEventType.TEAM_1_GOAL);
+
+            mGoals.add(new Goal(gameController.getBallCoordinates(),
+                    new RectF(mTeam2Zone.left,
+                            mTeam2Zone.top,
+                            mTeam1Zone.right,
+                            mTeam1Zone.bottom),
+                    TeamType.TEAM_1));
+        }
+
+        // Reset variables to their starting values
+        mFramesLost = 0;
+        mBallInTeam2Zone = false;
+        mBallInTeam1Zone = false;
+        mGoalOccured = true;
     }
 
     /**
