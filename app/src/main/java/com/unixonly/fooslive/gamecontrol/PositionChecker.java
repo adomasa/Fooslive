@@ -22,9 +22,6 @@ public class PositionChecker {
     // TODO: Set value from app.config
     private static int sGoalFramesToCountGoal;
 
-    private double mMulX;
-    private double mMulY;
-
     private RectF mTeam2Zone;
     private RectF mTeam1Zone;
 
@@ -39,15 +36,6 @@ public class PositionChecker {
 
     public PositionChecker() {
         mGoals = new LinkedList<>();
-    }
-
-    private void calculateMultipliers()
-    {
-        if (mTeam2Zone == null || mTeam1Zone == null)
-            return;
-
-        mMulX = UnitUtils.metersToCentimeters(1) * ( sRealTableWidth / (mTeam1Zone.right - mTeam1Zone.left) );
-        mMulY = UnitUtils.metersToCentimeters(1) * ( sRealTableHeight / (mTeam1Zone.bottom - mTeam2Zone.top) );
     }
 
     public void onNewFrame(PointF lastBallCoordinates,
@@ -115,34 +103,12 @@ public class PositionChecker {
     }
 
     /**
-     * Calculates the difference between two points
-     * @param one
-     * The coordinates of the first point
-     * @param two
-     * The coordinates of the second point
-     * @return
-     * The difference between the points
-     */
-    public double calculateSpeed(PointF one, PointF two)
-    {
-        double toReturn = 0;
-
-        if (one == null || two == null) toReturn = 0;
-        else toReturn = Math.sqrt(
-                        (one.x * mMulX - two.x * mMulX) * (one.x * mMulX - two.x * mMulX) +
-                        (one.y * mMulY - two.y * mMulY) * (one.y * mMulY - two.y * mMulY));
-
-        return toReturn;
-    }
-
-    /**
      * A setter for the first team's goal zone
      * @param zone
      * A RectF, containing the coordinates of the zone
      */
     public void setTeam2Zone(RectF zone) {
         mTeam2Zone = zone;
-        calculateMultipliers();
     }
 
     /**
@@ -152,7 +118,6 @@ public class PositionChecker {
      */
     public void setTeam1Zone(RectF zone) {
         mTeam1Zone = zone;
-        calculateMultipliers();
     }
 
     RectF getTeam2Zone() {

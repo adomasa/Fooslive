@@ -4,6 +4,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import com.unixonly.fooslive.constants.TeamType;
+import com.unixonly.fooslive.util.MeasurementUtils;
 import com.unixonly.fooslive.util.UnitUtils;
 
 import java.util.Iterator;
@@ -66,21 +67,18 @@ public class Goal {
         int lostFrameCount = 0;
         int i = 0;
         for (PointF point : mPoints) {
-            if (lastPoint == null)
-            {
+            if (lastPoint == null) {
                 lastPoint = point;
                 continue;
             }
 
-            if (point == null)
-            {
+            if (point == null) {
                 lostFrameCount++;
                 i++;
                 continue;
             }
 
-            mSpeeds[i] = Math.sqrt((point.x * mulX - lastPoint.x * mulX) * (point.x * mulX - lastPoint.x * mulX) +
-                    (point.y * mulY - lastPoint.y * mulY) * (point.y * mulY - lastPoint.y * mulY));
+            mSpeeds[i] = MeasurementUtils.calculateSpeed(point, lastPoint, mulX, mulY);
             mSpeeds[i] /= lostFrameCount + 1.0f;
 
             if (mMaxSpeed < mSpeeds[i]) mMaxSpeed = mSpeeds[i];
