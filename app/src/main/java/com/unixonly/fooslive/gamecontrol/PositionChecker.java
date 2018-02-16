@@ -65,29 +65,31 @@ public class PositionChecker {
         if (!mBallInTeam1Zone) return;
         if (!mBallInTeam2Zone) return;
 
+        Goal toSetGoal = null;
+        RectF toSetZone = new RectF(mTeam2Zone.left,
+                                    mTeam2Zone.top,
+                                    mTeam1Zone.right,
+                                    mTeam1Zone.bottom);
+
         if (mBallInTeam2Zone) {
             // Fire the goal event for the second team
             gameController.setTeam2Score(gameController.getTeam2Score() + 1);
             gameController.fireGoalEvent(GoalEventType.TEAM_2_GOAL);
 
-            mGoals.add(new Goal(gameController.getBallCoordinates(),
-                    new RectF(mTeam2Zone.left,
-                            mTeam2Zone.top,
-                            mTeam1Zone.right,
-                            mTeam1Zone.bottom),
-                    TeamType.TEAM_2));
+            toSetGoal = new Goal(gameController.getBallCoordinates(),
+                                    toSetZone,
+                                    TeamType.TEAM_2);
         } else {
             // Fire the goal event for the first team
             gameController.setTeam1Score(gameController.getTeam1Score() + 1);
             gameController.fireGoalEvent(GoalEventType.TEAM_1_GOAL);
 
-            mGoals.add(new Goal(gameController.getBallCoordinates(),
-                    new RectF(mTeam2Zone.left,
-                            mTeam2Zone.top,
-                            mTeam1Zone.right,
-                            mTeam1Zone.bottom),
-                    TeamType.TEAM_1));
+            toSetGoal = new Goal(gameController.getBallCoordinates(),
+                                    toSetZone,
+                                    TeamType.TEAM_1);
         }
+
+        mGoals.add(toSetGoal);
 
         // Reset variables to their starting values
         mFramesLost = 0;
