@@ -25,8 +25,8 @@ public class MeasurementUtils {
 
         if (one == null || two == null) toReturn = 0;
         else toReturn = Math.sqrt(
-                (one.x * mulX - two.x * mulX) * (one.x * mulX - two.x * mulX) +
-                        (one.y * mulY - two.y * mulY) * (one.y * mulY - two.y * mulY));
+                Math.pow((one.x * mulX - two.x * mulX), 2) +
+                        Math.pow((one.y * mulY - two.y * mulY), 2));
 
         return toReturn;
     }
