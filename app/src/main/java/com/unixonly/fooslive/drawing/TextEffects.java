@@ -1,6 +1,7 @@
 package com.unixonly.fooslive.drawing;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -13,6 +14,8 @@ import android.widget.TextView;
  * implemented
  */
 public class TextEffects {
+    public static final String TAG = "TextEffects";
+
     // TODO: Set value from app.config
     private static int mSlidingTextDelay;
 
@@ -70,6 +73,7 @@ public class TextEffects {
             try {
                 this.wait(mSlidingTextDelay);
             } catch (InterruptedException e) {
+                Log.d(TAG, e.toString());
                 return;
             }
         }
