@@ -121,8 +121,8 @@ public class ColorDetector {
 
         KeyPoint biggestBlob = null;
         for (KeyPoint blob : blobs.toArray()) {
-            if (!(blob.size > mMinAllowed)) continue;
-            if (!(blob.size < mMaxAllowed)) continue;
+            if (blob.size < mMinAllowed) continue;
+            if (blob.size > mMaxAllowed) continue;
             if (!(mBox.contains((float)blob.pt.x, (float)blob.pt.y))) continue;
             else {
                 if (mMinAllowed == 0) mMinAllowed = (int)blob.size;
@@ -166,25 +166,28 @@ public class ColorDetector {
         if (blob == null) return;
         if (mLastBlob == null) return;
 
-        float toAddX, toAddY;
-        toAddX = mLastBlob.x - (float)blob.pt.x;
-        toAddY = mLastBlob.y - (float)blob.pt.y;
+        float toAddX = mLastBlob.x - (float)blob.pt.x;
+        float toAddY = mLastBlob.y - (float)blob.pt.y;
 
-        if (toAddX < 0)
-            toAddX *= -1;
-        if (toAddY < 0)
-            toAddY *= -1;
+        if (toAddX < 0) toAddX *= -1;
+        if (toAddY < 0) toAddY *= -1;
+
+        float addX, addY;
 
         if (blob.size > mMinBlobSize) {
-            mBox = new RectF((float)blob.pt.x - (blob.size * mMulDeltaWidth + toAddX * mMulDeltaX) / 2,
-                    (float)blob.pt.y - (blob.size * mMulDeltaHeight + toAddY * mMulDeltaY) / 2,
-                    (float)blob.pt.x + (blob.size * mMulDeltaWidth + toAddX * mMulDeltaX) / 2,
-                    (float)blob.pt.y + (blob.size * mMulDeltaWidth + toAddX * mMulDeltaX) / 2);
+            addX = blob.size * mMulDeltaWidth + toAddX * mMulDeltaX;
+            addY = blob.size * mMulDeltaHeight + toAddY * mMulDeltaY;
         } else {
-            mBox = new RectF((float)blob.pt.x - (mMinWidth + toAddX * mMulDeltaX) / 2,
-                    (float)blob.pt.y - (mMinHeight + toAddX * mMulDeltaX) / 2,
-                    (float)blob.pt.x + (mMinWidth + toAddX * mMulDeltaX) / 2,
-                    (float)blob.pt.y + (mMinHeight + toAddX * mMulDeltaX) / 2);
+            addX = mMinWidth + toAddX * mMulDeltaX;
+            addY = mMinHeight + toAddY * mMulDeltaY;
         }
+
+        addX /= 2;
+        addY /= 2;
+
+        mBox = new RectF((float)blob.pt.x - addX,
+                        (float)blob.pt.y - addY,
+                        (float)blob.pt.x + addX,
+                        (float)blob.pt.y + addY);
     }
 }
