@@ -60,11 +60,13 @@ public class GameController {
                 points[3].x,
                 points[3].y));
 
-        mZones = new ZoneInfo(new RectF(
+        RectF table = new RectF(
                 mPositionChecker.getTeam2Zone().left,
                 mPositionChecker.getTeam2Zone().top,
                 mPositionChecker.getTeam1Zone().right,
-                mPositionChecker.getTeam1Zone().bottom),
+                mPositionChecker.getTeam1Zone().bottom);
+        mZones = new ZoneInfo(
+                table,
                 sHeatMapZoneWidth,
                 sHeatMapZoneHeight);
     }
