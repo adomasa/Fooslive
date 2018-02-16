@@ -68,10 +68,7 @@ public class ObjectDetector {
         Utils.bitmapToMat(bitmap, image);
         mDetector.image = image;
 
-        /***
-         * The following variables
-         *  are for debugging only!
-         */
+        // The following variables are for debugging only!
         Rect blob = new Rect();
         Rect blobBox = new Rect();
 
@@ -92,21 +89,20 @@ public class ObjectDetector {
     private void drawBallTrace(Canvas canvas) {
         Path path = new Path();
         PointF[] points = (PointF[])mGameController.getBallCoordinates().toArray();
+        // TODO: Move this variable to a config file
         int toPaint = 10;
         boolean startSet = false;
-        for (int i = points.length - 1; i > 0; i --) {
+        for (int i = points.length - 1; i > 0; i--) {
             if (points[i] == null) {
                 toPaint --;
 
                 if (toPaint == 0) break;
-                else continue;
+
+                continue;
             }
 
             if (startSet) {
-                if (i < points.length - 1 && points[i+1] != null) {
-                    path.quadTo(points[i].x, points[i].y,
-                            points[i+1].x, points[i+1].y);
-                } else path.lineTo(points[i].x, points[i].y);
+                movePath(path, points, i);
 
                 mPaintBall.setAlpha(mTraceMaxAlpha * (toPaint / mTraceDivisor) + mTraceToAdd);
                 canvas.drawPath(path, mPaintBall);
@@ -115,9 +111,16 @@ public class ObjectDetector {
                 startSet = true;
             }
 
-            toPaint --;
+            toPaint--;
 
             if (toPaint == 0) break;
         }
+    }
+
+    private void movePath(Path path, PointF[] points, int i) {
+        if (i < points.length - 1 && points[i+1] != null) {
+            path.quadTo(points[i].x, points[i].y,
+                    points[i+1].x, points[i+1].y);
+        } else path.lineTo(points[i].x, points[i].y);
     }
 }
