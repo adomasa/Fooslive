@@ -48,8 +48,7 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
     }
 
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-        // TODO
-        // _activity.ReleaseResources();
+        surface.release();
         return true;
     }
 

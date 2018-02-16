@@ -41,16 +41,17 @@ public class ZoneInfo {
         int posX = (int) (x / mZoneWidth);
         int posY = (int) (y / mZoneHeight);
 
-        if (posX >= 0 && posY >= 0 && posX < mWidth && posY < mHeight) {
-            mValues[posY][posX] += 8;
+        if (!(posX < mWidth && posY < mHeight)) return;
+        if (!(posX >= 0 && posY >= 0)) return;
 
-            for (int i = -2; i < 3; i++) {
-                for (int j = -2; j < 3; j++) {
-                        addToZone(posX, posY, i, j);
-                    }
-                }
+        mValues[posY][posX] += 8;
+
+        for (int i = -2; i < 3; i++) {
+            for (int j = -2; j < 3; j++) {
+                addToZone(posX, posY, i, j);
             }
         }
+}
 
     private void addToZone(int posX, int posY, int i, int j) {
         if ((posX + i < mWidth && posX + i > 0) &&
