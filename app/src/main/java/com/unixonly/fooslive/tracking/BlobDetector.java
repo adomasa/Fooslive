@@ -9,11 +9,11 @@ import org.opencv.features2d.FeatureDetector;
  */
 
 public class BlobDetector {
-    private FeatureDetector mDetector;
+    private FeatureDetector mBlobDetector;
     public BlobDetector() {
-        mDetector = FeatureDetector.create(FeatureDetector.SIMPLEBLOB);
+        mBlobDetector = FeatureDetector.create(FeatureDetector.SIMPLEBLOB);
     }
     public void getBlobs(Mat filteredImage, MatOfKeyPoint blobs) {
-        mDetector.detect(filteredImage, blobs);
+        mBlobDetector.detect(filteredImage, blobs);
     }
 }

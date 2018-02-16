@@ -121,26 +121,24 @@ public class ColorDetector {
 
         KeyPoint biggestBlob = null;
         for (KeyPoint blob : blobs.toArray()) {
-            if (mBox.contains((float)blob.pt.x, (float)blob.pt.y) ) {
+            if (!(blob.size > mMinAllowed)) continue;
+            if (!(blob.size < mMaxAllowed)) continue;
+            if (!(mBox.contains((float)blob.pt.x, (float)blob.pt.y))) continue;
+            else {
                 if (mMinAllowed == 0) mMinAllowed = (int)blob.size;
-                else if (mMinAllowed > blob.size) mMinAllowed = (int)blob.size - mMinAddition;
+                else
+                    if (mMinAllowed > blob.size) mMinAllowed = (int)blob.size - mMinAddition;
 
                 if (mMaxAllowed < blob.size) mMaxAllowed = (int)blob.size + mMaxAddition;
 
-                biggestBlob = blob;
-                mFramesLost = 0;
                 mLastSize = (int)blob.size;
-                break;
-            } else
-                if (blob.size > mMinAllowed && blob.size < mMaxAllowed) {
-                biggestBlob = blob;
-                mFramesLost = 0;
-                mLastBlob = new PointF((float)blob.pt.x, (float)blob.pt.y);
-                break;
-                }
-        }
+            }
 
-        mLastBlob = biggestBlob == null ? null : new PointF((float)biggestBlob.pt.x, (float)biggestBlob.pt.y);
+            biggestBlob = blob;
+            mFramesLost = 0;
+            mLastBlob = new PointF((float)blob.pt.x, (float)blob.pt.y);
+            break;
+        }
 
         updateBox(biggestBlob);
 
@@ -173,8 +171,8 @@ public class ColorDetector {
     }
 
     private void updateBox(KeyPoint blob) {
-        if (blob == null)
-            return;
+        if (blob == null) return;
+        if (mLastBlob == null) return;
 
         float toAddX, toAddY;
         toAddX = mLastBlob.x - (float)blob.pt.x;

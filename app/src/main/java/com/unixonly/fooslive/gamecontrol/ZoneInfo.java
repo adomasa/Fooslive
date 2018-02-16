@@ -46,6 +46,10 @@ public class ZoneInfo {
 
         mValues[posY][posX] += 8;
 
+        /**
+         * We currently assign values to 26 points surrounding
+         *  the position to make the heatmap prettier
+         */
         for (int i = -2; i < 3; i++) {
             for (int j = -2; j < 3; j++) {
                 addToZone(posX, posY, i, j);
