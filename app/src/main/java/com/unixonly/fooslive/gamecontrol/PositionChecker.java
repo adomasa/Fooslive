@@ -88,18 +88,15 @@ public class PositionChecker {
             else
                 mFramesLost ++;
         }
-        else {
-            if (mGoalOccured) {
-                mGoalOccured = false;
-            }
+        else
+            mGoalOccured = false;
 
-            // It isn't, so reset the counter
-            mFramesLost = 0;
+        // It isn't, so reset the counter
+        mFramesLost = 0;
 
-            // Check if the ball is in either of the zones
-            mBallInTeam2Zone = mTeam2Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
-            mBallInTeam1Zone = mTeam1Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
-        }
+        // Check if the ball is in either of the zones
+        mBallInTeam2Zone = mTeam2Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
+        mBallInTeam1Zone = mTeam1Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
     }
 
     /**
