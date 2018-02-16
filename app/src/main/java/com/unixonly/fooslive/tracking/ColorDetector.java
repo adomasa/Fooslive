@@ -94,8 +94,8 @@ public class ColorDetector {
         Imgproc.cvtColor(image, image, Imgproc.COLOR_RGB2HSV);
 
         // Calculate the lower and upper bounds
-        Scalar lowerLimit = calculateLowerBound(hsv);
-        Scalar upperLimit = calculateUpperBound(hsv);
+        Scalar lowerLimit = calculateBound(hsv, -1);
+        Scalar upperLimit = calculateBound(hsv, 1);
 
         // Filter the hsv image by color
         Core.inRange(image, lowerLimit, upperLimit, image);
@@ -154,20 +154,12 @@ public class ColorDetector {
         }
     }
 
-    private Scalar calculateLowerBound(Scalar hsv) {
-        double lowerHue = hsv.val[0] - Threshold / (double)mHsvDivisor;
-        double lowerSaturation = hsv.val[1] - Threshold * mSaturationMultiplier;
-        double lowerValue = hsv.val[2] - Threshold * mValueMultiplier;
+    private Scalar calculateBound(Scalar hsv, int boundIndicator) {
+        double lowerHue = hsv.val[0] + (Threshold / (double)mHsvDivisor) * boundIndicator;
+        double lowerSaturation = hsv.val[1] + (Threshold * mSaturationMultiplier) * boundIndicator;
+        double lowerValue = hsv.val[2] + (Threshold * mValueMultiplier) * boundIndicator;
 
         return new Scalar(lowerHue, lowerSaturation, lowerValue);
-    }
-
-    private Scalar calculateUpperBound(Scalar hsv) {
-        double upperHue = hsv.val[0] + Threshold / (double)mHsvDivisor;
-        double upperSaturation = hsv.val[1] + Threshold * mSaturationMultiplier;
-        double upperValue = hsv.val[2] + Threshold * mValueMultiplier;
-
-        return new Scalar(upperHue, upperSaturation, upperValue);
     }
 
     private void updateBox(KeyPoint blob) {
