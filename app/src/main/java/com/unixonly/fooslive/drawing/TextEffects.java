@@ -19,11 +19,10 @@ public class TextEffects {
     private boolean mTextThreadStarted;
 
     private final Activity mActivity;
-    private final TextView mTextView;
+    private final TextView mEventSliderView;
     private final int mMaxLength;
 
     /**
-     *
      * @param activity
      * The activity, which is used to access the UI thread
      * @param textView
@@ -33,7 +32,7 @@ public class TextEffects {
      */
     public TextEffects(Activity activity, TextView textView, int maxLength) {
         mActivity = activity;
-        mTextView = textView;
+        mEventSliderView = textView;
         mMaxLength = maxLength;
     }
 
@@ -53,7 +52,7 @@ public class TextEffects {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mTextView.setText(tempView.toString());
+                mEventSliderView.setText(tempView.toString());
             }
         });
 
@@ -64,7 +63,7 @@ public class TextEffects {
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mTextView.setText(tempView.toString());
+                    mEventSliderView.setText(tempView.toString());
                 }
             });
 
