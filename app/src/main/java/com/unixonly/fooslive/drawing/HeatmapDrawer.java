@@ -83,6 +83,16 @@ public class HeatmapDrawer {
         return toReturn;
     }
 
+    /**
+     * Calculates a color using for a given value against a max value
+     * @param value
+     * The integer which we'll calculate the color for
+     * @param maxValue
+     * This integer is checked against the value. A value near this value represents a hotspot
+     * @param colours
+     * The predefined colorspace used for heatmap generation
+     * @return
+     */
     private static int calculateColor(int value, int maxValue, int[] colours) {
         double percentage = value / (double)(maxValue + 1);
         double colorPercentage = 1d / (colours.length - 1);
@@ -98,10 +108,10 @@ public class HeatmapDrawer {
         int greenDelta = Color.green(next) - Color.green(target);
         int blueDelta = Color.blue(next) - Color.blue(target);
 
-        double red = Color.red(target) + redDelta * percOfColor;
-        double green = Color.green(target) + greenDelta * percOfColor;
-        double blue = Color.blue(target) + blueDelta * percOfColor;
+        int red = Color.red(target) + (int)(redDelta * percOfColor);
+        int green = Color.green(target) + (int)(greenDelta * percOfColor);
+        int blue = Color.blue(target) + (int)(blueDelta * percOfColor);
 
-        return Color.argb(mMaxAlphaValue, (int)red, (int)green, (int)blue);
+        return Color.argb(mMaxAlphaValue, red, green, blue);
     }
 }
