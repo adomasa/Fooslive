@@ -9,7 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.TextureView;
 
 public class SurfaceManager implements TextureView.SurfaceTextureListener {
-    private static String TAG = SurfaceManager.class.toString();
+    private static String TAG = "SurfaceManager";
     // TODO
     /* private GameActivity mActivity */
     private SurfaceHolder mSurfaceHolder;

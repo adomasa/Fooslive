@@ -5,17 +5,19 @@ import android.graphics.RectF;
 import android.support.annotation.NonNull;
 
 import com.unixonly.fooslive.constants.Team;
-import com.unixonly.fooslive.util.MeasurementUtils;
-import com.unixonly.fooslive.util.UnitUtils;
 
 import java.util.Iterator;
 import java.util.Queue;
+
+import static com.unixonly.fooslive.util.UnitUtils.calculateSpeed;
+import static com.unixonly.fooslive.util.UnitUtils.metersToCentimeters;
 
 /**
  * Contains the data related to a particular goal, which
  * occurred during the game
  */
 public class Goal {
+
     // TODO: Set value from app.config
     public static double sRealTableWidth;
     // TODO: Set value from app.config
@@ -41,8 +43,7 @@ public class Goal {
      * @param team
      * Which team scored
      */
-    public Goal(@NonNull Queue<PointF> points, @NonNull RectF tablePoints,
-                @Team.Type int team) {
+    public Goal(@NonNull Queue<PointF> points, @NonNull RectF tablePoints, @Team.Type int team) {
         mPoints = new PointF[points.size()];
         mSpeeds = new double[points.size()];
         mMaxSpeed = 0;
@@ -54,8 +55,8 @@ public class Goal {
         double mulX = sRealTableWidth / (tablePoints.right - tablePoints.left);
         double mulY = sRealTableHeight / (tablePoints.bottom - tablePoints.top);
 
-        mulX *= UnitUtils.metersToCentimeters(1);
-        mulY *= UnitUtils.metersToCentimeters(1);
+        mulX *= metersToCentimeters(1);
+        mulY *= metersToCentimeters(1);
 
         calculateSpeeds(mulX, mulY);
     }
@@ -71,6 +72,7 @@ public class Goal {
         PointF lastPoint = null;
         int lostFrameCount = 0;
         int i = 0;
+
         for (PointF point : mPoints) {
             if (lastPoint == null) {
                 lastPoint = point;
@@ -83,13 +85,11 @@ public class Goal {
                 continue;
             }
 
-            mSpeeds[i] = MeasurementUtils.calculateSpeed(point, lastPoint, mulX, mulY);
-            mSpeeds[i] /= lostFrameCount + 1.0f;
+            mSpeeds[i] = calculateSpeed(point, lastPoint, mulX, mulY) / (lostFrameCount + 1.0f);
 
             if (mMaxSpeed < mSpeeds[i]) mMaxSpeed = mSpeeds[i];
 
             i++;
-
             lastPoint = point;
             lostFrameCount = 0;
         }

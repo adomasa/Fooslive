@@ -3,7 +3,6 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.constants.Goal;
 import com.unixonly.fooslive.constants.Team;
 
 import java.util.LinkedList;
@@ -20,10 +19,11 @@ public class PositionChecker {
     private RectF mTeam2Zone;
     private RectF mTeam1Zone;
 
+    //TODO delete redundant mGoalOccured member
     private boolean mGoalOccured;
     private long mTimestampStart;
 
-    private Queue<com.unixonly.fooslive.gamecontrol.Goal> mGoals;
+    private Queue<Goal> mGoals;
 
     private boolean mBallInTeam2Zone = false;
     private boolean mBallInTeam1Zone = false;
@@ -33,8 +33,7 @@ public class PositionChecker {
         mGoals = new LinkedList<>();
     }
 
-    public void onNewFrame(PointF lastBallCoordinates,
-                           GameController gameController) {
+    public void onNewFrame(PointF lastBallCoordinates, GameController gameController) {
         // Check if this particular point signals that the ball is lost
         if (lastBallCoordinates == null) {
             if (mFramesLost == sGoalFramesToCountGoal) {
@@ -42,47 +41,34 @@ public class PositionChecker {
                 // TODO: Investigate if everything is ok here
                 assignGoal(gameController);
             }
-            else
-                mFramesLost++;
+            else mFramesLost++;
         }
-        else
-            mGoalOccured = false;
+        else mGoalOccured = false;
 
         // It isn't, so reset the counter
         mFramesLost = 0;
 
         // Check if the ball is in either of the zones
-        mBallInTeam2Zone = mTeam2Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
         mBallInTeam1Zone = mTeam1Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
+        mBallInTeam2Zone = mTeam2Zone.contains(lastBallCoordinates.x, lastBallCoordinates.y);
     }
 
     private void assignGoal(GameController gameController) {
-        if (!mBallInTeam1Zone) return;
-        if (!mBallInTeam2Zone) return;
+        if (!mBallInTeam1Zone || !mBallInTeam2Zone) return;
 
-        com.unixonly.fooslive.gamecontrol.Goal toSetGoal = null;
+        com.unixonly.fooslive.gamecontrol.Goal toSetGoal;
         RectF toSetZone = new RectF(mTeam2Zone.left,
                                     mTeam2Zone.top,
                                     mTeam1Zone.right,
                                     mTeam1Zone.bottom);
 
-        if (mBallInTeam2Zone) {
-            // Fire the goal event for the second team
-            gameController.setTeam2Score(gameController.getTeam2Score() + 1);
-            gameController.goalListener.onGoal(Goal.TEAM_2_GOAL);
 
-            toSetGoal = new com.unixonly.fooslive.gamecontrol.Goal(gameController.getBallCoordinates(),
-                                    toSetZone,
-                                    Team.TEAM_2);
-        } else {
-            // Fire the goal event for the first team
-            gameController.setTeam1Score(gameController.getTeam1Score() + 1);
-            gameController.goalListener.onGoal(Goal.TEAM_1_GOAL);
+        @Team.Type int goalTeam = (mBallInTeam1Zone) ? Team.TEAM_1 : Team.TEAM_2;
 
-            toSetGoal = new com.unixonly.fooslive.gamecontrol.Goal(gameController.getBallCoordinates(),
-                                    toSetZone,
-                                    Team.TEAM_1);
-        }
+        gameController.incrementScore(goalTeam);
+        gameController.goalListener.onGoal(goalTeam);
+        toSetGoal = new Goal(gameController.getBallCoordinates(), toSetZone, goalTeam);
+
 
         mGoals.add(toSetGoal);
 

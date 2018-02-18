@@ -15,6 +15,7 @@ public class TextEffects {
     // TODO: Set value from app.config
     private static int mSlidingTextDelay;
 
+    //TODO: this member is never used. Redundant variable.
     private boolean mTextThreadStarted;
 
     private final Activity mActivity;
@@ -22,12 +23,9 @@ public class TextEffects {
     private final int mMaxLength;
 
     /**
-     * @param activity
-     * The activity, which is used to access the UI thread
-     * @param textEventSlider
-     * The textView, on which to display the animation
-     * @param maxLength
-     * The max length of the text view ( in characters )
+     * @param activity the activity, which is used to access the UI thread
+     * @param textEventSlider the textView, on which to display the animation
+     * @param maxLength the max length of the text view (in characters)
      */
     public TextEffects(Activity activity, TextView textEventSlider, int maxLength) {
         mActivity = activity;
@@ -41,8 +39,7 @@ public class TextEffects {
      * The text, which will be animated
      */
     public synchronized void slideText(final String text) {
-        String temp = text;
-        final StringBuilder tempView = new StringBuilder(temp.length());
+        final StringBuilder tempView = new StringBuilder(text.length());
 
         for (int i = 0; i < mMaxLength; i++) {
             tempView.append(' ');
@@ -56,8 +53,9 @@ public class TextEffects {
         });
 
         for (int i = 0; i < tempView.length() * 3; i++) {
-            tempView.delete(0,1);
-            tempView.append(i < temp.length() ? temp.charAt(i) : ' ');
+            tempView.deleteCharAt(0);
+
+            tempView.append(i < text.length() ? text.charAt(i) : ' ');
 
             mActivity.runOnUiThread(new Runnable() {
                 @Override

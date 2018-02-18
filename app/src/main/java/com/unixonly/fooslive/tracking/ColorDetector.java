@@ -17,7 +17,7 @@ import org.opencv.imgproc.Imgproc;
  * from a given image
  */
 public class ColorDetector {
-    public static String TAG = ColorDetector.class.toString();
+    public static String TAG = "ColorDetector";
 
     // TODO: Set value from app.config
     private static int sDefaultThreshold;
@@ -77,14 +77,10 @@ public class ColorDetector {
 
     /**
      * Detects a ball from a given image
-     * @param hsv
-     * The hsv values of the ball, which is to be detected
-     * @param rect
-     * Defines the rectangle of the blob
-     * @param blobBox
-     * Defines the area in which the algorithm searches for the ball
-     * @return
-     * True if a ball is found. False otherwise
+     * @param hsv the hsv values of the ball, which is to be detected
+     * @param rect defines the rectangle of the blob
+     * @param blobBox defines the area in which the algorithm searches for the ball
+     * @return true if a ball is found. False otherwise
      */
     public boolean detectBall(Scalar hsv, Rect rect, Rect blobBox) {
         // Convert RGB to HSV
@@ -116,39 +112,43 @@ public class ColorDetector {
             return false;
         }
 
+        KeyPoint biggestBlob = getBiggestBlob(blobs.toArray());
+
+
+        updateBox(biggestBlob);
+
+        if (biggestBlob == null) {
+            mFramesLost++;
+            return false;
+        }
+
+        rect.left = (int)(biggestBlob.pt.x - (biggestBlob.size / 2));
+        rect.top = (int)(biggestBlob.pt.y - (biggestBlob.size / 2));
+        rect.right = (int)(biggestBlob.pt.x + (biggestBlob.size / 2));
+        rect.bottom = (int)(biggestBlob.pt.y - (biggestBlob.size / 2));
+
+        return true;
+    }
+
+    private KeyPoint getBiggestBlob(KeyPoint[] blobs) {
         KeyPoint biggestBlob = null;
-        for (KeyPoint blob : blobs.toArray()) {
-            if (blob.size < mMinAllowed) continue;
-            if (blob.size > mMaxAllowed) continue;
-            if (!(mBox.contains((float)blob.pt.x, (float)blob.pt.y))) continue;
-            else {
-                if (mMinAllowed == 0) mMinAllowed = (int)blob.size;
-                else
-                    if (mMinAllowed > blob.size) mMinAllowed = (int)blob.size - mMinAddition;
+        for (KeyPoint blob : blobs) {
+            if (blob.size < mMinAllowed || blob.size > mMaxAllowed ||
+                    !(mBox.contains((float)blob.pt.x, (float)blob.pt.y))) continue;
 
-                if (mMaxAllowed < blob.size) mMaxAllowed = (int)blob.size + mMaxAddition;
+            if (mMinAllowed == 0) mMinAllowed = (int)blob.size;
+                else if (mMinAllowed > blob.size) mMinAllowed = (int)blob.size - mMinAddition;
 
-                mLastSize = (int)blob.size;
-            }
+            if (mMaxAllowed < blob.size) mMaxAllowed = (int)blob.size + mMaxAddition;
+
+            mLastSize = (int)blob.size;
 
             biggestBlob = blob;
             mFramesLost = 0;
             mLastBlob = new PointF((float)blob.pt.x, (float)blob.pt.y);
             break;
         }
-
-        updateBox(biggestBlob);
-
-        if (biggestBlob != null) {
-            rect.left = (int)biggestBlob.pt.x - (int)(biggestBlob.size / 2);
-            rect.top = (int)biggestBlob.pt.y - (int)(biggestBlob.size / 2);
-            rect.right = (int)biggestBlob.pt.x + (int)(biggestBlob.size / 2);
-            rect.bottom = (int)biggestBlob.pt.y - (int)(biggestBlob.size / 2);
-            return true;
-        }
-
-        mFramesLost++;
-        return false;
+        return biggestBlob;
     }
 
     private Scalar calculateBound(Scalar hsv, int boundIndicator) {
@@ -169,14 +169,15 @@ public class ColorDetector {
         if (toAddX < 0) toAddX *= -1;
         if (toAddY < 0) toAddY *= -1;
 
-        float addX, addY;
+        float addX = toAddX * mMulDeltaX;
+        float addY = toAddY * mMulDeltaY;
 
         if (blob.size > mMinBlobSize) {
-            addX = blob.size * mMulDeltaWidth + toAddX * mMulDeltaX;
-            addY = blob.size * mMulDeltaHeight + toAddY * mMulDeltaY;
+            addX += blob.size * mMulDeltaWidth;
+            addY += blob.size * mMulDeltaHeight;
         } else {
-            addX = mMinWidth + toAddX * mMulDeltaX;
-            addY = mMinHeight + toAddY * mMulDeltaY;
+            addX += mMinWidth;
+            addY += mMinHeight;
         }
 
         addX /= 2;

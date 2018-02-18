@@ -31,9 +31,7 @@ public class ObjectDetector {
     // TODO: Set value from app.config
     private static int mTraceToAdd;
 
-    public ObjectDetector(PointF multipliers,
-                          ColorDetector detector,
-                          GameController controller) {
+    public ObjectDetector(PointF multipliers, ColorDetector detector, GameController controller) {
         mMulX = multipliers.x;
         mMulY = multipliers.y;
         mDetector = detector;
@@ -43,9 +41,7 @@ public class ObjectDetector {
     public void setColor(Scalar hsv) {
         mPaintBall = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintBall.setColor(Color.HSVToColor(
-                new float[] {
-                        (float)hsv.val[0] * 2,
-                        (float)hsv.val[1] / 255,
+                new float[] {(float)hsv.val[0] * 2f, (float)hsv.val[1] / 255,
                         (float)hsv.val[2] / 255
                 }
         ));
@@ -53,6 +49,7 @@ public class ObjectDetector {
         mPaintBall.setStrokeWidth(mTraceStrokeWidth);
     }
 
+    //TODO add javadoc
     public boolean detect(Canvas canvas, Scalar hsv, Bitmap bitmap) {
         if (canvas == null || hsv == null || bitmap == null) return false;
 
@@ -72,8 +69,7 @@ public class ObjectDetector {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
         if (ballDetected) {
-            mGameController.setLastBallCoordinates(new PointF(blob.centerX(),
-                                                                blob.centerY()));
+            mGameController.setLastBallCoordinates(new PointF(blob.centerX(), blob.centerY()));
         } else mGameController.setLastBallCoordinates(null);
 
         drawBallTrace(canvas);
@@ -83,39 +79,28 @@ public class ObjectDetector {
 
     private void drawBallTrace(Canvas canvas) {
         Path path = new Path();
-        PointF[] points = (PointF[])mGameController.getBallCoordinates().toArray();
+        PointF[] points = (PointF[]) mGameController.getBallCoordinates().toArray();
         // TODO: Move this variable to a config file
         int toPaint = 10;
         boolean startSet = false;
-        for (int i = points.length - 1; i > 0; i--) {
-            if (points[i] == null) {
-                toPaint--;
 
-                if (toPaint == 0) break;
-
-                continue;
-            }
+        for (int i = points.length - 1; i > 0 && toPaint != 0; i--, toPaint--) {
+            if (points[i] == null) continue;
 
             if (startSet) {
                 movePath(path, points, i);
-
                 mPaintBall.setAlpha(mTraceMaxAlpha * (toPaint / mTraceDivisor) + mTraceToAdd);
                 canvas.drawPath(path, mPaintBall);
             } else {
                 path.moveTo(points[i].x, points[i].y);
                 startSet = true;
             }
-
-            toPaint--;
-
-            if (toPaint == 0) break;
         }
     }
 
     private void movePath(Path path, PointF[] points, int i) {
         if (i < points.length - 1 && points[i+1] != null) {
-            path.quadTo(points[i].x, points[i].y,
-                    points[i+1].x, points[i+1].y);
+            path.quadTo(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
         } else path.lineTo(points[i].x, points[i].y);
     }
 }

@@ -19,12 +19,9 @@ public class HeatmapDrawer {
 
     /**
      * Draws the heatmap, using the data collected during the game
-     * @param canvas
-     * The canvas, on which the heatmap is drawn
-     * @param zones
-     * The object, which holds the data collected during the game
-     * @return
-     * A drawn canvas
+     * @param canvas canvas, on which the heatmap is drawn
+     * @param zones the object, which holds the data collected during the game
+     * @return drawn canvas
      */
     public static Canvas drawZones(Canvas canvas, ZoneInfo zones) {
         Size sizeOfBitmap = new Size(canvas.getWidth(), canvas.getHeight());
@@ -81,13 +78,10 @@ public class HeatmapDrawer {
 
     /**
      * Calculates a color using for a given value against a max value
-     * @param value
-     * The integer which we'll calculate the color for
-     * @param maxValue
-     * This integer is checked against the value. A value near this value represents a hotspot
-     * @param colours
-     * The predefined colorspace used for heatmap generation
-     * @return
+     * @param value value for color calculus
+     * @param maxValue represents a hotspot. maxValue is checked against the value
+     * @param colours the predefined colorspace used for heatmap generation
+     * @return argb color value
      */
     private static int calculateColor(int value, int maxValue, int[] colours) {
         double percentage = value / (double)(maxValue + 1);
@@ -100,7 +94,7 @@ public class HeatmapDrawer {
         double colorBlock = percentage / colorPercentage;
         int which = (int)Math.floor(colorBlock);
         double residue = percentage - which * colorPercentage;
-        double percOfColor = residue / colorPercentage;
+        double percentageOfColor = residue / colorPercentage;
 
         int target = colours[which];
         int next = colours[which + 1];
@@ -109,9 +103,9 @@ public class HeatmapDrawer {
         int greenDelta = Color.green(next) - Color.green(target);
         int blueDelta = Color.blue(next) - Color.blue(target);
 
-        int red = Color.red(target) + (int)(redDelta * percOfColor);
-        int green = Color.green(target) + (int)(greenDelta * percOfColor);
-        int blue = Color.blue(target) + (int)(blueDelta * percOfColor);
+        int red = Color.red(target) + (int)(redDelta * percentageOfColor);
+        int green = Color.green(target) + (int)(greenDelta * percentageOfColor);
+        int blue = Color.blue(target) + (int)(blueDelta * percentageOfColor);
 
         return Color.argb(mMaxAlphaValue, red, green, blue);
     }

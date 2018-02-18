@@ -5,11 +5,7 @@ import android.graphics.RectF;
 
 public class ZoneInfo {
     // TODO: Move these values to app.config
-    private static int[] sZoneMultipliers = new int[] {
-            8,
-            4,
-            2
-    };
+    private static int[] sZoneMultipliers = new int[] {8, 4, 2};
 
     private int[][] mValues;
     private int mHeight;
@@ -30,6 +26,7 @@ public class ZoneInfo {
         mTopLeftY = tableInfo.top;
     }
 
+    //TODO: add javadoc
     public void assignValue(PointF point) {
         if (point == null) return;
 
@@ -39,14 +36,12 @@ public class ZoneInfo {
         int posX = (int) (x / mZoneWidth);
         int posY = (int) (y / mZoneHeight);
 
-        if (!(posX < mWidth && posY < mHeight)) return;
-        if (!(posX >= 0 && posY >= 0)) return;
+        if (!(posX < mWidth && posY < mHeight) || !(posX >= 0 && posY >= 0)) return;
 
         mValues[posY][posX] += 8;
 
-        /**
-         * We currently assign values to 26 points surrounding
-         *  the position to make the heatmap prettier
+        /* We currently assign values to 26 points surrounding
+         * the position to make the heatmap prettier
          */
         for (int i = -2; i < 3; i++) {
             for (int j = -2; j < 3; j++) {
@@ -55,26 +50,19 @@ public class ZoneInfo {
         }
 }
 
+    //TODO: rename i and j arguments to make more sense
     private void addToZone(int posX, int posY, int i, int j) {
-        if (posX + i > mWidth) return;
-        if (posX + i < 0) return;
-        if (posY + j > mHeight) return;
-        if (posY + j < 0) return;
+        if (posX + i > mWidth || posX + i < 0 || posY + j > mHeight || posY + j < 0) return;
 
-        // Defines the outermost points from the center
-        if ((i == -2 || i == 2) && (j == -2 || j == 2)) {
-            mValues[posY + j][posX + i] += sZoneMultipliers[2];
-            return;
+        // |i| and |j| == 2 defines the outermost points from the center
+        // |i| and |j| == 1 defines the points, which surround the center point
+        // |i| and |j| == 0 defines the center point
+        for (int k = 2; k >= 0; k--) {
+            if (Math.abs(i) == k && Math.abs(j) == k) {
+                mValues[posY + j][posX + i] += sZoneMultipliers[k];
+                return;
+            }
         }
-
-        // Defines the points, which surround the center point
-        if ((i == -1 || i == 1) && (j == -1 || j == 1)) {
-            mValues[posY + j][posX + i] += sZoneMultipliers[1];
-            return;
-        }
-
-        // Defines the center point
-        mValues[posY + j][posX + i] += sZoneMultipliers[0];
     }
 
     public int[][] getValues() {

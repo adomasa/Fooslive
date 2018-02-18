@@ -31,12 +31,9 @@ public class TableTemplateDrawer {
 
     /**
      * Draws the alignment figure using the parameters given
-     * @param canvas
-     * The canvas, on which the alignment figure is drawn
-     * @param controller
-     * The GameController, which is given the coordinates of the table
-     * @return
-     * Canvas, which holds the drawn alignment figure
+     * @param canvas the canvas, on which the alignment figure is drawn
+     * @param controller the GameController, which is given the coordinates of the table
+     * @return canvas, which holds the drawn alignment figure
      */
     public static Canvas DrawZones(Canvas canvas, GameController controller) {
         Paint paint = new Paint();
@@ -50,8 +47,7 @@ public class TableTemplateDrawer {
         int canvasHeight = canvas.getHeight();
 
         for (int i = 0; i < multipliers.length; i++) {
-            contourCoordinates[i] = new PointF(
-                    canvasWidth * multipliers[i].x,
+            contourCoordinates[i] = new PointF(canvasWidth * multipliers[i].x,
                     canvasHeight * multipliers[i].y);
         }
 
@@ -59,25 +55,18 @@ public class TableTemplateDrawer {
 
         canvas.drawPath(contour, paint);
 
-        /*
-         * Set the tables:
-         * top left coordinates
-         * top right coordinates
-         * bottom left coordinates
-         * bottom right coordinates
-         */
         controller.setTable(new PointF[]{
-                contourCoordinates[2],
-                contourCoordinates[4],
-                contourCoordinates[8],
-                contourCoordinates[7]
+                contourCoordinates[2], // top left coordinates
+                contourCoordinates[4], // top right coordinates
+                contourCoordinates[8], // bottom left coordinates
+                contourCoordinates[7] // bottom right coordinates
         });
 
         return canvas;
     }
 
     private static void setUpPaintStyle(Paint paint) {
-        paint.setColor(Color.rgb(255, 255, 255));
+        paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(sAlignZonesStrokeWidth);
 

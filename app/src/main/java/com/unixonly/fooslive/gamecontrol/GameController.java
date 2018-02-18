@@ -2,9 +2,10 @@ package com.unixonly.fooslive.gamecontrol;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.support.annotation.Nullable;
 
+import com.unixonly.fooslive.constants.Team;
 import com.unixonly.fooslive.interfaces.OnGoalEventListener;
-import com.unixonly.fooslive.util.MeasurementUtils;
 import com.unixonly.fooslive.util.UnitUtils;
 
 import java.util.LinkedList;
@@ -38,10 +39,10 @@ public class GameController {
 
     private PositionChecker mPositionChecker;
 
+    //TODO: this member is never assigned to some kind of value. It will cause errors.
     private PointF[] mLastBallCoordinates;
     private Queue<PointF> mBallCoordinates;
 
-    private double mCurrentSpeed;
     private double mAverageSpeed;
     private long mAverageSpeedCount;
     private double mMaxSpeed;
@@ -51,13 +52,16 @@ public class GameController {
         mPositionChecker = new PositionChecker();
     }
 
+    //TODO: add javadoc
     public void setTable(PointF[] points) {
         if (points.length != TABLE_CORNER_COUNT) return;
 
         RectF team1Zone = new RectF(points[0].x,
-                mPositionChecker.getTeam2Zone().bottom + (1.0f - sPercentageOfSide * 2) * (points[2].y - points[0].y),
+                mPositionChecker.getTeam2Zone().bottom +
+                        (1.0f - sPercentageOfSide * 2) * (points[2].y - points[0].y),
                 points[3].x,
                 points[3].y);
+
         RectF team2Zone = new RectF(points[0].x,
                 points[0].y,
                 points[1].x,
@@ -67,14 +71,17 @@ public class GameController {
         mPositionChecker.setTeam1Zone(team1Zone);
         mPositionChecker.setTeam2Zone(team2Zone);
 
-        mMulX = UnitUtils.metersToCentimeters(1) * ( sRealTableWidth / (team1Zone.right - team1Zone.left) );
-        mMulY = UnitUtils.metersToCentimeters(1) * ( sRealTableHeight / (team1Zone.bottom - team2Zone.top) );
+        mMulX = UnitUtils.metersToCentimeters(1) *
+                (sRealTableWidth / (team1Zone.right - team1Zone.left));
+        mMulY = UnitUtils.metersToCentimeters(1) *
+                (sRealTableHeight / (team1Zone.bottom - team2Zone.top));
 
         RectF table = new RectF(
                 mPositionChecker.getTeam2Zone().left,
                 mPositionChecker.getTeam2Zone().top,
                 mPositionChecker.getTeam1Zone().right,
                 mPositionChecker.getTeam1Zone().bottom);
+
         mHeatmapZones = new ZoneInfo(
                 table,
                 sHeatMapZoneWidth,
@@ -85,7 +92,7 @@ public class GameController {
         return mLastBallCoordinates[0];
     }
 
-    public void setLastBallCoordinates(PointF point) {
+    public void setLastBallCoordinates(@Nullable PointF point) {
         if (mBallCoordinates.size() == sMaximumBallCoordinateNumber) mBallCoordinates.remove();
 
         mLastBallCoordinates[1] = mLastBallCoordinates[0];
@@ -97,18 +104,18 @@ public class GameController {
 
         mPositionChecker.onNewFrame(point, this);
 
-        mCurrentSpeed = MeasurementUtils.calculateSpeed(mLastBallCoordinates[0],
-                                                        mLastBallCoordinates[1],
-                                                        mMulX,
-                                                        mMulY);
+        double currentSpeed = UnitUtils.calculateSpeed(mLastBallCoordinates[0],
+                mLastBallCoordinates[1],
+                mMulX,
+                mMulY);
 
         if (point != null) {
-            mAverageSpeed = ((mAverageSpeed * mAverageSpeedCount)
-                    + mCurrentSpeed) / (mAverageSpeedCount + 1);
+            mAverageSpeed = ((mAverageSpeed * mAverageSpeedCount) + currentSpeed)
+                    / (mAverageSpeedCount);
             mAverageSpeedCount++;
         }
 
-        if (mMaxSpeed < mCurrentSpeed) mMaxSpeed = mCurrentSpeed;
+        if (mMaxSpeed < currentSpeed) mMaxSpeed = currentSpeed;
     }
 
     public ZoneInfo getZones() {
@@ -137,6 +144,15 @@ public class GameController {
 
     public int getTeam2Score() {
         return mTeam2Score;
+    }
+
+    /**
+     * Add score by 1 for team defined in the argument
+     * @param team team identifier
+     */
+    public void incrementScore(@Team.Type int team) {
+        if (team == Team.TEAM_1) mTeam1Score++;
+        else mTeam2Score++;
     }
 
     public void setOnGoalEventListener(OnGoalEventListener listener) {
