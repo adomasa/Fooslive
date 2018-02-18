@@ -24,14 +24,14 @@ public class TextEffects {
     /**
      * @param activity
      * The activity, which is used to access the UI thread
-     * @param textView
+     * @param textEventSlider
      * The textView, on which to display the animation
      * @param maxLength
      * The max length of the text view ( in characters )
      */
-    public TextEffects(Activity activity, TextView textView, int maxLength) {
+    public TextEffects(Activity activity, TextView textEventSlider, int maxLength) {
         mActivity = activity;
-        mTextEventSlider = textView;
+        mTextEventSlider = textEventSlider;
         mMaxLength = maxLength;
     }
 

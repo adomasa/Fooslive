@@ -95,8 +95,7 @@ public class GameController {
 
         mBallCoordinates.add(point);
 
-        mPositionChecker.onNewFrame(point,
-                                    this);
+        mPositionChecker.onNewFrame(point, this);
 
         mCurrentSpeed = MeasurementUtils.calculateSpeed(mLastBallCoordinates[0],
                                                         mLastBallCoordinates[1],

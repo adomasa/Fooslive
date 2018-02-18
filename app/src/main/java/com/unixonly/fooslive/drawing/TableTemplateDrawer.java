@@ -52,7 +52,7 @@ public class TableTemplateDrawer {
         for (int i = 0; i < multipliers.length; i++) {
             contourCoordinates[i] = new PointF(
                     canvasWidth * multipliers[i].x,
-                    canvasHeight *multipliers[i].y);
+                    canvasHeight * multipliers[i].y);
         }
 
         moveContour(contour, contourCoordinates);
