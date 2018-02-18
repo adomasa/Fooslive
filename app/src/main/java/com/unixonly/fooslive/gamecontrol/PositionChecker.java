@@ -5,7 +5,6 @@ import android.graphics.RectF;
 
 import com.unixonly.fooslive.constants.GoalEventType;
 import com.unixonly.fooslive.constants.TeamType;
-import com.unixonly.fooslive.util.UnitUtils;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -70,7 +69,7 @@ public class PositionChecker {
         if (mBallInTeam2Zone) {
             // Fire the goal event for the second team
             gameController.setTeam2Score(gameController.getTeam2Score() + 1);
-            gameController.fireGoalEvent(GoalEventType.TEAM_2_GOAL);
+            gameController.goalListener.onGoal(GoalEventType.TEAM_2_GOAL);
 
             toSetGoal = new Goal(gameController.getBallCoordinates(),
                                     toSetZone,
@@ -78,7 +77,7 @@ public class PositionChecker {
         } else {
             // Fire the goal event for the first team
             gameController.setTeam1Score(gameController.getTeam1Score() + 1);
-            gameController.fireGoalEvent(GoalEventType.TEAM_1_GOAL);
+            gameController.goalListener.onGoal(GoalEventType.TEAM_1_GOAL);
 
             toSetGoal = new Goal(gameController.getBallCoordinates(),
                                     toSetZone,

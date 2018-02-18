@@ -3,7 +3,6 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.constants.GoalEventType;
 import com.unixonly.fooslive.interfaces.OnGoalEventListener;
 import com.unixonly.fooslive.util.MeasurementUtils;
 import com.unixonly.fooslive.util.UnitUtils;
@@ -27,7 +26,7 @@ public class GameController {
     // TODO: Set value from app.config
     private static float sPercentageOfSide;
 
-    private OnGoalEventListener mListener;
+    OnGoalEventListener goalListener;
 
     private ZoneInfo mZones;
 
@@ -113,10 +112,6 @@ public class GameController {
         if (mMaxSpeed < mCurrentSpeed) mMaxSpeed = mCurrentSpeed;
     }
 
-    void fireGoalEvent(@GoalEventType.GoalType int eventType) {
-        mListener.onGoal(eventType);
-    }
-
     public ZoneInfo getZones() {
         return mZones;
     }
@@ -146,6 +141,6 @@ public class GameController {
     }
 
     public void setOnGoalEventListener(OnGoalEventListener listener) {
-        mListener = listener;
+        goalListener = listener;
     }
 }
