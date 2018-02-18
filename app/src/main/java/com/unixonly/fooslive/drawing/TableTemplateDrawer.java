@@ -17,18 +17,17 @@ import com.unixonly.fooslive.gamecontrol.GameController;
 public class TableTemplateDrawer {
     private static final int sAlignZonesStrokeWidth = 4;
 
-    private static final float sBottomLeftX = 0.25f;
-    private static final float sBottomRightX = 0.75f;
-    private static final float sBottomY = 0.9209f;
-    private static final float sUpperBottomLeftX = 0.03f;
-    private static final float sUpperBottomRightX = 0.97f;
-    private static final float sUpperBottomY = 0.8023f;
-    private static final float sLowerTopLeftX = 0.20f;
-    private static final float sLowerTopRightX = 0.80f;
-    private static final float sLowerTopY = 0.35f;
-    private static final float sTopLeftX = 0.42f;
-    private static final float sTopRightX = 0.58f;
-    private static final float sTopY = 0.2994f;
+    private static final PointF[] multipliers = new PointF[] {
+            new PointF(0.25f, 0.9209f),
+            new PointF(0.03f, 0.8023f),
+            new PointF(0.20f, 0.35f),
+            new PointF(0.42f, 0.2994f),
+            new PointF(0.58f, 0.2994f),
+            new PointF(0.80f, 0.35f),
+            new PointF(0.97f, 0.8023f),
+            new PointF(0.75f, 0.9209f),
+            new PointF(0.25f, 0.9209f)
+    };
 
     /**
      * Draws the alignment figure using the parameters given
@@ -45,15 +44,33 @@ public class TableTemplateDrawer {
 
         setUpPaintStyle(paint);
 
-        moveContour(contour);
+        // Calculate coordinates fot the contour
+        PointF[] contourCoordinates = new PointF[multipliers.length];
+        int canvasWidth = canvas.getWidth();
+        int canvasHeight = canvas.getHeight();
+
+        for (int i = 0; i < multipliers.length; i++) {
+            contourCoordinates[i] = new PointF(
+                    canvasWidth * multipliers[i].x,
+                    canvasHeight *multipliers[i].y);
+        }
+
+        moveContour(contour, contourCoordinates);
 
         canvas.drawPath(contour, paint);
 
+        /*
+         * Set the tables:
+         * top left coordinates
+         * top right coordinates
+         * bottom left coordinates
+         * bottom right coordinates
+         */
         controller.setTable(new PointF[]{
-                new PointF(sLowerTopLeftX, sTopY),
-                new PointF(sLowerTopRightX, sTopY),
-                new PointF(sBottomLeftX, sBottomY),
-                new PointF(sBottomRightX, sBottomY)
+                contourCoordinates[2],
+                contourCoordinates[4],
+                contourCoordinates[8],
+                contourCoordinates[7]
         });
 
         return canvas;
@@ -63,18 +80,16 @@ public class TableTemplateDrawer {
         paint.setColor(Color.rgb(255, 255, 255));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(sAlignZonesStrokeWidth);
-        paint.setPathEffect(new DashPathEffect(new float[]{ 30, 20 }, 0));
+
+        // Set up a path effect for our paint
+        float[] effectPattern = new float[]{ 30, 20 };
+        DashPathEffect paintEffect = new DashPathEffect(effectPattern, 0);
+        paint.setPathEffect(paintEffect);
     }
 
-    private static void moveContour(Path contour) {
-        contour.moveTo(sBottomLeftX, sBottomY);
-        contour.moveTo(sUpperBottomLeftX, sUpperBottomY);
-        contour.moveTo(sLowerTopLeftX, sLowerTopY);
-        contour.moveTo(sTopLeftX, sTopY);
-        contour.moveTo(sTopRightX, sTopY);
-        contour.moveTo(sLowerTopRightX, sLowerTopY);
-        contour.moveTo(sUpperBottomRightX, sUpperBottomY);
-        contour.moveTo(sBottomRightX, sBottomY);
-        contour.moveTo(sBottomLeftX, sBottomY);
+    private static void moveContour(Path contour, PointF[] coordinates) {
+        for (PointF point : coordinates) {
+            contour.moveTo(point.x, point.y);
+        }
     }
 }
