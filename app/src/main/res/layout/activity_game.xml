@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <TextureView
+            android:id="@+id/texture_camera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <SurfaceView
+            android:id="@+id/surface_ball_trace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/layout_ui"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/layout_status_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:background="@drawable/shape_status_label"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/status_padding"
+                android:paddingTop="@dimen/status_padding">
+
+                <TextView
+                    android:id="@+id/text_team1_label"
+                    android:text="@string/label_team1"
+                    android:layout_alignBottom="@id/text_score"
+                    android:layout_alignParentStart="true"
+                    android:textAlignment="textStart"
+                    android:layout_alignTop="@+id/text_score"
+                    style="@style/FoosballTheme.InGameTeamLabel"/>
+
+                <TextView
+                    android:id="@+id/text_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="@color/text_status"
+                    android:textSize="@dimen/score_size"
+                    tools:text="0 : 0"/>
+
+                <TextView
+                    android:id="@+id/text_team2_label"
+                    android:layout_alignBottom="@+id/text_score"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/text_score"
+                    android:text="@string/label_team2"
+                    android:textAlignment="textEnd"
+                    style="@style/FoosballTheme.InGameTeamLabel"/>
+
+                <ImageView
+                    android:id="@+id/image_ball_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/text_team1_label"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_speed_white_24dp"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_ball_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_team1_label"
+                    android:layout_toEndOf="@+id/image_ball_speed"
+                    android:paddingTop="3dp"
+                    android:text="@integer/value_default_speed"
+                    android:textColor="@color/text_status" />
+
+                <TextView
+                    android:id="@+id/text_speed_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_team1_label"
+                    android:layout_toEndOf="@+id/text_ball_speed"
+                    android:paddingTop="3dp"
+                    android:text="@string/units_speed"
+                    android:textColor="@color/text_status"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_event_slider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_team2_label"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="11dp"
+                    android:maxLength="@integer/max_chars_slider"
+                    android:paddingTop="4dp"
+                    android:textColor="@color/text_status"
+                    tools:text="Team 1 goal!" />
+
+                <ImageView
+                    android:id="@+id/image_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_team2_label"
+                    android:layout_marginEnd="3dp"
+                    android:layout_toStartOf="@+id/timer"
+                    android:src="@drawable/ic_timer_white_18dp"
+                    tools:ignore="ContentDescription" />
+
+                <Chronometer
+                    android:id="@+id/timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/text_score"
+                    android:gravity="end"
+                    android:layout_marginEnd="8dp"
+                    android:paddingTop="3dp"
+                    android:textColor="@color/text_status" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/image_arrow_top"
+                android:src="@drawable/ic_arrow_up_24dp"
+                android:layout_gravity="top|center_horizontal"
+                style="@style/FoosballTheme.ArrowImage"
+                tools:ignore="ContentDescription"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/image_arrow_left"
+                android:src="@drawable/ic_arrow_up_24dp"
+                android:layout_gravity="center|start"
+                android:rotation="-90"
+                style="@style/FoosballTheme.ArrowImage"
+                tools:ignore="ContentDescription"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/image_arrow_right"
+                android:layout_gravity="center|end"
+                android:rotation="90"
+                android:src="@drawable/ic_arrow_up_24dp"
+                style="@style/FoosballTheme.ArrowImage"
+                tools:ignore="ContentDescription"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/image_arrow_bot"
+                android:src="@drawable/ic_arrow_up_24dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:rotation="180"
+                style="@style/FoosballTheme.ArrowImage"
+                tools:ignore="ContentDescription"
+                tools:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/layout_controls_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/buttons_distance"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_add_score_team1"
+                    style="@style/FoosballTheme.ScoreButton"
+                    android:layout_above="@+id/button_remove_score_team1"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/action_add_point" />
+
+                <Button
+                    android:id="@+id/button_remove_score_team1"
+                    style="@style/FoosballTheme.ScoreButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/action_remove_point" />
+
+                <Button
+                    android:id="@+id/button_game_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/selector_game_button"
+                    android:maxLength="25"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/action_select_ball_color"
+                    android:textColor="@color/text_button_game" />
+
+                <Button
+                    android:id="@+id/button_add_score_team2"
+                    style="@style/FoosballTheme.ScoreButton"
+                    android:layout_above="@+id/button_remove_score_team2"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/action_add_point" />
+
+                <Button
+                    android:id="@+id/button_remove_score_team2"
+                    style="@style/FoosballTheme.ScoreButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/action_remove_point" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </FrameLayout>
+</layout>

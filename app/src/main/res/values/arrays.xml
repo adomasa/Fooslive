@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_sounds_values">
+        <item>@string/sound_mario_end</item>
+        <item>@string/sound_mario_coin</item>
+        <item>@string/sound_crowd</item>
+        <item>@string/sound_minimal</item>
+    </string-array>
+
+    <array name="pref_sounds_titles">
+        <item>@string/sound_title_mario_end</item>
+        <item>@string/sound_title_mario_coin</item>
+        <item>@string/sound_title_crowd</item>
+        <item>@string/sound_title_minimal</item>
+    </array>
+</resources>

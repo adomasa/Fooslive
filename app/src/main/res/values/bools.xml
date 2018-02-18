@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <bool name="pref_default_sync">true</bool>
+    <bool name="pref_default_sounds">true</bool>
+    <bool name="pref_default_auto_login">true</bool>
+    <bool name="pref_default_vibration">true</bool>
+</resources>

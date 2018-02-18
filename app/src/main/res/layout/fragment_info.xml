@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp">
+
+    <ImageView
+        android:id="@+id/image_app_logo"
+        android:contentDescription="@string/app_logo_description"
+        android:layout_marginTop="15dp"
+        style="@style/FoosballTheme.BigLogo" />
+
+    <TextView
+        android:id="@+id/text_app_version"
+        android:text="@string/label_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:typeface="normal"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
+
+    <TextView
+        android:id="@+id/text_app_credits"
+        android:text="@string/app_credits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/info_margin"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/text_app_description"
+        android:text="@string/app_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+</LinearLayout>

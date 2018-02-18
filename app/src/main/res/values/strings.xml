@@ -1,3 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Fooslive</string>
+    <string name="app_description">This app allows for tracking and assigning points for a given
+        foosball match. Currently, the app tracks the ball using color, so the ball must stand out
+        of it\'s environment.</string>
+    <string name="app_credits">Developed by Gargdžų Banga and Unix-only teams</string>
+    <string name="app_logo_description">Application\'s logo which depicts table football
+        player</string>
+    <string name="action_start">Start</string>
+    <string name="action_save">Save</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_logout">Logout</string>
+
+    <string name="label_version">Version</string>
+    <string name="label_team1">Team 1</string>
+    <string name="label_team2">Team 2</string>
+    <!--Menu-->
+    <string name="title_menu">Main menu</string>
+    <string name="title_menu_modes">Choose mode</string>
+    <string name="title_game_live">Live</string>
+    <string name="title_game_record">From file</string>
+    <string name="title_history">History</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_info">Info</string>
+    <!--History-->
+    <string name="error_loading_history">Oops! Something went wrong :(</string>
+    <string name="error_history_empty">No records found. Record some games!</string>
+    <!--Game-->
+    <string name="action_start_game">Start game</string>
+    <string name="action_end_game">End game</string>
+    <string name="msg_goal">%s scored!</string>
+    <string name="action_select_ball_color">Select the ball\'s color</string>
+    <string name="action_add_point" translatable="false">+</string>
+    <string name="action_remove_point" translatable="false">-</string>
+    <string name="value_timer_default" translatable="false">00:00</string>
+    <string name="units_speed" translatable="false">cm/s</string>
+    <string name="format_timer" translatable="false">MM:SS</string>
+    <string name="format_score_end_game" translatable="false">%0$3d:%1$3d</string>
+    <string name="format_score_in_game" translatable="false">%0$2d:%1$2d</string>
+    <string name="format_speed" translatable="false">%.2f</string>
+    <!--End game-->
+    <string name="label_duration">Duration</string>
+    <string name="label_table_activity_zones">Table activity zones</string>
+    <string name="label_avg_ball_speed">AVG ball speed</string>
+    <string name="label_max_ball_speed">MAX ball speed</string>
+    <string name="label_fastest_goal">Fastest goal</string>
+    <!--Camera request-->
+    <string name="title_camera_request_explanation">Camera access request</string>
+    <string name="msg_camera_request_explanation">Camera access is required to record and analyse
+        live game.</string>
+    <string name="error_camera_access_missing">The application does not have access to record live
+        game.</string>
+    <string name="error_unknown">Something went wrong.</string>
+    <!--SharedPref-->
+    <string name="pref_title_sound_goal_team1">Team 1 goal sound</string>
+    <string name="pref_key_sound_goal_team1" translatable="false">team1_goal_sound</string>
+    <string name="pref_default_sound_goal_team1" translatable="false">@string/sound_mario_coin</string>
+
+    <string name="pref_title_sound_win_team1">Team 1 win sound</string>
+    <string name="pref_key_sound_win_team1" translatable="false">team1_win_sound</string>
+    <string name="pref_default_sound_win_team1" translatable="false">@string/sound_crowd</string>
+
+    <string name="pref_title_sound_goal_team2">Team 2 goal sound</string>
+    <string name="pref_key_sound_goal_team2" translatable="false">team2_goal_sound</string>
+    <string name="pref_default_sound_goal_team2" translatable="false">@string/sound_mario_coin</string>
+
+    <string name="pref_title_sound_win_team2">Team 2 win sound</string>
+    <string name="pref_key_sound_win_team2" translatable="false">team2_win_sound</string>
+    <string name="pref_default_sound_win_team2" translatable="false">@string/sound_crowd</string>
+
+    <string name="pref_title_sounds">Sounds</string>
+    <string name="pref_key_sounds" translatable="false">sounds_enabled</string>
+    <string name="pref_description_sounds">In-game events feedback</string>
+
+    <string name="pref_title_sync">Sync data</string>
+    <string name="pref_key_sync" translatable="false">sync_enabled</string>
+    <string name="pref_description_sync">Sync game results with clouds automatically</string>
+
+    <string name="pref_title_vibration">Vibration</string>
+    <string name="pref_key_vibration" translatable="false">vibration_enabled</string>
+    <string name="pref_description_vibration">Use vibration in game to alert about improper phone
+        point of view</string>
+
+    <string name="pref_title_name_team1">Team 1 title</string>
+    <string name="pref_key_name_team1" translatable="false">team1_name</string>
+    <string name="pref_default_name_team1" translatable="false">@string/label_team1</string>
+
+    <string name="pref_title_name_team2">Team 2 title</string>
+    <string name="pref_key_name_team2" translatable="false">team2_name</string>
+    <string name="pref_default_name_team2" translatable="false">@string/label_team2</string>
+
+    <string name="sound_title_mario_end">Mario end</string>
+    <string name="sound_mario_end" translatable="false">mario_end</string>
+    <string name="sound_title_mario_coin">Mario coin</string>
+    <string name="sound_mario_coin" translatable="false">mario_coin</string>
+    <string name="sound_title_crowd">Crowd</string>
+    <string name="sound_crowd" translatable="false">crowd</string>
+    <string name="sound_title_minimal">Minimal space</string>
+    <string name="sound_minimal" translatable="false">minimal</string>
+    <string name="sound_silent_title">No sound</string>
+
+    <!--Login-->
+    <string name="google_oauth_client_id" translatable="false" />
+    <string name="google_user_data_key" translatable="false" />
+    <string name="google_id_key" translatable="false" />
+    <string name="google_id_name" translatable="false" />
+
+    <string name="error_bad_format">Bad format</string>
+    <string name="pref_description_name_team1">&#160;(team on the left)</string>
+    <string name="pref_description_name_team2">&#160;(team on the right)</string>
+    <string name="description_heat_map">This image represents ball\'s activity zones on the
+        table</string>
+
+    <string name="argument_title">bar_title</string>
+    <string name="argument_fragment_tag">fragment_tag</string>
+    <string name="argument_fragment_save_state">argument_save_state</string>
+
 </resources>
