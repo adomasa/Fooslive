@@ -107,7 +107,7 @@ public class ExtraRingtonePreference extends DialogPreference {
     @Override
     public CharSequence getSummary() {
         if (mValue == null) return super.getSummary();
-        // Check whether value has silend mode indication(empty string)
+        // Check whether value has silent mode indication(empty string)
         if (mValue.isEmpty()) return mContext.getString(R.string.sound_silent_title);
 
         Uri valueUri = Uri.parse(mValue);
@@ -152,9 +152,7 @@ public class ExtraRingtonePreference extends DialogPreference {
         if (mShowDefault) {
             Uri uriDefault = RingtoneManager.getDefaultUri(mRingtoneType);
             Ringtone ringtoneDefault = RingtoneManager.getRingtone(mContext, uriDefault);
-            if (ringtoneDefault != null) {
-                sounds.put(ringtoneDefault.getTitle(mContext), uriDefault);
-            }
+            if (ringtoneDefault != null) sounds.put(ringtoneDefault.getTitle(mContext), uriDefault);
         }
 
         // Collect system-wide ringtones

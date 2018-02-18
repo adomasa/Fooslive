@@ -23,8 +23,7 @@ public class SettingsFragment extends PreferenceFragment implements
     private OnFragmentInteractionListener mListener;
 
     /**
-     * <p><b> Fooslive: Setup layout, set listeners and custom summaries</b></p>
-     * {@inheritDoc}
+     * Setup layout, set listeners and custom summaries
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,8 +68,7 @@ public class SettingsFragment extends PreferenceFragment implements
     }
 
     /**
-     * <p><b> Fooslive: Update summary for specific preference</b></p>
-     * {@inheritDoc}
+     * Update summary for specific preference
      */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -88,8 +86,7 @@ public class SettingsFragment extends PreferenceFragment implements
     }
 
     /**
-     * <p><b> Fooslive: Check if team name input is valid to save</b></p>
-     * {@inheritDoc}
+     * Fooslive: Check if team name input is valid to save
      */
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
