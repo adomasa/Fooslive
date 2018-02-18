@@ -65,8 +65,8 @@ public class CameraHandler {
     }
 
     /**
-     * Starts a camera preview session and starts a stream of frames
-     *  to the given TextureView instance
+     * Start a camera preview session and starts a stream of frames
+     * to the given TextureView instance
      */
     public void start() {
         CameraManager manager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
@@ -154,11 +154,7 @@ public class CameraHandler {
     };
 
     private CameraCaptureSession.CaptureCallback mCaptureCallback
-            = new CameraCaptureSession.CaptureCallback() {
-        //TODO: remove redundant code segment
-        private void process(CaptureResult result) {
-        }
-    };
+            = new CameraCaptureSession.CaptureCallback() {};
 
     private void chooseCamera(CameraManager manager) {
         String[] cameraIds;
@@ -202,7 +198,7 @@ public class CameraHandler {
     }
 
     /**
-     * Chooses a camera size, which is closest to our preview size
+     * Choose a camera size, which is closest to our preview size
      * @param sizes
      * A Size array, containing all possible camera sizes
      * @return
