@@ -34,19 +34,16 @@ import java.util.concurrent.Semaphore;
 
 public class CameraHandler {
     private static final String TAG = "CameraHandler";
-    private static final int STATE_PREVIEW = 0;
 
     private static final String ERROR_CAMERA_ACCESS = "Error occurred while accessing the camera! ";
     private static final String LOG_HALT_ACTIVITY = "Terminating activity. ";
 
-    private int mDisplayWidth;
-    private int mDisplayHeight;
+    private int mPreviewWidth;
+    private int mPreviewHeight;
 
     private CameraDevice mCamera;
     private ImageReader mImageReader;
     private Context mContext;
-
-    private int mCurrentState = STATE_PREVIEW;
 
     private CaptureRequest.Builder mPreviewRequestBuilder;
     private CaptureRequest mPreviewRequest;
@@ -58,16 +55,19 @@ public class CameraHandler {
     public CameraHandler(Context context, TextureView texture) {
         mContext = context;
         mDrawingTexture = texture;
-        mDisplayWidth = PropertiesManager.getInt(context.getResources()
+        mPreviewWidth = PropertiesManager.getInt(context.getResources()
                 .getString(R.string.key_width_preview));
-        mDisplayHeight = PropertiesManager.getInt(context.getResources()
+        mPreviewHeight = PropertiesManager.getInt(context.getResources()
                 .getString(R.string.key_height_preview));
         mOpenCloseCameraLock = new Semaphore(1);
-        mImageReader = ImageReader.newInstance(mDisplayWidth, mDisplayHeight, ImageFormat.JPEG,
+        mImageReader = ImageReader.newInstance(mPreviewWidth, mPreviewHeight, ImageFormat.JPEG,
                 1);
     }
 
-    //TODO javadoc for start() method
+    /**
+     * Starts a camera preview session and starts a stream of frames
+     *  to the given TextureView instance
+     */
     public void start() {
         CameraManager manager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
         chooseCamera(manager);
@@ -105,7 +105,7 @@ public class CameraHandler {
         private void createCameraPreviewSession() {
             try {
                 SurfaceTexture texture = mDrawingTexture.getSurfaceTexture();
-                texture.setDefaultBufferSize(mDisplayWidth, mDisplayHeight);
+                texture.setDefaultBufferSize(mPreviewWidth, mPreviewHeight);
 
                 Surface surface = new Surface(texture);
 
@@ -157,12 +157,6 @@ public class CameraHandler {
             = new CameraCaptureSession.CaptureCallback() {
         //TODO: remove redundant code segment
         private void process(CaptureResult result) {
-            switch (mCurrentState) {
-                case STATE_PREVIEW: {
-                    // We have nothing to do when the mCamera preview is working normally.
-                    break;
-                }
-            }
         }
     };
 
@@ -182,6 +176,12 @@ public class CameraHandler {
                         characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
 
                 Size[] sizes = map.getOutputSizes(SurfaceTexture.class);
+                Size optimalSize = chooseOptimalSize(sizes);
+
+                mDrawingTexture.getSurfaceTexture().setDefaultBufferSize(
+                        optimalSize.getWidth(),
+                        optimalSize.getHeight()
+                );
 
                 // Permissions are checked before creating GameActivity, this condition should
                 // never be true
@@ -199,5 +199,33 @@ public class CameraHandler {
             Log.e(TAG, ERROR_CAMERA_ACCESS + LOG_HALT_ACTIVITY, e);
             ((GameActivity)mContext).finish();
         }
+    }
+
+    /**
+     * Chooses a camera size, which is closest to our preview size
+     * @param sizes
+     * A Size array, containing all possible camera sizes
+     * @return
+     * A class of type Size, which is closest to the preview resolution
+     */
+    private Size chooseOptimalSize(Size[] sizes) {
+        int diffWidth = Math.abs(mPreviewWidth - sizes[0].getWidth());
+        int diffHeight = Math.abs(mPreviewHeight - sizes[0].getHeight());
+        int initialDiff = diffWidth + diffHeight;
+        int which = 0;
+
+        for (int i = 1; i < sizes.length; i++) {
+            int resultWidth = Math.abs(mPreviewWidth - sizes[i].getWidth());
+            int resultHeight = Math.abs(mPreviewHeight - sizes[i].getHeight());
+
+            int result = resultWidth + resultHeight;
+
+            if (result < initialDiff) {
+                which = i;
+                initialDiff = result;
+            }
+        }
+
+        return sizes[which];
     }
 }
