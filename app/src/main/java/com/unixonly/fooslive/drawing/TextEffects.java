@@ -18,7 +18,7 @@ public class TextEffects {
     private boolean mTextThreadStarted;
 
     private final Activity mActivity;
-    private final TextView mEventSliderView;
+    private final TextView mTextEventSlider;
     private final int mMaxLength;
 
     /**
@@ -31,7 +31,7 @@ public class TextEffects {
      */
     public TextEffects(Activity activity, TextView textView, int maxLength) {
         mActivity = activity;
-        mEventSliderView = textView;
+        mTextEventSlider = textView;
         mMaxLength = maxLength;
     }
 
@@ -51,7 +51,7 @@ public class TextEffects {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mEventSliderView.setText(tempView.toString());
+                mTextEventSlider.setText(tempView.toString());
             }
         });
 
@@ -62,12 +62,12 @@ public class TextEffects {
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mEventSliderView.setText(tempView.toString());
+                    mTextEventSlider.setText(tempView.toString());
                 }
             });
 
             try {
-                this.wait(mSlidingTextDelay);
+                wait(mSlidingTextDelay);
             } catch (InterruptedException e) {
                 Log.d(TAG, e.toString());
                 return;
