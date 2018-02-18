@@ -5,10 +5,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 /**
- * Created by paulius on 2/4/18.
- */
-
-/**
  * This class is responsible for displaying various
  * text effects. For now, a sliding text animation is
  * implemented

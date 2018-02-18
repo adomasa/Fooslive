@@ -15,10 +15,6 @@ import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
-/**
- * Created by paulius on 1/28/18.
- */
-
 public class ObjectDetector {
     private ColorDetector mDetector;
     private GameController mGameController;

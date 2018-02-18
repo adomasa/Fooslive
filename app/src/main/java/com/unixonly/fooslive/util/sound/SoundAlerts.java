@@ -4,10 +4,6 @@ import android.content.Context;
 
 import com.unixonly.fooslive.constants.AlertType;
 
-/**
- * Created by paulius on 2/6/18.
- */
-
 public class SoundAlerts {
     private Context mContext;
 

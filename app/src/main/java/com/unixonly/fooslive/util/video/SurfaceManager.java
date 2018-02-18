@@ -8,10 +8,6 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.TextureView;
 
-/**
- * Created by paulius on 2/6/18.
- */
-
 public class SurfaceManager implements TextureView.SurfaceTextureListener {
     private static String TAG = SurfaceManager.class.toString();
     // TODO

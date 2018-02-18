@@ -10,10 +10,6 @@ import android.util.Size;
 import com.unixonly.fooslive.gamecontrol.ZoneInfo;
 
 /**
- * Created by paulius on 2/4/18.
- */
-
-/**
  * This class is responsible for drawing an informational
  * heatmap using the data collected during the game
  */

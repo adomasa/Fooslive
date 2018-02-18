@@ -5,10 +5,6 @@ import android.media.MediaPlayer;
 
 import java.io.IOException;
 
-/**
- * Created by paulius on 2/6/18.
- */
-
 class SoundPlayer {
     private MediaPlayer mPlayer;
 

@@ -11,10 +11,6 @@ import com.unixonly.fooslive.util.UnitUtils;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Created by paulius on 2/4/18.
- */
-
 public class GameController {
     // TODO: Set value from app.config
     public static double sRealTableWidth;

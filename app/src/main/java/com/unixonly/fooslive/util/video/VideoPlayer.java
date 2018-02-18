@@ -6,10 +6,6 @@ import android.media.MediaPlayer;
 
 import java.io.IOException;
 
-/**
- * Created by paulius on 2/6/18.
- */
-
 public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedListener ,
         MediaPlayer.OnCompletionListener {
     private boolean mDisposed;

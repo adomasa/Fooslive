@@ -2,10 +2,6 @@ package com.unixonly.fooslive.util;
 
 import android.graphics.PointF;
 
-/**
- * Created by paulius on 2/16/18.
- */
-
 public class MeasurementUtils {
     /**
      * Calculates the difference between two points

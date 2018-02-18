@@ -2,10 +2,6 @@ package com.unixonly.fooslive.constants;
 
 import android.support.annotation.IntDef;
 
-/**
- * Created by paulius on 2/6/18.
- */
-
 public final class AlertType {
     public static final int TEAM_1_GOAL = 0;
     public static final int TEAM_1_WIN = 1;

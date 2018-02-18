@@ -10,10 +10,6 @@ import android.graphics.PointF;
 import com.unixonly.fooslive.gamecontrol.GameController;
 
 /**
- * Created by paulius on 1/31/18.
- */
-
-/**
  * This class is responsible for drawing the rough form
  * of the foosball table, so that alignment is easier for
  * the end user

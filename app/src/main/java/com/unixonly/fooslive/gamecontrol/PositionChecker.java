@@ -10,10 +10,6 @@ import com.unixonly.fooslive.util.UnitUtils;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Created by paulius on 2/4/18.
- */
-
 public class PositionChecker {
     // TODO: Set value from app.config
     private static float sRealTableWidth;

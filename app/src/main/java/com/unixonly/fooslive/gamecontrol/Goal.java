@@ -11,10 +11,6 @@ import java.util.Iterator;
 import java.util.Queue;
 
 /**
- * Created by paulius on 2/4/18.
- */
-
-/**
  * Contains the data related to a particular goal, which
  * occurred during the game
  */

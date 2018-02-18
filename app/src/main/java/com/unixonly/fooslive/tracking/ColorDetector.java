@@ -12,10 +12,6 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 /**
- * Created by paulius on 1/27/18.
- */
-
-/**
  * This class is responsible for detecting a foosball ball
  * from a given image
  */

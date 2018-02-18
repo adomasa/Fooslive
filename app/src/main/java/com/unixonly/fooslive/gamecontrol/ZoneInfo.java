@@ -3,10 +3,6 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-/**
- * Created by paulius on 2/4/18.
- */
-
 public class ZoneInfo {
     // TODO: Move these values to app.config
     private static int mToAddZone1 = 8;
