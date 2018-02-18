@@ -34,13 +34,11 @@ import java.util.concurrent.Semaphore;
 
 public class CameraHandler {
     private static final String TAG = "CameraHandler";
-    //TODO: remove redundant constant
     private static final int STATE_PREVIEW = 0;
 
     private static final String ERROR_CAMERA_ACCESS = "Error occurred while accessing the camera! ";
     private static final String LOG_HALT_ACTIVITY = "Terminating activity. ";
-    //TODO: rename variables or add documentation. In configuration file we have "preview" and
-    // "real" prefixes instead of display
+
     private int mDisplayWidth;
     private int mDisplayHeight;
 
@@ -48,7 +46,6 @@ public class CameraHandler {
     private ImageReader mImageReader;
     private Context mContext;
 
-    //TODO: remove redundant variable
     private int mCurrentState = STATE_PREVIEW;
 
     private CaptureRequest.Builder mPreviewRequestBuilder;
@@ -70,7 +67,7 @@ public class CameraHandler {
                 1);
     }
 
-    //TODO: javadoc for start() method
+    //TODO javadoc for start() method
     public void start() {
         CameraManager manager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
         chooseCamera(manager);
@@ -160,7 +157,6 @@ public class CameraHandler {
             = new CameraCaptureSession.CaptureCallback() {
         //TODO: remove redundant code segment
         private void process(CaptureResult result) {
-            //TODO: remove redundant code segment
             switch (mCurrentState) {
                 case STATE_PREVIEW: {
                     // We have nothing to do when the mCamera preview is working normally.
@@ -184,7 +180,7 @@ public class CameraHandler {
 
                 StreamConfigurationMap map =
                         characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
-                // TODO: remove redundant array
+
                 Size[] sizes = map.getOutputSizes(SurfaceTexture.class);
 
                 // Permissions are checked before creating GameActivity, this condition should
