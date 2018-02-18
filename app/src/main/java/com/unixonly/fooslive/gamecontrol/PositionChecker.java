@@ -43,7 +43,7 @@ public class PositionChecker {
                 assignGoal(gameController);
             }
             else
-                mFramesLost ++;
+                mFramesLost++;
         }
         else
             mGoalOccured = false;

@@ -5,9 +5,11 @@ import android.graphics.RectF;
 
 public class ZoneInfo {
     // TODO: Move these values to app.config
-    private static int mToAddZone1 = 8;
-    private static int mToAddZone2 = 4;
-    private static int mToAddZone3 = 2;
+    private static int[] sZoneMultipliers = new int[] {
+            8,
+            4,
+            2
+    };
 
     private int[][] mValues;
     private int mHeight;
@@ -61,18 +63,18 @@ public class ZoneInfo {
 
         // Defines the outermost points from the center
         if ((i == -2 || i == 2) && (j == -2 || j == 2)) {
-            mValues[posY + j][posX + i] += mToAddZone3;
+            mValues[posY + j][posX + i] += sZoneMultipliers[2];
             return;
         }
 
         // Defines the points, which surround the center point
         if ((i == -1 || i == 1) && (j == -1 || j == 1)) {
-            mValues[posY + j][posX + i] += mToAddZone2;
+            mValues[posY + j][posX + i] += sZoneMultipliers[1];
             return;
         }
 
         // Defines the center point
-        mValues[posY + j][posX + i] += mToAddZone1;
+        mValues[posY + j][posX + i] += sZoneMultipliers[0];
     }
 
     public int[][] getValues() {
