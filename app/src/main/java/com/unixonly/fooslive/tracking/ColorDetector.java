@@ -9,6 +9,7 @@ import org.opencv.core.KeyPoint;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.Scalar;
+import org.opencv.features2d.FeatureDetector;
 import org.opencv.imgproc.Imgproc;
 
 /**
@@ -63,7 +64,7 @@ public class ColorDetector {
     public Mat image;
     public int Threshold;
 
-    private BlobDetector mDetector;
+    private FeatureDetector mDetector;
 
     private int mMinAllowed;
     private int mMaxAllowed;
@@ -71,7 +72,7 @@ public class ColorDetector {
     public ColorDetector() {
         Threshold = sDefaultThreshold;
         mBox = new RectF();
-        mDetector = new BlobDetector();
+        mDetector = FeatureDetector.create(FeatureDetector.DYNAMIC_SIMPLEBLOB);
     }
 
     /**
@@ -97,7 +98,7 @@ public class ColorDetector {
         Core.inRange(image, lowerLimit, upperLimit, image);
 
         MatOfKeyPoint blobs = new MatOfKeyPoint();
-        mDetector.getBlobs(image, blobs);
+        mDetector.detect(image, blobs);
 
         if ( mFramesLost > mFramesLostToNewBoundingBox || !mBoxSet) {
             mBox = new RectF(((float)image.size().width- mBoxWidth) / 2,
