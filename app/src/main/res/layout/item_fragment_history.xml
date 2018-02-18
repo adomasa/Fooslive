@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="#80000000"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/text_history_team1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:gravity="start"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Gargždas" />
+
+        <TextView
+            android:id="@+id/text_history_score"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_history_team2"
+            app:layout_constraintStart_toEndOf="@+id/text_history_team1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0 : 0" />
+
+
+        <ImageView
+            android:id="@+id/image_history_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="2dp"
+            android:src="@drawable/ic_timer_white_18dp"
+            app:layout_constraintEnd_toStartOf="@+id/text_history_duration"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_history_date"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_history_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_history_timer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/image_history_timer"
+            app:layout_constraintTop_toTopOf="@+id/image_history_timer"
+            tools:text="00:00" />
+
+        <ImageView
+            android:id="@+id/image_history_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="4dp"
+            android:src="@drawable/ic_calendar_white_16dp"
+            app:layout_constraintEnd_toStartOf="@+id/text_history_date"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_history_score"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_history_date"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_marginStart="8dp"
+            android:drawableEnd="@+id/image_history_date"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_history_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/image_history_date"
+            app:layout_constraintTop_toTopOf="@+id/image_history_date"
+            tools:text="2017-10-12" />
+
+        <TextView
+            android:id="@+id/text_history_team2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/text_history_team1"
+            android:layout_alignBottom="@+id/text_history_team1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="end"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_history_team1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_history_team1"
+            tools:text="Banga" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
