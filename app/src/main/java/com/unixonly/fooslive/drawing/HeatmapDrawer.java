@@ -91,6 +91,11 @@ public class HeatmapDrawer {
      */
     private static int calculateColor(int value, int maxValue, int[] colours) {
         double percentage = value / (double)(maxValue + 1);
+        /*
+         * Defines the zone a specific color occupies in a heatmap
+         * For example, a heatmap colorspace consisting of 4 different colors.
+         * Each color occupies 25 % of each individual range
+         */
         double colorPercentage = 1d / (colours.length - 1);
         double colorBlock = percentage / colorPercentage;
         int which = (int)Math.floor(colorBlock);
