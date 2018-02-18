@@ -101,7 +101,7 @@ public class ColorDetector {
         mDetector.detect(image, blobs);
 
         if ( mFramesLost > mFramesLostToNewBoundingBox || !mBoxSet) {
-            mBox = new RectF(((float)image.size().width- mBoxWidth) / 2,
+            mBox = new RectF(((float)image.size().width - mBoxWidth) / 2,
                     ((float)image.size().height - mBoxHeight) / 2,
                     ((float)image.size().width + mBoxWidth) / 2,
                     ((float)image.size().height + mBoxHeight) / 2);
@@ -145,10 +145,10 @@ public class ColorDetector {
             rect.right = (int)biggestBlob.pt.x + (int)(biggestBlob.size / 2);
             rect.bottom = (int)biggestBlob.pt.y - (int)(biggestBlob.size / 2);
             return true;
-        } else {
-            mFramesLost ++;
-            return false;
         }
+
+        mFramesLost++;
+        return false;
     }
 
     private Scalar calculateBound(Scalar hsv, int boundIndicator) {

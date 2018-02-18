@@ -31,12 +31,11 @@ public class ObjectDetector {
     // TODO: Set value from app.config
     private static int mTraceToAdd;
 
-    public ObjectDetector(float mulX,
-                          float mulY,
+    public ObjectDetector(PointF multipliers,
                           ColorDetector detector,
                           GameController controller) {
-        mMulX = mulX;
-        mMulY = mulY;
+        mMulX = multipliers.x;
+        mMulY = multipliers.y;
         mDetector = detector;
         mGameController = controller;
     }
@@ -90,7 +89,7 @@ public class ObjectDetector {
         boolean startSet = false;
         for (int i = points.length - 1; i > 0; i--) {
             if (points[i] == null) {
-                toPaint --;
+                toPaint--;
 
                 if (toPaint == 0) break;
 

@@ -19,7 +19,7 @@ public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedLi
             setDataSource(context, mActivity.getIntent().getData());
             // TODO: Assign a surface to VideoPlayer
             /* super.setSurface(mActivity.SurfaceManager.Surface); */;
-            super.prepare();
+            prepare();
         } catch (IOException e) {
             // TODO: Rework this exception handling
             e.printStackTrace();
