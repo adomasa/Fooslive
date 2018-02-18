@@ -2,6 +2,7 @@ package com.unixonly.fooslive.gamecontrol;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.support.annotation.NonNull;
 
 import com.unixonly.fooslive.constants.TeamType;
 import com.unixonly.fooslive.util.MeasurementUtils;
@@ -39,7 +40,7 @@ public class Goal {
      * @param team
      * Which team scored
      */
-    public Goal(Queue<PointF> points, RectF tablePoints,
+    public Goal(@NonNull Queue<PointF> points, @NonNull RectF tablePoints,
                 @TeamType.Team int team) {
         mPoints = new PointF[points.size()];
         mSpeeds = new double[points.size()];
@@ -47,7 +48,7 @@ public class Goal {
 
         int i = 0;
         Iterator<PointF> iterator = points.iterator();
-        for (;iterator.hasNext();i ++) mPoints[i] = iterator.next();
+        for (; iterator.hasNext(); i++) mPoints[i] = iterator.next();
 
         double mulX = sRealTableWidth / (tablePoints.right - tablePoints.left);
         double mulY = sRealTableHeight / (tablePoints.bottom - tablePoints.top);
