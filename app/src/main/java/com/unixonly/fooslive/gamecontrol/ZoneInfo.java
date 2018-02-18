@@ -27,6 +27,11 @@ public class ZoneInfo {
     }
 
     //TODO: add javadoc
+
+    /**
+     * Assigns a value to a given point for the heatmap
+     * @param point the center point
+     */
     public void assignValue(PointF point) {
         if (point == null) return;
 
@@ -48,18 +53,17 @@ public class ZoneInfo {
                 addToZone(posX, posY, i, j);
             }
         }
-}
+    }
 
-    //TODO: rename i and j arguments to make more sense
-    private void addToZone(int posX, int posY, int i, int j) {
-        if (posX + i > mWidth || posX + i < 0 || posY + j > mHeight || posY + j < 0) return;
+    private void addToZone(int posX, int posY, int indexWidth, int indexHeight) {
+        if (posX + indexWidth > mWidth || posX + indexWidth < 0 || posY + indexHeight > mHeight || posY + indexHeight < 0) return;
 
-        // |i| and |j| == 2 defines the outermost points from the center
-        // |i| and |j| == 1 defines the points, which surround the center point
-        // |i| and |j| == 0 defines the center point
+        // |indexWidth| and |indexHeight| == 2 defines the outermost points from the center
+        // |indexWidth| and |indexHeight| == 1 defines the points, which surround the center point
+        // |indexWidth| and |indexHeight| == 0 defines the center point
         for (int k = 2; k >= 0; k--) {
-            if (Math.abs(i) == k && Math.abs(j) == k) {
-                mValues[posY + j][posX + i] += sZoneMultipliers[k];
+            if (Math.abs(indexWidth) == k && Math.abs(indexHeight) == k) {
+                mValues[posY + indexHeight][posX + indexWidth] += sZoneMultipliers[k];
                 return;
             }
         }

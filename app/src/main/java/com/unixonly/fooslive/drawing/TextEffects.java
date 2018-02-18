@@ -15,9 +15,6 @@ public class TextEffects {
     // TODO: Set value from app.config
     private static int mSlidingTextDelay;
 
-    //TODO: this member is never used. Redundant variable.
-    private boolean mTextThreadStarted;
-
     private final Activity mActivity;
     private final TextView mTextEventSlider;
     private final int mMaxLength;
@@ -35,8 +32,7 @@ public class TextEffects {
 
     /**
      * Displays the sliding text animation on the TextView given
-     * @param text
-     * The text, which will be animated
+     * @param text The text, which will be animated
      */
     public synchronized void slideText(final String text) {
         final StringBuilder tempView = new StringBuilder(text.length());

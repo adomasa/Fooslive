@@ -50,6 +50,14 @@ public class ObjectDetector {
     }
 
     //TODO add javadoc
+
+    /**
+     * Detects the ball using an HSV value and paints it's trace to a given canvas
+     * @param canvas The canvas, on which the trace is drawn
+     * @param hsv The HSV value of the ball
+     * @param bitmap The alpha bitmap, used to clear the canvas
+     * @return True if a ball was detected. False otherwise
+     */
     public boolean detect(Canvas canvas, Scalar hsv, Bitmap bitmap) {
         if (canvas == null || hsv == null || bitmap == null) return false;
 

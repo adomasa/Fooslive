@@ -39,7 +39,6 @@ public class GameController {
 
     private PositionChecker mPositionChecker;
 
-    //TODO: this member is never assigned to some kind of value. It will cause errors.
     private PointF[] mLastBallCoordinates;
     private Queue<PointF> mBallCoordinates;
 
@@ -50,6 +49,7 @@ public class GameController {
     public GameController() {
         mBallCoordinates = new LinkedList<>();
         mPositionChecker = new PositionChecker();
+        mLastBallCoordinates = new PointF[2];
     }
 
     //TODO: add javadoc

@@ -15,8 +15,8 @@ public class UnitUtils {
      * Calculates the difference between two points
      * @param one the coordinates of the first point
      * @param two the coordinates of the second point
-     * @param mulX multiply x values by this integer. If there's no need, set it to 1
-     * @param mulY multiply y values by this integer. If there's no need, set it to 1
+     * @param mulX multiply x values by this number. If there's no need, set it to 1
+     * @param mulY multiply y values by this number. If there's no need, set it to 1
      * @return the difference between the points
      */
     public static double calculateSpeed(PointF one, PointF two, double mulX, double mulY) {
