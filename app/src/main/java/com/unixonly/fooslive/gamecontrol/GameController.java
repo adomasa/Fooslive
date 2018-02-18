@@ -28,7 +28,7 @@ public class GameController {
 
     OnGoalEventListener goalListener;
 
-    private ZoneInfo mZones;
+    private ZoneInfo mHeatmapZones;
 
     private double mMulX;
     private double mMulY;
@@ -75,7 +75,7 @@ public class GameController {
                 mPositionChecker.getTeam2Zone().top,
                 mPositionChecker.getTeam1Zone().right,
                 mPositionChecker.getTeam1Zone().bottom);
-        mZones = new ZoneInfo(
+        mHeatmapZones = new ZoneInfo(
                 table,
                 sHeatMapZoneWidth,
                 sHeatMapZoneHeight);
@@ -91,7 +91,7 @@ public class GameController {
         mLastBallCoordinates[1] = mLastBallCoordinates[0];
         mLastBallCoordinates[0] = point;
 
-        mZones.assignValue(point);
+        mHeatmapZones.assignValue(point);
 
         mBallCoordinates.add(point);
 
@@ -113,7 +113,7 @@ public class GameController {
     }
 
     public ZoneInfo getZones() {
-        return mZones;
+        return mHeatmapZones;
     }
 
     public Queue<PointF> getBallCoordinates() {
