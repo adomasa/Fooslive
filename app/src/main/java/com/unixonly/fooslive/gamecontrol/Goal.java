@@ -4,7 +4,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
 
-import com.unixonly.fooslive.constants.TeamType;
+import com.unixonly.fooslive.constants.Team;
 import com.unixonly.fooslive.util.MeasurementUtils;
 import com.unixonly.fooslive.util.UnitUtils;
 
@@ -27,7 +27,8 @@ public class Goal {
     private double mMaxSpeed;
 
     // Which team scored: true if blue, false otherwise
-    private @TeamType.Team int mTeamColor;
+    private @Team.Type
+    int mTeamColor;
 
     private long mDuration;
 
@@ -41,7 +42,7 @@ public class Goal {
      * Which team scored
      */
     public Goal(@NonNull Queue<PointF> points, @NonNull RectF tablePoints,
-                @TeamType.Team int team) {
+                @Team.Type int team) {
         mPoints = new PointF[points.size()];
         mSpeeds = new double[points.size()];
         mMaxSpeed = 0;

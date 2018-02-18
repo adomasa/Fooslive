@@ -2,7 +2,7 @@ package com.unixonly.fooslive.util.sound;
 
 import android.content.Context;
 
-import com.unixonly.fooslive.constants.AlertType;
+import com.unixonly.fooslive.constants.Alert;
 
 public class SoundAlerts {
     private Context mContext;
@@ -17,21 +17,21 @@ public class SoundAlerts {
         mContext = context;
     }
 
-    public void play(@AlertType.Type int alertType) {
+    public void play(@Alert.Type int alertType) {
         switch (alertType) {
-            case AlertType.TEAM_1_GOAL: {
+            case Alert.TEAM_1_GOAL: {
                 mTeam1GoalPlayer.play();
                 break;
             }
-            case AlertType.TEAM_1_WIN: {
+            case Alert.TEAM_1_WIN: {
                 mTeam1WinPlayer.play();
                 break;
             }
-            case AlertType.TEAM_2_GOAL: {
+            case Alert.TEAM_2_GOAL: {
                 mTeam2GoalPlayer.play();
                 break;
             }
-            case AlertType.TEAM_2_WIN: {
+            case Alert.TEAM_2_WIN: {
                 mTeam2WinPlayer.play();
                 break;
             }

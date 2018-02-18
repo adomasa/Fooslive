@@ -3,8 +3,8 @@ package com.unixonly.fooslive.gamecontrol;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.constants.GoalEventType;
-import com.unixonly.fooslive.constants.TeamType;
+import com.unixonly.fooslive.constants.Goal;
+import com.unixonly.fooslive.constants.Team;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -23,7 +23,7 @@ public class PositionChecker {
     private boolean mGoalOccured;
     private long mTimestampStart;
 
-    private Queue<Goal> mGoals;
+    private Queue<com.unixonly.fooslive.gamecontrol.Goal> mGoals;
 
     private boolean mBallInTeam2Zone = false;
     private boolean mBallInTeam1Zone = false;
@@ -60,7 +60,7 @@ public class PositionChecker {
         if (!mBallInTeam1Zone) return;
         if (!mBallInTeam2Zone) return;
 
-        Goal toSetGoal = null;
+        com.unixonly.fooslive.gamecontrol.Goal toSetGoal = null;
         RectF toSetZone = new RectF(mTeam2Zone.left,
                                     mTeam2Zone.top,
                                     mTeam1Zone.right,
@@ -69,19 +69,19 @@ public class PositionChecker {
         if (mBallInTeam2Zone) {
             // Fire the goal event for the second team
             gameController.setTeam2Score(gameController.getTeam2Score() + 1);
-            gameController.goalListener.onGoal(GoalEventType.TEAM_2_GOAL);
+            gameController.goalListener.onGoal(Goal.TEAM_2_GOAL);
 
-            toSetGoal = new Goal(gameController.getBallCoordinates(),
+            toSetGoal = new com.unixonly.fooslive.gamecontrol.Goal(gameController.getBallCoordinates(),
                                     toSetZone,
-                                    TeamType.TEAM_2);
+                                    Team.TEAM_2);
         } else {
             // Fire the goal event for the first team
             gameController.setTeam1Score(gameController.getTeam1Score() + 1);
-            gameController.goalListener.onGoal(GoalEventType.TEAM_1_GOAL);
+            gameController.goalListener.onGoal(Goal.TEAM_1_GOAL);
 
-            toSetGoal = new Goal(gameController.getBallCoordinates(),
+            toSetGoal = new com.unixonly.fooslive.gamecontrol.Goal(gameController.getBallCoordinates(),
                                     toSetZone,
-                                    TeamType.TEAM_1);
+                                    Team.TEAM_1);
         }
 
         mGoals.add(toSetGoal);

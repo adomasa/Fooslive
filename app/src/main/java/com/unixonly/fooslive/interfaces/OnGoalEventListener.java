@@ -1,7 +1,7 @@
 package com.unixonly.fooslive.interfaces;
 
-import com.unixonly.fooslive.constants.GoalEventType;
+import com.unixonly.fooslive.constants.Goal;
 
 public interface OnGoalEventListener {
-    void onGoal(@GoalEventType.GoalType int eventType);
+    void onGoal(@Goal.Type int eventType);
 }
