@@ -1,12 +1,11 @@
-package com.unixonly.fooslive.gamecontrol;
+package com.unixonly.fooslive.game;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 
-import com.unixonly.fooslive.constants.Team;
-import com.unixonly.fooslive.interfaces.OnGoalEventListener;
-import com.unixonly.fooslive.util.UnitUtils;
+import com.unixonly.fooslive.game.model.Team;
+import com.unixonly.fooslive.utils.UnitUtils;
 
 import java.util.LinkedList;
 import java.util.Queue;

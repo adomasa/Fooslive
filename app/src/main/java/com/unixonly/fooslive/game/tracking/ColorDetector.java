@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.tracking;
+package com.unixonly.fooslive.game.tracking;
 
 import android.graphics.PointF;
 import android.graphics.Rect;

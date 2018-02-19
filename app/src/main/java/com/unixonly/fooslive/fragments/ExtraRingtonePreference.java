@@ -1,4 +1,4 @@
-package com.unixonly.fooslive;
+package com.unixonly.fooslive.fragments;
 
 
 import android.app.AlertDialog;
@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 
+import com.unixonly.fooslive.R;
 import com.unixonly.fooslive.utils.UriManager;
 
 import java.util.Arrays;

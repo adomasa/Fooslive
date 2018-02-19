@@ -49,7 +49,7 @@
 
     <PreferenceCategory android:title="Game sounds">
 
-        <com.unixonly.fooslive.ExtraRingtonePreference
+        <com.unixonly.fooslive.fragments.ExtraRingtonePreference
             android:key="@string/pref_key_sound_goal_team1"
             android:title="@string/pref_title_sound_goal_team1"
             android:defaultValue="@string/pref_default_sound_goal_team1"
@@ -60,7 +60,7 @@
             auto:extraRingtoneTitles="@array/pref_sounds_titles"
             tools:summary="@string/sound_title_mario_coin"/>
 
-        <com.unixonly.fooslive.ExtraRingtonePreference
+        <com.unixonly.fooslive.fragments.ExtraRingtonePreference
             android:key="@string/pref_key_sound_win_team1"
             android:title="@string/pref_title_sound_win_team1"
             android:defaultValue="@string/pref_default_sound_win_team1"
@@ -71,7 +71,7 @@
             auto:extraRingtoneTitles="@array/pref_sounds_titles"
             tools:summary="@string/sound_title_mario_coin"/>
 
-        <com.unixonly.fooslive.ExtraRingtonePreference
+        <com.unixonly.fooslive.fragments.ExtraRingtonePreference
             android:key="@string/pref_key_sound_goal_team2"
             android:title="@string/pref_title_sound_goal_team2"
             android:defaultValue="@string/pref_default_sound_goal_team2"
@@ -82,7 +82,7 @@
             auto:extraRingtoneTitles="@array/pref_sounds_titles"
             tools:summary="@string/sound_title_mario_coin"/>
 
-        <com.unixonly.fooslive.ExtraRingtonePreference
+        <com.unixonly.fooslive.fragments.ExtraRingtonePreference
             android:key="@string/pref_key_sound_win_team2"
             android:title="@string/pref_title_sound_win_team2"
             android:defaultValue="@string/pref_default_sound_win_team2"

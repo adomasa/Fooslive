@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Handles properties from config file
+ * Handle properties from config file
  * Currently keeps memory during full application lifecycle
  */
 public class PropertiesManager {
@@ -19,7 +19,7 @@ public class PropertiesManager {
     private static Properties sProperties;
 
     // Hide public parent constructor
-    private PropertiesManager() {};
+    private PropertiesManager() {}
 
     /**
      * Load data from configuration file

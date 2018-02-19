@@ -13,8 +13,8 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.unixonly.fooslive.R;
-import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
-import com.unixonly.fooslive.fragment_interaction.OnFragmentInteractionListener;
+import com.unixonly.fooslive.fragments.interaction.FragmentCallback;
+import com.unixonly.fooslive.fragments.interaction.OnFragmentInteractionListener;
 
 public class SettingsFragment extends PreferenceFragment implements
         SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {

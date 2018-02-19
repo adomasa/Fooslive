@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.util.video;
+package com.unixonly.fooslive.utils.video;
 
 import android.content.Context;
 import android.graphics.Canvas;

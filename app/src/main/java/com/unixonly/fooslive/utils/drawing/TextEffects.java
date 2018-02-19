@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.drawing;
+package com.unixonly.fooslive.utils.drawing;
 
 import android.app.Activity;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.util;
+package com.unixonly.fooslive.utils;
 
 import android.graphics.PointF;
 

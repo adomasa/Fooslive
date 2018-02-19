@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.drawing;
+package com.unixonly.fooslive.utils.drawing;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 
-import com.unixonly.fooslive.gamecontrol.GameController;
+import com.unixonly.fooslive.game.GameController;
 
 /**
  * This class is responsible for drawing the rough form

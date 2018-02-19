@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.drawing;
+package com.unixonly.fooslive.utils.drawing;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,7 +7,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Size;
 
-import com.unixonly.fooslive.gamecontrol.ZoneInfo;
+import com.unixonly.fooslive.game.ZoneInfo;
 
 /**
  * This class is responsible for drawing an informational

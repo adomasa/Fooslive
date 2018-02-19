@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.unixonly.fooslive.R;
 import com.unixonly.fooslive.databinding.FragmentItemsMainMenuBinding;
-import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
+import com.unixonly.fooslive.fragments.interaction.FragmentCallback;
 
-import static com.unixonly.fooslive.fragment_interaction.FragmentCallback.ACTION_NAVIGATE_TO;
+import static com.unixonly.fooslive.fragments.interaction.FragmentCallback.ACTION_NAVIGATE_TO;
 
 public class MainMenuButtonsFragment extends Fragment {
     public static final String TAG = "MainMenuButtonsFragment";

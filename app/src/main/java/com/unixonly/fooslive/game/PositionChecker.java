@@ -1,9 +1,9 @@
-package com.unixonly.fooslive.gamecontrol;
+package com.unixonly.fooslive.game;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.constants.Team;
+import com.unixonly.fooslive.game.model.Team;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -56,7 +56,7 @@ public class PositionChecker {
     private void assignGoal(GameController gameController) {
         if (!mBallInTeam1Zone || !mBallInTeam2Zone) return;
 
-        com.unixonly.fooslive.gamecontrol.Goal toSetGoal;
+        com.unixonly.fooslive.game.Goal toSetGoal;
         RectF toSetZone = new RectF(mTeam2Zone.left,
                                     mTeam2Zone.top,
                                     mTeam1Zone.right,

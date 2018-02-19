@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.gamecontrol;
+package com.unixonly.fooslive.game;
 
 import android.graphics.PointF;
 import android.graphics.RectF;

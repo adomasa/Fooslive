@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.tracking;
+package com.unixonly.fooslive.game.tracking;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,7 +9,7 @@ import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 
-import com.unixonly.fooslive.gamecontrol.GameController;
+import com.unixonly.fooslive.game.GameController;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;

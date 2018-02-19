@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unixonly.fooslive.R;
-import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
-import com.unixonly.fooslive.fragment_interaction.OnFragmentInteractionListener;
+import com.unixonly.fooslive.fragments.interaction.FragmentCallback;
+import com.unixonly.fooslive.fragments.interaction.OnFragmentInteractionListener;
 
 public class InfoFragment extends Fragment {
     public static final String TAG = "InfoFragment";

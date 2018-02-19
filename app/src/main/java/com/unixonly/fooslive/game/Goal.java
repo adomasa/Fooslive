@@ -1,16 +1,16 @@
-package com.unixonly.fooslive.gamecontrol;
+package com.unixonly.fooslive.game;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
 
-import com.unixonly.fooslive.constants.Team;
+import com.unixonly.fooslive.game.model.Team;
 
 import java.util.Iterator;
 import java.util.Queue;
 
-import static com.unixonly.fooslive.util.UnitUtils.calculateSpeed;
-import static com.unixonly.fooslive.util.UnitUtils.metersToCentimeters;
+import static com.unixonly.fooslive.utils.UnitUtils.calculateSpeed;
+import static com.unixonly.fooslive.utils.UnitUtils.metersToCentimeters;
 
 /**
  * Contains the data related to a particular goal, which

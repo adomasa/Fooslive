@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils;
+package com.unixonly.fooslive.utils.video;
 
 import android.Manifest;
 import android.content.Context;
@@ -23,6 +23,7 @@ import android.view.TextureView;
 
 import com.unixonly.fooslive.GameActivity;
 import com.unixonly.fooslive.R;
+import com.unixonly.fooslive.utils.PropertiesManager;
 
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
@@ -55,6 +56,7 @@ public class CameraHandler {
     public CameraHandler(Context context, TextureView texture) {
         mContext = context;
         mDrawingTexture = texture;
+
         mPreviewWidth = PropertiesManager.getInt(context.getResources()
                 .getString(R.string.key_width_preview));
         mPreviewHeight = PropertiesManager.getInt(context.getResources()

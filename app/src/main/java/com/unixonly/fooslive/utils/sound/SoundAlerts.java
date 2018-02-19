@@ -1,8 +1,8 @@
-package com.unixonly.fooslive.util.sound;
+package com.unixonly.fooslive.utils.sound;
 
 import android.content.Context;
 
-import com.unixonly.fooslive.constants.Alert;
+import com.unixonly.fooslive.game.model.Alert;
 
 public class SoundAlerts {
     private Context mContext;

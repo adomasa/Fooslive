@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 import com.unixonly.fooslive.GameActivity;
 import com.unixonly.fooslive.R;
 import com.unixonly.fooslive.databinding.FragmentItemsModeMenuBinding;
-import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
+import com.unixonly.fooslive.fragments.interaction.FragmentCallback;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;

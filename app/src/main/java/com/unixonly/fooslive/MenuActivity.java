@@ -13,11 +13,11 @@ import com.unixonly.fooslive.fragments.HistoryFragment;
 import com.unixonly.fooslive.fragments.InfoFragment;
 import com.unixonly.fooslive.fragments.MainMenuFragment;
 import com.unixonly.fooslive.fragments.SettingsFragment;
-import com.unixonly.fooslive.fragment_interaction.FragmentCallback;
-import com.unixonly.fooslive.fragment_interaction.OnFragmentInteractionListener;
+import com.unixonly.fooslive.fragments.interaction.FragmentCallback;
+import com.unixonly.fooslive.fragments.interaction.OnFragmentInteractionListener;
 
-import static com.unixonly.fooslive.fragment_interaction.FragmentCallback.ACTION_NAVIGATE_TO;
-import static com.unixonly.fooslive.fragment_interaction.FragmentCallback.ACTION_SET_TITLE;
+import static com.unixonly.fooslive.fragments.interaction.FragmentCallback.ACTION_NAVIGATE_TO;
+import static com.unixonly.fooslive.fragments.interaction.FragmentCallback.ACTION_SET_TITLE;
 
 
 public class MenuActivity extends AppCompatActivity implements OnFragmentInteractionListener {
