@@ -30,7 +30,7 @@ public class ConfigManager {
      * Load data from configuration file
      * @param context activity context
      */
-    public static void load(@NonNull Context context) {
+    public static void load(@NonNull Context context) throws IOException {
         sConfig = new Toml();
         InputStream inputStream = context.getResources().openRawResource(R.raw.config);
         try {
@@ -38,8 +38,7 @@ public class ConfigManager {
             inputStream.close();
         } catch (IOException | IllegalStateException e) {
             Log.e(TAG, "Couldn't open configuration file. ");
-            // Terminate application
-            System.exit(FATALITY_CONFIG_LOAD);
+            throw e;
         }
     }
 

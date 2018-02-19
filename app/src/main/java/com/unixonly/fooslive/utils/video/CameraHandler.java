@@ -11,7 +11,6 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.ImageReader;
 import android.support.annotation.NonNull;
@@ -22,8 +21,6 @@ import android.view.Surface;
 import android.view.TextureView;
 
 import com.unixonly.fooslive.GameActivity;
-import com.unixonly.fooslive.R;
-import com.unixonly.fooslive.utils.PropertiesManager;
 
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
@@ -57,10 +54,6 @@ public class CameraHandler {
         mContext = context;
         mDrawingTexture = texture;
 
-        mPreviewWidth = PropertiesManager.getInt(context.getResources()
-                .getString(R.string.key_width_preview));
-        mPreviewHeight = PropertiesManager.getInt(context.getResources()
-                .getString(R.string.key_height_preview));
         mOpenCloseCameraLock = new Semaphore(1);
         mImageReader = ImageReader.newInstance(mPreviewWidth, mPreviewHeight, ImageFormat.JPEG,
                 1);
