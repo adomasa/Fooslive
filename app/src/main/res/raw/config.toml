@@ -2,7 +2,9 @@ title =  "Fooslive application configuration file"
 
 [ui]
 # Determines the speed of event slider in miliseconds
-slider_delay = 120 
+slider_delay = 120
+# Space to animate text appearance in
+slider_space = 50
 # An integer, defining when we should start formatting the speed in a different way
 format_speed = 10
 # Defines the number of zones from the center we collect the color from when the user initially
@@ -49,11 +51,9 @@ ind_repeat = 0
 ball_pos_mem = 100
 # Defines the number of frames the ball has to be lost in order to count as a goal
 goal_frames = 20
-# How many frames the ball has to be lost in order to reset the bounding box
-reset_box_frames = 40
 # Defines the percentage of the top and bottom of the display to be reserved for the goal zone
 # (here 0.3 stands for 30%)
-goal_zone_size = 0.3
+goal_zone = 0.3
 # We base our speed calculations on the real size of the foosball table
 # Defines the real width of the foosball table in meters
 width_table = 1.4224
@@ -62,13 +62,15 @@ height_table = 0.7620
 
 [recognition]
 # Defines the default color filtering threshold, which is used to find the ball in a given frame
-def_thresh= 35
+def_thresh = 35
 # Our tracking algorithm uses a bounding box, which defines a viewport of a frame, in which we
 #search for the ball
 # Defines the starting width of the bounding box
 def_box_width = 40
 # Defines the starting height of the bounding box
 def_box_height = 40
+# How many frames the ball has to be lost in order to reset the bounding box
+reset_box_frames = 40
 # The minimum size of the bounding box. Because we use the blob's size as a base for our bounding
 # box calculations, we have to avoid very small values. The variables below define the absolute
 # minimum size of the bounding box
@@ -78,8 +80,11 @@ min_box_height = 30
 min_blob_size = 10
 # These constants were used to calculate the individual row zones of the foosmen. For now, they're not used
 rows = [0.1158, 0.0623, 0.0865, 0.1005, 0.1145, 0.1348, 0.1832, 0.2124]
-# TODO: ????????#????????#????????#????????#????????#????????
+# TODO: update description and name
 percent_video = 0.1250
+# TODO: update description and name
+min_addition = 5
+max_addition = 5
 
 
 [multipliers]
@@ -92,6 +97,13 @@ delta_width = 3
 # Height = speed_y * mul_delta_y + blob_height * mul_delta_height
 delta_y = 5
 delta_height = 3
+# TODO: update description and name
+saturation = 1.3
+# TODO: update description and name
+value = 1.3
+#TODO: add comment and rename
+zones = [8, 4, 2]
+
 
 [template]
 stroke = 4
@@ -106,11 +118,11 @@ coordinates = [[0.25, 0.9209], [0.03, 0.8023], [0.20, 0.35], [0.42, 0.2994], [0.
 
 # Defines the starting alpha value for the ball trace
 max_alpha = 200
-# Defines the divisor for the starting alpha value.
+# Defines the hsv divisor for the starting alpha value.
 divisor = 10
 # Defines how much we add to the equation
 to_add = 50
-# Defines the width of the stroke for the ball. Currently unused
+# Defines the width of the stroke for the ball. TODO: Currently unused
 stroke_ball = 5
 # Defines the width of the stroke for the bounding box rectangle ( currently used for the ball
 # trace as well )
@@ -124,7 +136,7 @@ stroke_rect = 16
 pts_width = 60
 # Defines the count of the zones in the y axis
 pts_height = 60
-# Defines the alpha value for each of the heatmap zone's color. Should be renamed
+# Defines the alpha value for each of the heatmap zone's color. TODO: Should be renamed
 max_trail_alpha = 255
 # TODO: The following constants are unused and should be removed 
 max_hue = 255

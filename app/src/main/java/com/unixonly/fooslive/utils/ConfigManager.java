@@ -12,14 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-
 /**
- * Handle TOML configuration attributes from config file
+ * Handles attributes from TOML config file
  * Currently keeps memory during full application lifecycle
  */
 public class ConfigManager {
     private static final String TAG = "ConfigManager";
-    private static final int FATALITY_CONFIG_LOAD = 0;
 
     private static Toml sConfig;
 
@@ -29,6 +27,7 @@ public class ConfigManager {
     /**
      * Load data from configuration file
      * @param context activity context
+     * @throws IOException on fail to process configuration file
      */
     public static void load(@NonNull Context context) throws IOException {
         sConfig = new Toml();
@@ -46,7 +45,7 @@ public class ConfigManager {
      * Raises exception if configuration file doesn't have value for given key
      * @param key configuration attribute identifier
      */
-    private static void isAvailable(String key) {
+    private static void isAvailable(@NonNull String key) {
         if (!sConfig.contains(key)) {
             throw new Resources.NotFoundException("Configuration key not found " + key);
         }
@@ -74,12 +73,41 @@ public class ConfigManager {
     }
 
     /**
+     * Retrieve generified float list using unchecked cast
+     * @param key attribute identifier
+     * @return generified float list
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Float> getFloatList(@NonNull String key) {
+        return (List<Float>)getList(key);
+    }
+
+    /**
+     * Retrieve generified integer list using unchecked cast
+     * @param key attribute identifier
+     * @return generified integer list
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Integer> getIntList(@NonNull String key) {
+        return (List<Integer>)getList(key);
+    }
+    /**
      * Retrieve double attribute from config file
      * @param key attribute identifier
      * @return attribute double value
      */
-    public static double getDouble(String key) {
+    public static double getDouble(@NonNull String key) {
         isAvailable(key);
         return sConfig.getLong(key);
+    }
+
+    /**
+     * Retrieve double attribute from config file
+     * @param key attribute identifier
+     * @return attribute double value
+     */
+    public static float getFloat(@NonNull String key) {
+        isAvailable(key);
+        return (float)sConfig.getLong(key);
     }
 }
