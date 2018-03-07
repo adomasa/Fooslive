@@ -5,30 +5,26 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 
 import com.unixonly.fooslive.game.model.Team;
-import com.unixonly.fooslive.utils.UnitUtils;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class GameController {
-    // TODO: Set value from app.config
-    public static double sRealTableWidth;
-    // TODO: Set value from app.config
-    public static double sRealTableHeight;
+import static com.unixonly.fooslive.utils.UnitUtils.calculateSpeed;
+import static com.unixonly.fooslive.utils.UnitUtils.metersToCentimeters;
 
+public class GameController {
+    private static final String TAG = "GameController";
     private static final int TABLE_CORNER_COUNT = 4;
-    // TODO: Set value from app.config
-    private static int sMaximumBallCoordinateNumber;
-    // TODO: Set value from app.config
-    private static int sHeatMapZoneWidth;
-    // TODO: Set value from app.config
-    private static int sHeatMapZoneHeight;
-    // TODO: Set value from app.config
-    private static float sPercentageOfSide;
+
+    public final double tableWidth;
+    public final double tableHeight;
+    private final int maxBallMemory;
+    private final float goalZoneSize;
 
     OnGoalEventListener goalListener;
 
-    private ZoneInfo mHeatmapZones;
+    private HeatMap mHeatmapZones;
 
     private double mMulX;
     private double mMulY;
@@ -46,6 +42,11 @@ public class GameController {
     private double mMaxSpeed;
 
     public GameController() {
+        tableWidth = ConfigManager.getDouble("game.width_table");
+        tableHeight = ConfigManager.getDouble("game.height_table");
+        maxBallMemory = ConfigManager.getInt("game.ball_pos_mem");
+        goalZoneSize = ConfigManager.getFloat("game.goal_zone");
+
         mBallCoordinates = new LinkedList<>();
         mPositionChecker = new PositionChecker();
         mLastBallCoordinates = new PointF[2];
@@ -57,23 +58,20 @@ public class GameController {
 
         RectF team1Zone = new RectF(points[0].x,
                 mPositionChecker.getTeam2Zone().bottom +
-                        (1.0f - sPercentageOfSide * 2) * (points[2].y - points[0].y),
+                        (1.0f - goalZoneSize * 2) * (points[2].y - points[0].y),
                 points[3].x,
                 points[3].y);
 
         RectF team2Zone = new RectF(points[0].x,
                 points[0].y,
                 points[1].x,
-                points[1].y + (points[2].y - points[0].y) * sPercentageOfSide);
+                points[1].y + (points[2].y - points[0].y) * goalZoneSize);
 
         // Calculate the different zones, using the points given
         mPositionChecker.setTeam1Zone(team1Zone);
         mPositionChecker.setTeam2Zone(team2Zone);
-
-        mMulX = UnitUtils.metersToCentimeters(1) *
-                (sRealTableWidth / (team1Zone.right - team1Zone.left));
-        mMulY = UnitUtils.metersToCentimeters(1) *
-                (sRealTableHeight / (team1Zone.bottom - team2Zone.top));
+        mMulX = metersToCentimeters(1) * (tableWidth / (team1Zone.right - team1Zone.left));
+        mMulY = metersToCentimeters(1) * (tableHeight / (team1Zone.bottom - team2Zone.top));
 
         RectF table = new RectF(
                 mPositionChecker.getTeam2Zone().left,
@@ -81,10 +79,7 @@ public class GameController {
                 mPositionChecker.getTeam1Zone().right,
                 mPositionChecker.getTeam1Zone().bottom);
 
-        mHeatmapZones = new ZoneInfo(
-                table,
-                sHeatMapZoneWidth,
-                sHeatMapZoneHeight);
+        mHeatmapZones = new HeatMap(table);
     }
 
     public PointF getLastBallCoordinates() {
@@ -92,21 +87,19 @@ public class GameController {
     }
 
     public void setLastBallCoordinates(@Nullable PointF point) {
-        if (mBallCoordinates.size() == sMaximumBallCoordinateNumber) mBallCoordinates.remove();
+        if (mBallCoordinates.size() == maxBallMemory) mBallCoordinates.remove();
 
         mLastBallCoordinates[1] = mLastBallCoordinates[0];
         mLastBallCoordinates[0] = point;
 
-        mHeatmapZones.assignValue(point);
+        mHeatmapZones.setValue(point);
 
         mBallCoordinates.add(point);
 
         mPositionChecker.onNewFrame(point, this);
 
-        double currentSpeed = UnitUtils.calculateSpeed(mLastBallCoordinates[0],
-                mLastBallCoordinates[1],
-                mMulX,
-                mMulY);
+        double currentSpeed = calculateSpeed(mLastBallCoordinates[0], mLastBallCoordinates[1],
+                mMulX, mMulY);
 
         if (point != null) {
             mAverageSpeed = ((mAverageSpeed * mAverageSpeedCount) + currentSpeed)
@@ -117,7 +110,7 @@ public class GameController {
         if (mMaxSpeed < currentSpeed) mMaxSpeed = currentSpeed;
     }
 
-    public ZoneInfo getZones() {
+    public HeatMap getZones() {
         return mHeatmapZones;
     }
 

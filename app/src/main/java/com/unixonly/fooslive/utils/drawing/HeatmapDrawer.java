@@ -7,48 +7,50 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Size;
 
-import com.unixonly.fooslive.game.ZoneInfo;
+import com.unixonly.fooslive.game.HeatMap;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 /**
  * This class is responsible for drawing an informational
  * heatmap using the data collected during the game
  */
 public class HeatmapDrawer {
-    // TODO: Set value from app.config
-    private static int mMaxAlphaValue;
+    private static int mMaxAlpha;
 
     /**
      * Draws the heatmap, using the data collected during the game
      * @param canvas canvas, on which the heatmap is drawn
-     * @param zones the object, which holds the data collected during the game
+     * @param heatMap the object, which holds the data collected during the game
      * @return drawn canvas
      */
-    public static Canvas drawZones(Canvas canvas, ZoneInfo zones) {
+    public static Canvas drawZones(Canvas canvas, HeatMap heatMap) {
+        mMaxAlpha = ConfigManager.getInt("heatmap.max_trail_alpha");
+
         Size sizeOfBitmap = new Size(canvas.getWidth(), canvas.getHeight());
         PointF topLeftCorner = new PointF(0,0);
 
-        int max = findMax(zones);
+        int max = findMax(heatMap);
 
         int[] colours = {
-                Color.argb(mMaxAlphaValue, 0, 0, 0) ,
-                Color.argb(mMaxAlphaValue, 0, 0, 0xFF) ,
-                Color.argb(mMaxAlphaValue, 0, 0xFF, 0xFF) ,
-                Color.argb(mMaxAlphaValue, 0, 0xFF, 0) ,
-                Color.argb(mMaxAlphaValue, 0xFF, 0xFF, 0) ,
-                Color.argb(mMaxAlphaValue, 0xFF, 0, 0) ,
-                Color.argb(mMaxAlphaValue, 0xFF, 0xFF, 0xFF)
+                Color.argb(mMaxAlpha, 0, 0, 0) ,
+                Color.argb(mMaxAlpha, 0, 0, 0xFF) ,
+                Color.argb(mMaxAlpha, 0, 0xFF, 0xFF) ,
+                Color.argb(mMaxAlpha, 0, 0xFF, 0) ,
+                Color.argb(mMaxAlpha, 0xFF, 0xFF, 0) ,
+                Color.argb(mMaxAlpha, 0xFF, 0, 0) ,
+                Color.argb(mMaxAlpha, 0xFF, 0xFF, 0xFF)
         };
 
         Paint paint = new Paint();
-        float zoneWidth = sizeOfBitmap.getWidth() / zones.getWidth();
-        float zoneHeight = sizeOfBitmap.getHeight() / zones.getHeight();
+        float zoneWidth = sizeOfBitmap.getWidth() / heatMap.getZoneWidth();
+        float zoneHeight = sizeOfBitmap.getHeight() / heatMap.getZoneHeight();
         float toAddX = 0, toAddY = 0;
-        int[][] values = zones.getValues();
-        for (int i = 0; i < zones.getHeight(); i ++)
+        int[][] values = heatMap.getData();
+        for (int i = 0; i < heatMap.getZoneHeight(); i ++)
         {
-            for (int j = 0; j < zones.getWidth(); j ++)
+            for (int j = 0; j < heatMap.getZoneWidth(); j ++)
             {
-                paint.setColor(calculateColor(values[i][j], max, colours));
+                paint.setColor(processColor(values[i][j], max, colours));
 
                 canvas.drawRect(new RectF(topLeftCorner.x + toAddX,
                                 topLeftCorner.y + toAddY,
@@ -64,11 +66,11 @@ public class HeatmapDrawer {
         return canvas;
     }
 
-    private static int findMax(ZoneInfo zones) {
+    private static int findMax(HeatMap zones) {
         int toReturn = 0;
-        int[][] values = zones.getValues();
-        for (int i = 0; i < zones.getHeight(); i ++) {
-            for (int j = 0; j < zones.getWidth(); j ++) {
+        int[][] values = zones.getData();
+        for (int i = 0; i < zones.getZoneHeight(); i ++) {
+            for (int j = 0; j < zones.getZoneWidth(); j ++) {
                 if (toReturn < values[i][j]) toReturn = values[i][j];
             }
         }
@@ -83,7 +85,7 @@ public class HeatmapDrawer {
      * @param colours the predefined colorspace used for heatmap generation
      * @return argb color value
      */
-    private static int calculateColor(int value, int maxValue, int[] colours) {
+    private static int processColor(int value, int maxValue, int[] colours) {
         double percentage = value / (double)(maxValue + 1);
         /*
          * Defines the zone a specific color occupies in a heatmap
@@ -107,6 +109,6 @@ public class HeatmapDrawer {
         int green = Color.green(target) + (int)(greenDelta * percentageOfColor);
         int blue = Color.blue(target) + (int)(blueDelta * percentageOfColor);
 
-        return Color.argb(mMaxAlphaValue, red, green, blue);
+        return Color.argb(mMaxAlpha, red, green, blue);
     }
 }

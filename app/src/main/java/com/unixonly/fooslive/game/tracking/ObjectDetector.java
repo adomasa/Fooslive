@@ -10,43 +10,52 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 
 import com.unixonly.fooslive.game.GameController;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
 public class ObjectDetector {
+    //TODO: comments on members & constants
     private ColorDetector mDetector;
     private GameController mGameController;
+    //TODO: remove or make us of redundant members
     private float mMulX;
     private float mMulY;
     private Paint mPaintBall;
 
-    // TODO: Move value to app.config
-    private static int mTraceStrokeWidth = 16;
-    // TODO: Set value from app.config
-    private static int mTraceMaxAlpha;
-    // TODO: Set value from app.config
-    private static int mTraceDivisor;
-    // TODO: Set value from app.config
-    private static int mTraceToAdd;
+    private final int traceStrokeWidth;
+    private final int traceMaxAlpha;
+    private final int traceDivisor;
+    private final int traceToAdd;
 
     public ObjectDetector(PointF multipliers, ColorDetector detector, GameController controller) {
+        traceStrokeWidth = ConfigManager.getInt("trace.stroke_rect");
+        traceMaxAlpha = ConfigManager.getInt("trace.max_alpha");
+        traceDivisor = ConfigManager.getInt("trace.divisor");
+        traceToAdd = ConfigManager.getInt("trace.to_add");
+
         mMulX = multipliers.x;
         mMulY = multipliers.y;
         mDetector = detector;
         mGameController = controller;
+
+        setUpPaintBall();
     }
 
-    public void setColor(Scalar hsv) {
+    public void setHsvColor(Scalar hsv) {
+        mPaintBall.setColor(Color.HSVToColor(new float[] {
+                (float)hsv.val[0] * 2f,
+                (float)hsv.val[1] / 255,
+                (float)hsv.val[2] / 255
+        }));
+    }
+
+    private void setUpPaintBall() {
         mPaintBall = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaintBall.setColor(Color.HSVToColor(
-                new float[] {(float)hsv.val[0] * 2f, (float)hsv.val[1] / 255,
-                        (float)hsv.val[2] / 255
-                }
-        ));
         mPaintBall.setStyle(Paint.Style.STROKE);
-        mPaintBall.setStrokeWidth(mTraceStrokeWidth);
+        mPaintBall.setStrokeWidth(traceStrokeWidth);
     }
 
     //TODO add javadoc
@@ -66,13 +75,13 @@ public class ObjectDetector {
         // TODO: Test this part
         Mat image = new Mat();
         Utils.bitmapToMat(bitmap, image);
-        mDetector.image = image;
+        mDetector.setImage(image);
 
         // The following variables are for debugging only!
         Rect blob = new Rect();
         Rect blobBox = new Rect();
 
-        ballDetected = mDetector.detectBall(hsv,blob,blobBox);
+        ballDetected = mDetector.processImage(hsv,blob,blobBox);
 
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
@@ -87,7 +96,7 @@ public class ObjectDetector {
 
     private void drawBallTrace(Canvas canvas) {
         Path path = new Path();
-        PointF[] points = (PointF[]) mGameController.getBallCoordinates().toArray();
+        PointF[] points = mGameController.getBallCoordinates().toArray(new PointF[0]);
         // TODO: Move this variable to a config file
         int toPaint = 10;
         boolean startSet = false;
@@ -97,7 +106,7 @@ public class ObjectDetector {
 
             if (startSet) {
                 movePath(path, points, i);
-                mPaintBall.setAlpha(mTraceMaxAlpha * (toPaint / mTraceDivisor) + mTraceToAdd);
+                mPaintBall.setAlpha(traceMaxAlpha * (toPaint / traceDivisor) + traceToAdd);
                 canvas.drawPath(path, mPaintBall);
             } else {
                 path.moveTo(points[i].x, points[i].y);

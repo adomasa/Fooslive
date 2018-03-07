@@ -7,7 +7,7 @@ public class UriManager {
     private Context mContext;
 
     public UriManager(Context context) {
-        this.mContext = context;
+        mContext = context;
     }
 
     /**

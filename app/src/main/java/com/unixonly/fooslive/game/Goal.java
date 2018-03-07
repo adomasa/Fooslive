@@ -5,6 +5,7 @@ import android.graphics.RectF;
 import android.support.annotation.NonNull;
 
 import com.unixonly.fooslive.game.model.Team;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 import java.util.Iterator;
 import java.util.Queue;
@@ -13,24 +14,15 @@ import static com.unixonly.fooslive.utils.UnitUtils.calculateSpeed;
 import static com.unixonly.fooslive.utils.UnitUtils.metersToCentimeters;
 
 /**
- * Contains the data related to a particular goal, which
- * occurred during the game
+ * Contains the data related to a particular goal, which occurred during the game
  */
 public class Goal {
-
-    // TODO: Set value from app.config
-    public static double sRealTableWidth;
-    // TODO: Set value from app.config
-    public static double sRealTableHeight;
-
     private PointF[] mPoints;
 
     private final double[] mSpeeds;
     private double mMaxSpeed;
 
-    // Which team scored: true if blue, false otherwise
-    private @Team.Type
-    int mTeamColor;
+    private final @Team.Type int team;
 
     private long mDuration;
 
@@ -44,6 +36,9 @@ public class Goal {
      * Which team scored
      */
     public Goal(@NonNull Queue<PointF> points, @NonNull RectF tablePoints, @Team.Type int team) {
+        double tableWidth = ConfigManager.getDouble("game.width_table");
+        double tableHeight = ConfigManager.getDouble("game.height_table");
+
         mPoints = new PointF[points.size()];
         mSpeeds = new double[points.size()];
         mMaxSpeed = 0;
@@ -52,13 +47,15 @@ public class Goal {
         Iterator<PointF> iterator = points.iterator();
         for (; iterator.hasNext(); i++) mPoints[i] = iterator.next();
 
-        double mulX = sRealTableWidth / (tablePoints.right - tablePoints.left);
-        double mulY = sRealTableHeight / (tablePoints.bottom - tablePoints.top);
+        double mulX = tableWidth / (tablePoints.right - tablePoints.left);
+        double mulY = tableHeight / (tablePoints.bottom - tablePoints.top);
 
         mulX *= metersToCentimeters(1);
         mulY *= metersToCentimeters(1);
 
-        calculateSpeeds(mulX, mulY);
+        this.team = team;
+
+        calculateSpeedArray(mulX, mulY);
     }
 
     /**
@@ -68,7 +65,7 @@ public class Goal {
      * @param mulY
      * The y upscaling constant
      */
-    private void calculateSpeeds(double mulX, double mulY) {
+    private void calculateSpeedArray(double mulX, double mulY) {
         PointF lastPoint = null;
         int lostFrameCount = 0;
         int i = 0;
@@ -95,7 +92,7 @@ public class Goal {
         }
     }
 
-    public double[] getSpeeds() {
+    public double[] getSpeedArray() {
         return mSpeeds;
     }
 

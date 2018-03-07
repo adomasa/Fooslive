@@ -21,6 +21,7 @@ import android.view.Surface;
 import android.view.TextureView;
 
 import com.unixonly.fooslive.GameActivity;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
@@ -36,8 +37,8 @@ public class CameraHandler {
     private static final String ERROR_CAMERA_ACCESS = "Error occurred while accessing the camera! ";
     private static final String LOG_HALT_ACTIVITY = "Terminating activity. ";
 
-    private int mPreviewWidth;
-    private int mPreviewHeight;
+    private final int mPreviewWidth;
+    private final int mPreviewHeight;
 
     private CameraDevice mCamera;
     private ImageReader mImageReader;
@@ -51,6 +52,9 @@ public class CameraHandler {
     private TextureView mDrawingTexture;
 
     public CameraHandler(Context context, TextureView texture) {
+        mPreviewWidth = ConfigManager.getInt("camera.width_preview");
+        mPreviewHeight = ConfigManager.getInt("camera.height_preview");
+
         mContext = context;
         mDrawingTexture = texture;
 

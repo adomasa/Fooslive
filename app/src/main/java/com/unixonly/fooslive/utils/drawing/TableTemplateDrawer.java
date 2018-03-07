@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 
 import com.unixonly.fooslive.game.GameController;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 /**
  * This class is responsible for drawing the rough form
@@ -15,8 +16,6 @@ import com.unixonly.fooslive.game.GameController;
  * the end user
  */
 public class TableTemplateDrawer {
-    private static final int sAlignZonesStrokeWidth = 4;
-
     private static final PointF[] multipliers = new PointF[] {
             new PointF(0.25f, 0.9209f),
             new PointF(0.03f, 0.8023f),
@@ -36,6 +35,7 @@ public class TableTemplateDrawer {
      * @return canvas, which holds the drawn alignment figure
      */
     public static Canvas DrawZones(Canvas canvas, GameController controller) {
+//        Float[] multipliers = ConfigManager.getFloatList()
         Paint paint = new Paint();
         Path contour = new Path();
 
@@ -55,6 +55,9 @@ public class TableTemplateDrawer {
 
         canvas.drawPath(contour, paint);
 
+        //TODO: this part is poorly designed. These points should be separated from contour itself
+        // Perhaps it should be extracted from config separately
+
         controller.setTable(new PointF[]{
                 contourCoordinates[2], // top left coordinates
                 contourCoordinates[4], // top right coordinates
@@ -68,7 +71,7 @@ public class TableTemplateDrawer {
     private static void setUpPaintStyle(Paint paint) {
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(sAlignZonesStrokeWidth);
+        paint.setStrokeWidth(ConfigManager.getInt("template.stroke"));
 
         // Set up a path effect for our paint
         float[] effectPattern = new float[]{ 30, 20 };

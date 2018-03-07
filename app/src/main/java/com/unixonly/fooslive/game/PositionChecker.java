@@ -4,17 +4,14 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import com.unixonly.fooslive.game.model.Team;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class PositionChecker {
-    // TODO: Set value from app.config
-    private static float sRealTableWidth;
-    // TODO: Set value from app.config
-    private static float sRealTableHeight;
-    // TODO: Set value from app.config
-    private static int sGoalFramesToCountGoal;
+    //TODO: add short comments for members
+    private final int goalFrames;
 
     private RectF mTeam2Zone;
     private RectF mTeam1Zone;
@@ -30,13 +27,14 @@ public class PositionChecker {
     private int mFramesLost;
 
     public PositionChecker() {
+        goalFrames = ConfigManager.getInt("game.goal_frames");
         mGoals = new LinkedList<>();
     }
 
     public void onNewFrame(PointF lastBallCoordinates, GameController gameController) {
         // Check if this particular point signals that the ball is lost
         if (lastBallCoordinates == null) {
-            if (mFramesLost == sGoalFramesToCountGoal) {
+            if (mFramesLost == goalFrames) {
                 // It is, so check if a goal is about to occur
                 // TODO: Investigate if everything is ok here
                 assignGoal(gameController);
@@ -72,7 +70,11 @@ public class PositionChecker {
 
         mGoals.add(toSetGoal);
 
-        // Reset variables to their starting values
+        resetData();
+    }
+
+    //TODO: rename method
+    private void resetData() {
         mFramesLost = 0;
         mBallInTeam2Zone = false;
         mBallInTeam1Zone = false;
@@ -97,11 +99,15 @@ public class PositionChecker {
         mTeam1Zone = zone;
     }
 
+    RectF getTeam1Zone() {
+        return mTeam1Zone;
+    }
+
     RectF getTeam2Zone() {
         return mTeam2Zone;
     }
 
-    RectF getTeam1Zone() {
-        return mTeam1Zone;
+    public Queue<Goal> getGoals() {
+        return mGoals;
     }
 }

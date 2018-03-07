@@ -23,9 +23,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * @source https://stackoverflow.com/questions/25046662/how-can-i-add-my-apps-custom-ringtones-in-res-raw-folder-to-a-ringtonepreferenc
- * @author https://stackoverflow.com/users/661589/gavriel
- * @status Adapted
+ * @source https://stackoverflow.com/questions/25046662
+ * /how-can-i-add-my-apps-custom-ringtones-in-res-raw-folder-to-a-ringtonepreferenc
  */
 public class ExtraRingtonePreference extends DialogPreference {
 
