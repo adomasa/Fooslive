@@ -34,8 +34,8 @@ import java.util.concurrent.Semaphore;
 public class CameraHandler {
     private static final String TAG = "CameraHandler";
 
-    private static final String ERROR_CAMERA_ACCESS = "Error occurred while accessing the camera! ";
-    private static final String LOG_HALT_ACTIVITY = "Terminating activity. ";
+    private static final String ERROR_CAMERA_ACCESS = "Error occurred while accessing the camera!";
+    private static final String LOG_HALT_ACTIVITY = "Terminating activity.";
 
     private final int mPreviewWidth;
     private final int mPreviewHeight;
@@ -71,7 +71,6 @@ public class CameraHandler {
         CameraManager manager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
         chooseCamera(manager);
     }
-
 
     private final CameraDevice.StateCallback mStateCallback = new CameraDevice.StateCallback() {
         @Override

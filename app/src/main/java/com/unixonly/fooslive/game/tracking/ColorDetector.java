@@ -29,12 +29,8 @@ public class ColorDetector {
     private int mFramesLost = 0;
     private PointF mLastBlob;
 
-    //TODO: remove or make use of redundant variable
-    private int mLastSize = 0;
-
     private int minBlobSize;
     private int hsvDivisor;
-
 
     private final float saturationMultiplier;
     private final float valueMultiplier;
@@ -145,8 +141,6 @@ public class ColorDetector {
                 else if (mMinAllowed > blob.size) mMinAllowed = (int)blob.size - minAddition;
 
             if (mMaxAllowed < blob.size) mMaxAllowed = (int)blob.size + maxAddition;
-
-            mLastSize = (int)blob.size;
 
             biggestBlob = blob;
             mFramesLost = 0;

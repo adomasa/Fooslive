@@ -29,12 +29,14 @@ public class ObjectDetector {
     private final int traceMaxAlpha;
     private final int traceDivisor;
     private final int traceToAdd;
+    private final int toPaint;
 
     public ObjectDetector(PointF multipliers, ColorDetector detector, GameController controller) {
         traceStrokeWidth = ConfigManager.getInt("trace.stroke_rect");
         traceMaxAlpha = ConfigManager.getInt("trace.max_alpha");
         traceDivisor = ConfigManager.getInt("trace.divisor");
         traceToAdd = ConfigManager.getInt("trace.to_add");
+        toPaint = ConfigManager.getInt("trace.to_paint");
 
         mMulX = multipliers.x;
         mMulY = multipliers.y;
@@ -98,10 +100,10 @@ public class ObjectDetector {
         Path path = new Path();
         PointF[] points = mGameController.getBallCoordinates().toArray(new PointF[0]);
         // TODO: Move this variable to a config file
-        int toPaint = 10;
+        int to_paint = toPaint;
         boolean startSet = false;
 
-        for (int i = points.length - 1; i > 0 && toPaint != 0; i--, toPaint--) {
+        for (int i = points.length - 1; i > 0 && toPaint != 0; i--, to_paint--) {
             if (points[i] == null) continue;
 
             if (startSet) {

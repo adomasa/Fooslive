@@ -16,8 +16,6 @@ public class PositionChecker {
     private RectF mTeam2Zone;
     private RectF mTeam1Zone;
 
-    //TODO delete redundant mGoalOccured member
-    private boolean mGoalOccured;
     private long mTimestampStart;
 
     private Queue<Goal> mGoals;
@@ -41,7 +39,6 @@ public class PositionChecker {
             }
             else mFramesLost++;
         }
-        else mGoalOccured = false;
 
         // It isn't, so reset the counter
         mFramesLost = 0;
@@ -78,7 +75,6 @@ public class PositionChecker {
         mFramesLost = 0;
         mBallInTeam2Zone = false;
         mBallInTeam1Zone = false;
-        mGoalOccured = true;
     }
 
     /**

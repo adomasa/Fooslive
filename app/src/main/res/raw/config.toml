@@ -127,6 +127,8 @@ stroke_ball = 5
 # Defines the width of the stroke for the bounding box rectangle ( currently used for the ball
 # trace as well )
 stroke_rect = 16
+# Defines the number of historic points to draw
+to_paint = 10
 
 [heatmap]
 # The heatmap can consist of a lot of individual zones. Here, the variables directly affect it's
