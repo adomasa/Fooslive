@@ -15,23 +15,31 @@ import org.opencv.features2d.FeatureDetector;
 import org.opencv.imgproc.Imgproc;
 
 /**
- * Process
+ * Responsible for detecting the ball from a given image
  */
 public class ColorDetector {
     public static String TAG = "ColorDetector";
-    //TODO: add comments for most of the members, NOT A 3 LINE DESCRIPTION on variables and constants
+
+    // Tells whether to reset the bounding box or not
     private boolean mBoxSet = false;
+    // The bounding box, which defines the area in which we search for the ball
     private RectF mBox;
 
+    // Defines the frame count, from which we reset the bounding box
     private final int boxFramesToReset;
+    // The default width of the bounding box
     private int mBoxWidth;
+    // The default height of the bounding box
     private int mBoxHeight;
+    // The counter of the lost frames. Used in reseting the bounding box
     private int mFramesLost = 0;
+    // Defines the last recorded position of the detected blob
     private PointF mLastBlob;
 
-    private int minBlobSize;
-    private int hsvDivisor;
+    // Defines the minimum size a blob has to be in order for it to be accepted as ball
+    private final int minBlobSize;
 
+    private final int hsvDivisor;
     private final float saturationMultiplier;
     private final float valueMultiplier;
 
@@ -45,7 +53,6 @@ public class ColorDetector {
     private final int minAddition;
     private final int maxAddition;
 
-    private Mat image;
     private int threshold;
 
     private FeatureDetector mDetector;
@@ -79,11 +86,10 @@ public class ColorDetector {
      * Detect a ball from a given image
      * @param hsv the hsv values of the ball, which is to be detected
      * @param rect defines the rectangle of the blob
-     * @param blobBox defines the area in which the algorithm searches for the ball
+     * @param image defines the image, which is to be filtered
      * @return true if a ball is found
      */
-    //TODO rename method and add image argument
-    public boolean processImage(Scalar hsv, Rect rect, Rect blobBox) {
+    public boolean detectBallFromImage(Scalar hsv, Rect rect, Mat image) {
         // Convert RGB to HSV
         Imgproc.cvtColor(image, image, Imgproc.COLOR_RGB2HSV);
 
@@ -105,8 +111,6 @@ public class ColorDetector {
             mFramesLost = 0;
             mBoxSet = true;
         }
-
-        image = null;
 
         if (blobs.size().empty()) {
             mFramesLost++;
@@ -191,15 +195,5 @@ public class ColorDetector {
     // TODO: add javadoc
     public int getThreshold() {
         return threshold;
-    }
-
-    // TODO: add javadoc
-    public Mat getImage() {
-        return image;
-    }
-
-    // TODO: add javadoc
-    public void setImage(Mat image) {
-        this.image = image;
     }
 }

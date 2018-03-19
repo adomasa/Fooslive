@@ -16,7 +16,7 @@ public class TextEffects {
     private final Activity mActivity;
     private final TextView mTextEventSlider;
 
-    //TODO: based of the responsibility of the class, it generates various effects. However,
+    // TODO: based of the responsibility of the class, it generates various effects. However,
     // you have to create new instance for every textview you have. That's a memory leak.
     /**
      * @param context used to access the UI thread
@@ -56,7 +56,6 @@ public class TextEffects {
                 wait(mSlidingTextDelay);
             } catch (InterruptedException e) {
                 Log.d(TAG, e.toString());
-                //TODO: test this part
                 Thread.currentThread().interrupt();
                 return;
             }

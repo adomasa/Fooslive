@@ -77,13 +77,11 @@ public class ObjectDetector {
         // TODO: Test this part
         Mat image = new Mat();
         Utils.bitmapToMat(bitmap, image);
-        mDetector.setImage(image);
 
         // The following variables are for debugging only!
         Rect blob = new Rect();
-        Rect blobBox = new Rect();
 
-        ballDetected = mDetector.processImage(hsv,blob,blobBox);
+        ballDetected = mDetector.detectBallFromImage(hsv,blob,image);
 
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
