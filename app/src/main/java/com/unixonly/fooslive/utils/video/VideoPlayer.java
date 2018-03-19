@@ -12,13 +12,14 @@ public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedLi
 
     private Activity mActivity;
 
+    //TODO: Assign an event listener instead of the whole class
     public VideoPlayer(Context context) {
         mActivity = (Activity)context;
         mDisposed = false;
         try {
             setDataSource(context, mActivity.getIntent().getData());
             // TODO: Assign a surface to VideoPlayer
-            /* super.setSurface(mActivity.SurfaceManager.Surface); */;
+            /* super.setSurface(mActivity.SurfaceManager.Surface); */
             prepare();
         } catch (IOException e) {
             // TODO: Rework this exception handling

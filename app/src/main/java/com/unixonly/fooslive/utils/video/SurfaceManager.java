@@ -8,16 +8,18 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.TextureView;
 
+import com.unixonly.fooslive.GameActivity;
+
 public class SurfaceManager implements TextureView.SurfaceTextureListener {
     private static String TAG = "SurfaceManager";
-    // TODO
-    /* private GameActivity mActivity */
+    private GameActivity mActivity;
     private SurfaceHolder mSurfaceHolder;
     private Surface mSurface;
     private SurfaceTexture mSurfaceTexture;
 
+    //TODO: Pass an event listener, instead of the whole GameActivity
     public SurfaceManager(Context context, SurfaceHolder holder) {
-        /* mActivity = (GameActivity)context; */
+        mActivity = (GameActivity)context;
         mSurfaceHolder = holder;
     }
 

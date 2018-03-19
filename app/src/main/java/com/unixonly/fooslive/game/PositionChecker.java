@@ -10,18 +10,25 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class PositionChecker {
-    //TODO: add short comments for members
+    // Defines the number of frames a ball has to be lost in order for it to be counted a goal event
     private final int goalFrames;
 
+    // Defines the rectangle, containing the Team 2 goal zone
     private RectF mTeam2Zone;
+    // Defines the rectangle, containing the Team 1 goal zone
     private RectF mTeam1Zone;
 
+    // TODO: Implement this once a timer is implemented
     private long mTimestampStart;
 
+    // Holds historic goal events, including data associated with them
     private Queue<Goal> mGoals;
 
+    // Defines whether the ball has appeared in a specific team's zone
     private boolean mBallInTeam2Zone = false;
     private boolean mBallInTeam1Zone = false;
+
+    // How many previous frames a ball was lost
     private int mFramesLost;
 
     public PositionChecker() {

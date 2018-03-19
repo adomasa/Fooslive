@@ -17,18 +17,24 @@ import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
 public class ObjectDetector {
-    //TODO: comments on members & constants
+    // The main detector, which is used for detecting a ball from a given image
     private ColorDetector mDetector;
+    // The class, which is responsible for score keeping and oversees game related events
     private GameController mGameController;
-    //TODO: remove or make us of redundant members
-    private float mMulX;
-    private float mMulY;
+
+    // This paint is used for painting the ball trace, allowing for easier tracking
     private Paint mPaintBall;
 
+    // Used in painting the ball trace, it defines the width
     private final int traceStrokeWidth;
+    // Used in painting the ball trace, it defines the preliminary alpha value
     private final int traceMaxAlpha;
+
+    // Defines how much an alpha value decreases for every historic point away from the ball
     private final int traceDivisor;
+    // Defines how much we compensate for the decreased alpha value
     private final int traceToAdd;
+    // Defines how much historic points we paint for the ball trace
     private final int toPaint;
 
     public ObjectDetector(PointF multipliers, ColorDetector detector, GameController controller) {
@@ -38,8 +44,6 @@ public class ObjectDetector {
         traceToAdd = ConfigManager.getInt("trace.to_add");
         toPaint = ConfigManager.getInt("trace.to_paint");
 
-        mMulX = multipliers.x;
-        mMulY = multipliers.y;
         mDetector = detector;
         mGameController = controller;
 
@@ -97,7 +101,6 @@ public class ObjectDetector {
     private void drawBallTrace(Canvas canvas) {
         Path path = new Path();
         PointF[] points = mGameController.getBallCoordinates().toArray(new PointF[0]);
-        // TODO: Move this variable to a config file
         int ptsToDraw = toPaint;
         boolean startSet = false;
 

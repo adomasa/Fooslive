@@ -52,7 +52,10 @@ public class GameController {
         mLastBallCoordinates = new PointF[2];
     }
 
-    //TODO: add javadoc
+    /***
+     * Calculates the goal zone boundaries using the points given
+     * @param points The 4 corner points of the table
+     */
     public void setTable(PointF[] points) {
         if (points.length != TABLE_CORNER_COUNT) return;
 
