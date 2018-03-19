@@ -67,6 +67,7 @@ public class ConfigManager {
      * @param key attribute identifier
      * @return not generic list object
      */
+    @SuppressWarnings("unchecked")
     public static List getList(@NonNull String key) {
         isAvailable(key);
         return sConfig.getList(key);

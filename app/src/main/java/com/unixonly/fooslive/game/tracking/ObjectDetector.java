@@ -100,10 +100,10 @@ public class ObjectDetector {
         Path path = new Path();
         PointF[] points = mGameController.getBallCoordinates().toArray(new PointF[0]);
         // TODO: Move this variable to a config file
-        int to_paint = toPaint;
+        int ptsToDraw = toPaint;
         boolean startSet = false;
 
-        for (int i = points.length - 1; i > 0 && toPaint != 0; i--, to_paint--) {
+        for (int i = points.length - 1; i > 0 && toPaint != 0; i--, ptsToDraw--) {
             if (points[i] == null) continue;
 
             if (startSet) {

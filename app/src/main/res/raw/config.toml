@@ -109,6 +109,13 @@ zones = [8, 4, 2]
 stroke = 4
 # Array of points [x,y] based on the dynamic screen size . [width * x; height * y]
 coordinates = [[0.25, 0.9209], [0.03, 0.8023], [0.20, 0.35], [0.42, 0.2994], [0.58, 0.2994], [0.80, 0.35], [0.97, 0.8023], [0.75, 0.9209], [0.25, 0.9209]]
+# Corners of the table which corresponds to the area of ball recognition zone. The values are picked
+# from template points coordinates.
+# 0 item - top left coordinates
+# 1 item - top right coordinates
+# 2 item - bottom left coordinates
+# 3 item - bottom right coordinates
+recogPoints = [2, 4, 8, 7]
 
 [trace]
 # We use the alpha color channel to make the trace fade to create a nice effect

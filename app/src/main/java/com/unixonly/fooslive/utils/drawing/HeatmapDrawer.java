@@ -44,12 +44,11 @@ public class HeatmapDrawer {
         Paint paint = new Paint();
         float zoneWidth = sizeOfBitmap.getWidth() / heatMap.getZoneWidth();
         float zoneHeight = sizeOfBitmap.getHeight() / heatMap.getZoneHeight();
-        float toAddX = 0, toAddY = 0;
+        float toAddX = 0;
+        float toAddY = 0;
         int[][] values = heatMap.getData();
-        for (int i = 0; i < heatMap.getZoneHeight(); i ++)
-        {
-            for (int j = 0; j < heatMap.getZoneWidth(); j ++)
-            {
+        for (int i = 0; i < heatMap.getZoneHeight(); i ++) {
+            for (int j = 0; j < heatMap.getZoneWidth(); j ++) {
                 paint.setColor(processColor(values[i][j], max, colours));
 
                 canvas.drawRect(new RectF(topLeftCorner.x + toAddX,
