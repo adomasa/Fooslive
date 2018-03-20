@@ -22,7 +22,8 @@ import org.opencv.imgproc.Imgproc;
 
 /**
  * This class is responsible for processing given
- *  frames and detecting the ball
+ *  frames and detecting the ball from a video file
+ *  or a given camera stream
  */
 public class SurfaceManager implements TextureView.SurfaceTextureListener {
     private static String TAG = "SurfaceManager";
@@ -41,6 +42,13 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
     private boolean mHSVSelected;
     private ObjectDetector mObjectDetector;
 
+    /**
+     * @param context Used for accessing the video file or opening the camera
+     * @param textureView Used for streaming frames from video file or camera
+     * @param surfaceHolder Used for drawing the ball trace and debug info
+     * @param isCameraMode Specify if it's camera or video mode
+     * @param gameController The main game controller
+     */
     public SurfaceManager(Context context,
                           TextureView textureView,
                           SurfaceHolder surfaceHolder,
@@ -58,6 +66,12 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
         mIsCameraMode = isCameraMode;
     }
 
+    /**
+     * @inheritDoc
+     * @param surface
+     * @param w
+     * @param h
+     */
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int w, int h) {
         // Calculate the upscaling multipliers
         int calc_x_size = ConfigManager.getInt("width_process");
@@ -75,6 +89,11 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
         }
     }
 
+    /**
+     * Get the HSV values from the given coordinates
+     * @param x The X coordinate
+     * @param y The Y coordinate
+     */
     public void onScreenTouch(float x, float y) {
         Mat imageToProcess = new Mat();
         Mat hsvImage = new Mat();
@@ -97,19 +116,37 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
         mObjectDetector.setHsvColor(hsvToSet);
     }
 
+    /**
+     * Lock the selected HSV values for processing
+     */
     public void lockSelectedHSVValue() {
         mHSVSelected = true;
     }
 
+    /**
+     * @inheritDoc
+     * @param surface
+     * @return
+     */
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
         surface.release();
         return true;
     }
 
+    /**
+     * @inheritDoc
+     * @param surface
+     * @param w
+     * @param h
+     */
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int w, int h) {
         Log.wtf(TAG, "Surface texture size changed. It shouldn't.");
     }
 
+    /**
+     * @inheritDoc
+     * @param surface
+     */
     public void onSurfaceTextureUpdated(SurfaceTexture surface)
     {
         // The table is currently drawn only if an Hsv value is selected
