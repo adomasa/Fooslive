@@ -2,47 +2,103 @@ package com.unixonly.fooslive.utils.video;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.TextureView;
 
-import com.unixonly.fooslive.GameActivity;
+import com.unixonly.fooslive.game.GameController;
+import com.unixonly.fooslive.game.tracking.ColorDetector;
+import com.unixonly.fooslive.game.tracking.ObjectDetector;
+import com.unixonly.fooslive.utils.ConfigManager;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
+/**
+ * This class is responsible for processing given
+ *  frames and detecting the ball
+ */
 public class SurfaceManager implements TextureView.SurfaceTextureListener {
     private static String TAG = "SurfaceManager";
-    private GameActivity mActivity;
-    private SurfaceHolder mSurfaceHolder;
-    private Surface mSurface;
-    private SurfaceTexture mSurfaceTexture;
 
-    //TODO: Pass an event listener, instead of the whole GameActivity
-    public SurfaceManager(Context context, SurfaceHolder holder) {
-        mActivity = (GameActivity)context;
-        mSurfaceHolder = holder;
+    private Context mContext;
+
+    private CameraHandler mCameraHandler;
+    private boolean mIsCameraMode;
+
+    private VideoPlayer mVideoPlayer;
+
+    private TextureView mTextureView;
+
+    private SurfaceHolder mSurfaceHolder;
+
+    private boolean mHSVSelected;
+    private ObjectDetector mObjectDetector;
+
+    public SurfaceManager(Context context,
+                          TextureView textureView,
+                          SurfaceHolder surfaceHolder,
+                          boolean isCameraMode,
+                          GameController gameController) {
+        mContext = context;
+        mTextureView = textureView;
+        mSurfaceHolder = surfaceHolder;
+
+        mObjectDetector = new ObjectDetector(
+                new ColorDetector(),
+                gameController
+        );
+
+        mIsCameraMode = isCameraMode;
     }
 
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int w, int h) {
-        // TODO
-        /*
-        _activity.GameView.LayoutParameters = new FrameLayout.LayoutParams(w, h);
+        // Calculate the upscaling multipliers
+        int calc_x_size = ConfigManager.getInt("width_process");
+        int calc_y_size = ConfigManager.getInt("height_process");
 
-            // Set the upscaling constant
-            _activity.SetMultipliers(w, h);
+        mObjectDetector.setUpscalingMultipliers(new PointF(
+                w / (float)calc_x_size,
+                h / (float)calc_y_size
+        ));
 
-            SurfaceHolder.SetFixedSize(w, h);
+        if (mIsCameraMode) {
+            mCameraHandler = new CameraHandler(mContext, mTextureView);
+        } else {
+            mVideoPlayer = new VideoPlayer(mContext, surface);
+        }
+    }
 
-            SurfaceTexture = surface;
+    public void onScreenTouch(float x, float y) {
+        Mat imageToProcess = new Mat();
+        Mat hsvImage = new Mat();
 
-            // Check if we use video mode
-            if (_activity.GameMode == CaptureMode.RECORDING) {
-                Surface = new Surface(surface);
-                _activity.SetUpRecordMode(w, h);
-            }
-            else
-            _activity.SetUpCameraMode();
-         */
+        // Convert RGB to HSV colorspace
+        Utils.bitmapToMat(mTextureView.getBitmap(), imageToProcess);
+        Imgproc.cvtColor(imageToProcess, hsvImage, Imgproc.COLOR_RGB2HSV_FULL);
+
+        double[] values = new double[3];
+
+        // Extract the hsv value
+        hsvImage.get((int)x, (int)y, values);
+
+        Scalar hsvToSet = new Scalar(
+                values[0], // Hue channel
+                values[1], // Saturation channel
+                values[2] // Value channel
+        );
+
+        mObjectDetector.setHsvColor(hsvToSet);
+    }
+
+    public void lockSelectedHSVValue() {
+        mHSVSelected = true;
     }
 
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
@@ -56,23 +112,15 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
 
     public void onSurfaceTextureUpdated(SurfaceTexture surface)
     {
-        // TODO
-        /*
         // The table is currently drawn only if an Hsv value is selected
-        if (!_activity.BallColorSelected)
-            return;
-        */
+        if (!mHSVSelected) return;
 
         Canvas canvas = mSurfaceHolder.lockCanvas();
 
-        // TODO
-        /*
-        if (!_activity.detectBall(canvas))
-        {
+        if (!mObjectDetector.detect(canvas, mTextureView.getBitmap())) {
             // Remove all drawings
-            canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         }
-        */
 
         mSurfaceHolder.unlockCanvasAndPost(canvas);
     }

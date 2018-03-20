@@ -2,7 +2,10 @@ package com.unixonly.fooslive.utils.video;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
+import android.view.Surface;
 
 import java.io.IOException;
 
@@ -13,13 +16,12 @@ public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedLi
     private Activity mActivity;
 
     //TODO: Assign an event listener instead of the whole class
-    public VideoPlayer(Context context) {
+    public VideoPlayer(@NonNull Context context, SurfaceTexture texture) {
         mActivity = (Activity)context;
         mDisposed = false;
         try {
             setDataSource(context, mActivity.getIntent().getData());
-            // TODO: Assign a surface to VideoPlayer
-            /* super.setSurface(mActivity.SurfaceManager.Surface); */
+            super.setSurface(new Surface(texture));
             prepare();
         } catch (IOException e) {
             // TODO: Rework this exception handling

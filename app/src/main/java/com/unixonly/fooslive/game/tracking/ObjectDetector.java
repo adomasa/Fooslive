@@ -25,6 +25,9 @@ public class ObjectDetector {
     // This paint is used for painting the ball trace, allowing for easier tracking
     private Paint mPaintBall;
 
+    // Used for upscaling the ball coordinates
+    private PointF mUpscalingMultipliers;
+
     // Used in painting the ball trace, it defines the width
     private final int traceStrokeWidth;
     // Used in painting the ball trace, it defines the preliminary alpha value
@@ -37,7 +40,9 @@ public class ObjectDetector {
     // Defines how much historic points we paint for the ball trace
     private final int toPaint;
 
-    public ObjectDetector(PointF multipliers, ColorDetector detector, GameController controller) {
+    private Scalar mBallHSV;
+
+    public ObjectDetector(ColorDetector detector, GameController controller) {
         traceStrokeWidth = ConfigManager.getInt("trace.stroke_rect");
         traceMaxAlpha = ConfigManager.getInt("trace.max_alpha");
         traceDivisor = ConfigManager.getInt("trace.divisor");
@@ -50,12 +55,17 @@ public class ObjectDetector {
         setUpPaintBall();
     }
 
+    public void setUpscalingMultipliers(PointF multipliers) {
+        mUpscalingMultipliers = multipliers;
+    }
+
     public void setHsvColor(Scalar hsv) {
         mPaintBall.setColor(Color.HSVToColor(new float[] {
                 (float)hsv.val[0] * 2f,
                 (float)hsv.val[1] / 255,
                 (float)hsv.val[2] / 255
         }));
+        mBallHSV = hsv;
     }
 
     private void setUpPaintBall() {
@@ -73,8 +83,8 @@ public class ObjectDetector {
      * @param bitmap The alpha bitmap, used to clear the canvas
      * @return True if a ball was detected. False otherwise
      */
-    public boolean detect(Canvas canvas, Scalar hsv, Bitmap bitmap) {
-        if (canvas == null || hsv == null || bitmap == null) return false;
+    public boolean detect(Canvas canvas, Bitmap bitmap) {
+        if (canvas == null || mBallHSV == null || bitmap == null) return false;
 
         boolean ballDetected = false;
 
@@ -85,7 +95,7 @@ public class ObjectDetector {
         // The following variables are for debugging only!
         Rect blob = new Rect();
 
-        ballDetected = mDetector.detectBallFromImage(hsv,blob,image);
+        ballDetected = mDetector.detectBallFromImage(mBallHSV,blob,image);
 
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
