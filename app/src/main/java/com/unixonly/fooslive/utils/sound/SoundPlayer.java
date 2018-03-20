@@ -8,15 +8,10 @@ import java.io.IOException;
 class SoundPlayer {
     private MediaPlayer mPlayer;
 
-    SoundPlayer(Context context, int resId) {
+    SoundPlayer(Context context, int resId) throws IOException {
         mPlayer = MediaPlayer.create(context, resId);
         mPlayer.setVolume(100,100);
-        try {
-            mPlayer.prepare();
-        } catch (IOException e) {
-            // TODO: Assign a default value here if no file is found
-            e.printStackTrace();
-        }
+        mPlayer.prepare();
     }
 
     void play() {

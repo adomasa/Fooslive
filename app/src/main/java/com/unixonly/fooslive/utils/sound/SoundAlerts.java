@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.unixonly.fooslive.game.model.Alert;
 
+import java.io.IOException;
+
 public class SoundAlerts {
     private Context mContext;
 
@@ -38,19 +40,19 @@ public class SoundAlerts {
         }
     }
 
-    public void setTeam1GoalSound(int resId) {
+    public void setTeam1GoalSound(int resId) throws IOException {
         mTeam1GoalPlayer = new SoundPlayer(mContext, resId);
     }
 
-    public void setTeam1WinSound(int resId) {
+    public void setTeam1WinSound(int resId) throws IOException  {
         mTeam1WinPlayer = new SoundPlayer(mContext, resId);
     }
 
-    public void setTeam2GoalSound(int resId) {
+    public void setTeam2GoalSound(int resId) throws IOException  {
         mTeam2GoalPlayer = new SoundPlayer(mContext, resId);
     }
 
-    public void setTeam2WinPlayer(int resId) {
+    public void setTeam2WinPlayer(int resId) throws IOException  {
         mTeam2WinPlayer = new SoundPlayer(mContext, resId);
     }
 }

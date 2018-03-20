@@ -17,15 +17,18 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_settings"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".GameActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/FoosballTheme.Splash">
+            android:theme="@style/FoosballTheme.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

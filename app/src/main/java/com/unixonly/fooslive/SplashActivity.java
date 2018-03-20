@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         try {
-            ConfigManager.load(this);
+            ConfigManager.load(this, R.raw.config);
             // Initialise high CPU consuming code here
             startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         } catch (IOException e) {

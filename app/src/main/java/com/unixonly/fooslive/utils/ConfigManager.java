@@ -29,9 +29,9 @@ public class ConfigManager {
      * @param context activity context
      * @throws IOException on fail to process configuration file
      */
-    public static void load(@NonNull Context context) throws IOException {
+    public static void load(@NonNull Context context, int configResId) throws IOException {
         sConfig = new Toml();
-        InputStream inputStream = context.getResources().openRawResource(R.raw.config);
+        InputStream inputStream = context.getResources().openRawResource(configResId);
         try {
             sConfig = sConfig.read(inputStream);
             inputStream.close();

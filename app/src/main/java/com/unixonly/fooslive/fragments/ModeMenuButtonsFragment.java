@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,9 +84,7 @@ public class ModeMenuButtonsFragment extends Fragment {
         }
 
         //Finally request permissions with the list of permissions and Id
-        ActivityCompat.requestPermissions(getActivity(),
-                new String[]{ Manifest.permission.READ_CONTACTS },
-                OPEN_CAMERA_REQUEST);
+        requestPermissions(new String[]{ Manifest.permission.CAMERA }, OPEN_CAMERA_REQUEST);
     }
 
 
@@ -95,6 +92,7 @@ public class ModeMenuButtonsFragment extends Fragment {
      * Build custom alert dialog for camera permission request explanation
      * @return AlertDialog instance
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private AlertDialog getRequestDialog() {
         if (mRequestDialog != null) return mRequestDialog;
 
@@ -104,8 +102,7 @@ public class ModeMenuButtonsFragment extends Fragment {
                 .setNeutralButton(getString(R.string.action_dismiss), (dialog1, which) -> {
                     dialog1.dismiss();
                     // Request permission after dismissed dialog
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_CONTACTS},
+                    requestPermissions(new String[]{Manifest.permission.CAMERA},
                             OPEN_CAMERA_REQUEST);
                     });
 
@@ -145,7 +142,10 @@ public class ModeMenuButtonsFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode != OPEN_CAMERA_REQUEST) return;
+        if (requestCode != OPEN_CAMERA_REQUEST) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
 
         if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) startGameActivity(null);
         else {
