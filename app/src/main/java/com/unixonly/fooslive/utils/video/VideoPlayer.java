@@ -15,7 +15,6 @@ public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedLi
 
     private Activity mActivity;
 
-    //TODO: Assign an event listener instead of the whole class
     public VideoPlayer(@NonNull Context context, SurfaceTexture texture) {
         mActivity = (Activity)context;
         mDisposed = false;

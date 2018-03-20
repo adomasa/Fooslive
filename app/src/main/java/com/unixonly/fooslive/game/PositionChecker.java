@@ -74,11 +74,10 @@ public class PositionChecker {
 
         mGoals.add(toSetGoal);
 
-        resetData();
+        resetSessionData();
     }
 
-    //TODO: rename method
-    private void resetData() {
+    private void resetSessionData() {
         mFramesLost = 0;
         mBallInTeam2Zone = false;
         mBallInTeam1Zone = false;

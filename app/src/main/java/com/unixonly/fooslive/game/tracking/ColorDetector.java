@@ -192,7 +192,11 @@ public class ColorDetector {
                         (float)blob.pt.y + addY);
     }
 
-    // TODO: add javadoc
+    /**
+     * Returns the current shared hue, saturation and value threshold,
+     *  used in detecting the ball
+     * @return The integer value of the threshold
+     */
     public int getThreshold() {
         return threshold;
     }
