@@ -1,5 +1,6 @@
 package com.unixonly.fooslive.utils.video;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -46,13 +47,11 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
      * @param context Used for accessing the video file or opening the camera
      * @param textureView Used for streaming frames from video file or camera
      * @param surfaceHolder Used for drawing the ball trace and debug info
-     * @param isCameraMode Specify if it's camera or video mode
      * @param gameController The main game controller
      */
     public SurfaceManager(Context context,
                           TextureView textureView,
                           SurfaceHolder surfaceHolder,
-                          boolean isCameraMode,
                           GameController gameController) {
         mContext = context;
         mTextureView = textureView;
@@ -63,7 +62,8 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
                 gameController
         );
 
-        mIsCameraMode = isCameraMode;
+        // Check if we use the camera by checking if we have the video URI
+        mIsCameraMode = ((Activity)context).getIntent().getData() == null;
     }
 
     /**

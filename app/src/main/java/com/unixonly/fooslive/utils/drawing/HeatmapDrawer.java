@@ -24,7 +24,7 @@ public class HeatmapDrawer {
      * @return drawn canvas
      */
     public static Canvas drawZones(Canvas canvas, HeatMap heatMap) {
-        mMaxAlpha = ConfigManager.getInt("heatmap.max_trail_alpha");
+        mMaxAlpha = ConfigManager.getInt("heatmap.max_zone_alpha");
 
         Size sizeOfBitmap = new Size(canvas.getWidth(), canvas.getHeight());
         PointF topLeftCorner = new PointF(0,0);
