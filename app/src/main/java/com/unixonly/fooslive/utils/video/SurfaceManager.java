@@ -67,19 +67,16 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
     }
 
     /**
-     * @inheritDoc
-     * @param surface
-     * @param w
-     * @param h
+     * {@inheritDoc}
      */
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int w, int h) {
         // Calculate the upscaling multipliers
-        int calc_x_size = ConfigManager.getInt("width_process");
-        int calc_y_size = ConfigManager.getInt("height_process");
+        int calcXSize = ConfigManager.getInt("width_process");
+        int calcYSize = ConfigManager.getInt("height_process");
 
         mObjectDetector.setUpscalingMultipliers(new PointF(
-                w / (float)calc_x_size,
-                h / (float)calc_y_size
+                w / (float)calcXSize,
+                h / (float)calcYSize
         ));
 
         if (mIsCameraMode) {
@@ -124,9 +121,7 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
     }
 
     /**
-     * @inheritDoc
-     * @param surface
-     * @return
+     * {@inheritDoc}
      */
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
         surface.release();
@@ -134,18 +129,14 @@ public class SurfaceManager implements TextureView.SurfaceTextureListener {
     }
 
     /**
-     * @inheritDoc
-     * @param surface
-     * @param w
-     * @param h
+     * {@inheritDoc}
      */
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int w, int h) {
         Log.wtf(TAG, "Surface texture size changed. It shouldn't.");
     }
 
     /**
-     * @inheritDoc
-     * @param surface
+     * {@inheritDoc}
      */
     public void onSurfaceTextureUpdated(SurfaceTexture surface)
     {
