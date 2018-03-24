@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.unixonly.fooslive.utils.PropertiesManager;
+import com.unixonly.fooslive.utils.ConfigManager;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         try {
-            PropertiesManager.load(this);
+            ConfigManager.load(this, R.raw.config);
             // Initialise high CPU consuming code here
             startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         } catch (IOException e) {

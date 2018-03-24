@@ -1,0 +1,157 @@
+title =  "Fooslive application configuration file"
+
+[ui]
+# Determines the speed of event slider in miliseconds
+slider_delay = 120
+# Space to animate text appearance in
+slider_space = 50
+# An integer, defining when we should start formatting the speed in a different way
+format_speed = 10
+# Defines the number of zones from the center we collect the color from when the user initially
+# selects the ball
+color_zone_count = 1
+
+[camera]
+# The default width of the camera preview
+width_preview = 1280
+# The default height of the camera preview
+height_preview = 720
+# The variables below define the resolution we make our calculations in
+# We do so in order to make the user experience smoother
+
+# Defines the width of the resolution used for calculations
+width_process = 400
+# Defines the height of the resolution used for calculations
+height_process = 225
+
+[vibration]
+# The pattern of alternating on-off timings, starting with off. Timing values of 0 will cause the
+# timing / amplitude pair to be ignored.
+pattern = [1000]
+# The index into the timings array at which to repeat, or -1 if you don't want to repeat.
+ind_repeat = 0
+
+[sensors]
+    [sensors.pitch]
+    # Allowed pitch offset to handle imprecise data better
+    offset = 2
+    # Minimum allowed pitch value which doesn't trigger alert
+    min = 35
+    # Maximum allowed pitch value which doesn't trigger alert
+    max = 50
+
+    [sensors.roll]
+    # Allowed roll offset to handle imprecise data better
+    offset = 2
+    # Allowed roll deviation for both sides which doesn't trigger alert
+    max_deviation = 4
+
+[game]
+# Defines how many last positions we hold in memory
+ball_pos_mem = 100
+# Defines the number of frames the ball has to be lost in order to count as a goal
+goal_frames = 20
+# Defines the percentage of the top and bottom of the display to be reserved for the goal zone
+# (here 0.3 stands for 30%)
+goal_zone = 0.3
+# We base our speed calculations on the real size of the foosball table
+# Defines the real width of the foosball table in meters
+width_table = 1.4224
+# Defines the real height of the foosball table in meters
+height_table = 0.7620
+
+[recognition]
+# Defines the default color filtering threshold, which is used to find the ball in a given frame
+def_thresh = 35
+# Our tracking algorithm uses a bounding box, which defines a viewport of a frame, in which we
+#search for the ball
+# Defines the starting width of the bounding box
+def_box_width = 40
+# Defines the starting height of the bounding box
+def_box_height = 40
+# How many frames the ball has to be lost in order to reset the bounding box
+reset_box_frames = 40
+# The minimum size of the bounding box. Because we use the blob's size as a base for our bounding
+# box calculations, we have to avoid very small values. The variables below define the absolute
+# minimum size of the bounding box
+min_box_width = 30
+min_box_height = 30
+# The minimum size of the blob in pixels, in order for it to be considered the ball
+min_blob_size = 10
+# Used to level off the min value, which is used in the tracking of the ball
+min_addition = 5
+# Used to level off the max value, which is used in the tracking of the ball
+max_addition = 5
+
+
+[multipliers]
+# The bounding box can change in size, depending on the speed of the ball
+# The bounding box width is calculated based on the following formula:
+# Width = speed_x * mul_delta_x + blob_width * mul_delta_width
+delta_x = 5
+delta_width = 3
+# The bounding box height is calculated in a similar way:
+# Height = speed_y * mul_delta_y + blob_height * mul_delta_height
+delta_y = 5
+delta_height = 3
+# Some values are more important than others in the HSV color space
+# These values are used to multiply those more important values
+# The multiplier for saturation
+saturation = 1.3
+# The multiplier for value
+value = 1.3
+# Defines how much we add to a heatmap point:
+#
+#   |Zone_three| |Zone_three| |Zone_three| |Zone_three| |Zone_three|
+#   |Zone_three|  |Zone_two|   |Zone_two|   |Zone_two|  |Zone_three|
+#   |Zone_three|  |Zone_two|   |Zone_one|   |Zone_two|  |Zone_three|
+#   |Zone_three|  |Zone_two|   |Zone_two|   |Zone_two|  |Zone_three|
+#   |Zone_three| |Zone_three| |Zone_three| |Zone_three| |Zone_three|
+#
+# Here, the value is written as follows, where zone_one is the center point:
+# [ Zone_one, Zone_two, Zone_three ]
+zones = [8, 4, 2]
+
+
+[template]
+stroke = 4
+# Array of points [x,y] based on the dynamic screen size . [width * x; height * y]
+coordinates = [[0.25, 0.9209], [0.03, 0.8023], [0.20, 0.35], [0.42, 0.2994], [0.58, 0.2994], [0.80, 0.35], [0.97, 0.8023], [0.75, 0.9209], [0.25, 0.9209]]
+# Corners of the table which corresponds to the area of ball recognition zone. The values are picked
+# from template points coordinates.
+# 0 item - top left coordinates
+# 1 item - top right coordinates
+# 2 item - bottom left coordinates
+# 3 item - bottom right coordinates
+recogPoints = [2, 4, 8, 7]
+
+[trace]
+# We use the alpha color channel to make the trace fade to create a nice effect
+# The following formula is used to calculate the alpha value for individual points:
+# Alpha = trace_max_alpha * ( n / trace_divisor ) + trace_to_add
+# here n is the number of the point, going from n = 10 to n = 1
+
+# Defines the starting alpha value for the ball trace
+max_alpha = 200
+# Defines the hsv divisor for the starting alpha value.
+divisor = 10
+# Defines how much we add to the equation
+to_add = 50
+# Defines the width of the stroke for the bounding box rectangle ( currently used for the ball
+# trace as well )
+stroke_rect = 16
+# Defines the number of historic points to draw
+to_paint = 10
+
+[heatmap]
+# The heatmap can consist of a lot of individual zones. Here, the variables directly affect it's
+# size.
+# Count = zones_width * zones_height
+# Defines the count of the zones in the x axis
+pts_width = 60
+# Defines the count of the zones in the y axis
+pts_height = 60
+# Defines the alpha value for each of the heatmap zone's color. TODO: Should be renamed
+max_zone_alpha = 255
+# Defines the number of iterations the heatmap goes through before it is represented on screen
+blur_iterations = 11
