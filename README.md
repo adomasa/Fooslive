@@ -1,5 +1,5 @@
 # Fooslive
-Fooslive analyses live/recorded table football game based on image recognition. It provides such data as score, ball heatmap, other ball movement data.
+Fooslive analyses live/recorded table football game based on image recognition. It provides game related data such as score, ball heatmap, max speed and average speed.
 Currently ball recognition is only based color recognition, so in order to use app properly, the ball must stand out of its environment. Lack of light, merging colors will heavily influence the results.
 
 # Credits
