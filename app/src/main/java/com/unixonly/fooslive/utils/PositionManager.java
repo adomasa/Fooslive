@@ -38,11 +38,11 @@ public class PositionManager implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mRotationSensor;
 
-    private static int pitchOffset;
-    private static int rollOffset;
-    private static int suggestedPitchMin;
-    private static int suggestedPitchMax;
-    private static int maxRollDeviaton;
+    private final int pitchOffset;
+    private final int rollOffset;
+    private final int suggestedPitchMin;
+    private final int suggestedPitchMax;
+    private final int maxRollDeviation;
     private boolean mGameStarted;
 
     public PositionManager(Context context) {
@@ -51,8 +51,11 @@ public class PositionManager implements SensorEventListener {
         mRotationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         mVibrator = new CustomVibrator(context);
 
-        //TODO: add properties from config file
-
+        pitchOffset = ConfigManager.getInt("sensors.pitch.offset");
+        rollOffset = ConfigManager.getInt("sensors.roll.offset");
+        suggestedPitchMin = ConfigManager.getInt("sensors.pitch.min");
+        suggestedPitchMax = ConfigManager.getInt("sensors.pitch.max");
+        maxRollDeviation = ConfigManager.getInt("sensors.roll.max_deviation");
     }
 
     @Override
@@ -114,9 +117,9 @@ public class PositionManager implements SensorEventListener {
             return;
         }
 
-        if (mRoll < mReferencePointRoll - maxRollDeviaton - rollOffset)
+        if (mRoll < mReferencePointRoll - maxRollDeviation - rollOffset)
             flagSet |= EXCEEDS_LEFT;
-        else if (mRoll > mReferencePointRoll + maxRollDeviaton + rollOffset)
+        else if (mRoll > mReferencePointRoll + maxRollDeviation + rollOffset)
             flagSet |= EXCEEDS_RIGHT;
 
         ((OnPositionManagerInteractionListener)mContext).onPositionManagerCallback(flagSet);
