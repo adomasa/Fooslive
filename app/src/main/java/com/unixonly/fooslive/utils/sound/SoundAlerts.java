@@ -64,10 +64,9 @@ public class SoundAlerts {
     }
 
     private MediaPlayer setUpPlayer(int resId) throws IOException {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        MediaPlayer mediaPlayer = MediaPlayer.create(mContext, resId);
         // TODO: find out default volume values.setVolume() call might be redundant.
-        mediaPlayer.create(mContext, resId)
-                .setVolume(100, 100);
+        mediaPlayer.setVolume(100, 100);
 
         mediaPlayer.prepare();
         return mediaPlayer;
