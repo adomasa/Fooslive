@@ -8,6 +8,9 @@ import com.unixonly.fooslive.game.model.Alert;
 
 import java.io.IOException;
 
+/**
+ * Use .release() when finished using the object to release memory
+ */
 public class SoundAlerts {
     public static final String TAG = "SoundAlerts";
     private Context mContext;
@@ -18,9 +21,17 @@ public class SoundAlerts {
     private MediaPlayer mTeam2GoalPlayer;
     private MediaPlayer mTeam2WinPlayer;
 
-    public SoundAlerts(Context context) {
+    public SoundAlerts(Context context, int team1GoalSoundId, int team1WinSoundId,
+                       int team2GoalSoundId, int team2WinSoundId)
+            throws IOException {
         mContext = context;
+        mTeam1GoalPlayer = setUpPlayer(team1GoalSoundId);
+        mTeam1WinPlayer = setUpPlayer(team1WinSoundId);
+        mTeam2GoalPlayer = setUpPlayer(team2GoalSoundId);
+        mTeam2WinPlayer = setUpPlayer(team2WinSoundId);
+
     }
+
 
     public void play(@Alert.Type int alertType) {
         MediaPlayer targetPlayer;
@@ -45,22 +56,6 @@ public class SoundAlerts {
         if (targetPlayer.isPlaying()) targetPlayer.stop();
 
         targetPlayer.start();
-    }
-
-    public void setTeam1GoalSound(int resId) throws IOException {
-        mTeam1GoalPlayer = setUpPlayer(resId);
-    }
-
-    public void setTeam1WinSound(int resId) throws IOException  {
-        mTeam1WinPlayer = setUpPlayer(resId);
-    }
-
-    public void setTeam2GoalSound(int resId) throws IOException  {
-        mTeam2GoalPlayer = setUpPlayer(resId);
-    }
-
-    public void setTeam2WinPlayer(int resId) throws IOException  {
-        mTeam2WinPlayer = setUpPlayer(resId);
     }
 
     private MediaPlayer setUpPlayer(int resId) throws IOException {
