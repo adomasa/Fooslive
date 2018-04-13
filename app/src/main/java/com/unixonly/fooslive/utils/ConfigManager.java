@@ -111,4 +111,14 @@ public class ConfigManager {
         isAvailable(key);
         return (float)sConfig.getLong(key);
     }
+
+    /**
+     * Retrieve generified long list using unchecked cast
+     * @param key attribute identifier
+     * @return generified long list
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Long> getLongList(@NonNull String key) {
+        return (List<Long>)getList(key);
+    }
 }

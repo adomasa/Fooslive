@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Vibrator;
 import android.support.annotation.IntDef;
 import android.util.Log;
 
@@ -29,7 +30,7 @@ public class PositionManager implements SensorEventListener {
     @Retention(RetentionPolicy.SOURCE)
     public @interface Guideline {}
 
-    private CustomVibrator mVibrator;
+    private VibratorManager mVibrator;
     private float mRoll;
     private float mPitch;
     private float mReferencePointRoll;
@@ -38,24 +39,19 @@ public class PositionManager implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mRotationSensor;
 
-    private final int pitchOffset;
-    private final int rollOffset;
-    private final int suggestedPitchMin;
-    private final int suggestedPitchMax;
-    private final int maxRollDeviation;
+    private final int pitchOffset = ConfigManager.getInt("sensors.pitch.offset");
+    private final int rollOffset = ConfigManager.getInt("sensors.roll.offset");
+    private final int suggestedPitchMin = ConfigManager.getInt("sensors.pitch.min");
+    private final int suggestedPitchMax = ConfigManager.getInt("sensors.pitch.max");
+    private final int maxRollDeviation = ConfigManager.getInt("sensors.roll.max_deviation");
     private boolean mGameStarted;
 
     public PositionManager(Context context) {
         mContext = context;
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         mRotationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        mVibrator = new CustomVibrator(context);
 
-        pitchOffset = ConfigManager.getInt("sensors.pitch.offset");
-        rollOffset = ConfigManager.getInt("sensors.roll.offset");
-        suggestedPitchMin = ConfigManager.getInt("sensors.pitch.min");
-        suggestedPitchMax = ConfigManager.getInt("sensors.pitch.max");
-        maxRollDeviation = ConfigManager.getInt("sensors.roll.max_deviation");
+        mVibrator = new VibratorManager((Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE));
     }
 
     @Override
@@ -81,7 +77,7 @@ public class PositionManager implements SensorEventListener {
         SensorManager.remapCoordinateSystem(rotationMatrix, SensorManager.AXIS_X,
                 SensorManager.AXIS_Y, adjustedRotationMatrix);
 
-        //Retrieve calibrated data
+        // Retrieve calibrated data
         float[] orientation = new float[3];
         SensorManager.getOrientation(adjustedRotationMatrix, orientation);
 
@@ -106,29 +102,30 @@ public class PositionManager implements SensorEventListener {
     {
         @Guideline int flagSet = 0;
 
-        if (mPitch > suggestedPitchMax - pitchOffset)
+        if (mPitch > suggestedPitchMax - pitchOffset) {
             flagSet |= EXCEEDS_TOP;
-        else if (mPitch < suggestedPitchMin + pitchOffset)
+        }
+        else if (mPitch < suggestedPitchMin + pitchOffset) {
             flagSet |= EXCEEDS_BOT;
+        }
 
-        if (!mGameStarted)
-        {
+        if (!mGameStarted) {
             ((OnPositionManagerInteractionListener)mContext).onPositionManagerCallback(flagSet);
             return;
         }
 
-        if (mRoll < mReferencePointRoll - maxRollDeviation - rollOffset)
+        if (mRoll < mReferencePointRoll - maxRollDeviation - rollOffset) {
             flagSet |= EXCEEDS_LEFT;
-        else if (mRoll > mReferencePointRoll + maxRollDeviation + rollOffset)
+        }
+        else if (mRoll > mReferencePointRoll + maxRollDeviation + rollOffset) {
             flagSet |= EXCEEDS_RIGHT;
+        }
 
         ((OnPositionManagerInteractionListener)mContext).onPositionManagerCallback(flagSet);
 
         //Toggle vibration if necessary
-        if (flagSet != 0)
-            mVibrator.start();
-        else
-            mVibrator.stop();
+        if (flagSet != 0) mVibrator.vibrate();
+        else mVibrator.cancel();
     }
 
     public interface OnPositionManagerInteractionListener {
@@ -137,12 +134,12 @@ public class PositionManager implements SensorEventListener {
 
     public void startListening() {
         if (!mSensorManager.registerListener(
-                this, mRotationSensor, SensorManager.SENSOR_DELAY_GAME))
+                this, mRotationSensor, SensorManager.SENSOR_DELAY_NORMAL))
             Log.e(TAG, "Vibration sensor unsupported or registered unsuccessfully");
     }
 
     public void stopListening() {
-        mVibrator.stop();
+        mVibrator.cancel();
         mSensorManager.unregisterListener(this);
     }
 
