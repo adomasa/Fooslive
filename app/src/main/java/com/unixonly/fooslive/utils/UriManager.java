@@ -4,20 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 
 public class UriManager {
-    private Context mContext;
 
-    public UriManager(Context context) {
-        mContext = context;
-    }
+    private UriManager() {}
 
     /**
      * Generate URI based on the name
+     * @param context app context for package name extraction
      * @param name file name without extension from raw folder
      * @return raw resource URI
      */
-    public Uri uriFromRaw(String name) {
+    public static Uri uriFromRaw(Context context, String name) {
         return new Uri.Builder().scheme("android.resource")
-                .authority(mContext.getPackageName())
+                .authority(context.getPackageName())
                 .path("/raw/" + name)
                 .build();
     }

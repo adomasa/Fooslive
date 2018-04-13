@@ -76,7 +76,7 @@
 
     <string name="pref_title_sync">Sync data</string>
     <string name="pref_key_sync" translatable="false">sync_enabled</string>
-    <string name="pref_description_sync">Sync game results with clouds automatically</string>
+    <string name="pref_description_sync">Sync game results with the cloud automatically</string>
 
     <string name="pref_title_vibration">Vibration</string>
     <string name="pref_key_vibration" translatable="false">vibration_enabled</string>
