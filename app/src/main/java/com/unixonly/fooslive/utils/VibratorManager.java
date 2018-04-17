@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
+//TODO: review in detail
 public class VibratorManager {
     private final Vibrator mVibrator;
     private boolean mVibrating = false;
@@ -18,8 +19,7 @@ public class VibratorManager {
     /**
      * Start vibration
      */
-    public void vibrate()
-    {
+    public void vibrate() {
         if (mVibrating) return;
         // >=26 Android SDK use waveforms to define vibration
         if (Build.VERSION.SDK_INT >= 26) {

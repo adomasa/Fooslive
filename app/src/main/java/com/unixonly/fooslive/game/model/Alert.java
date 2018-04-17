@@ -3,11 +3,9 @@ package com.unixonly.fooslive.game.model;
 import android.support.annotation.IntDef;
 
 public final class Alert {
-    public static final int TEAM_1_GOAL = 0;
-    public static final int TEAM_1_WIN = 1;
-    public static final int TEAM_2_GOAL = 2;
-    public static final int TEAM_2_WIN = 3;
+    public static final int GOAL = 0;
+    public static final int WIN = 1;
 
-    @IntDef({TEAM_1_GOAL, TEAM_1_WIN, TEAM_2_GOAL, TEAM_2_WIN})
+    @IntDef({GOAL, WIN})
     public @interface Type {}
 }

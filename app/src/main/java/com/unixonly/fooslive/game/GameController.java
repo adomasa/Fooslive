@@ -17,10 +17,25 @@ public class GameController {
     private static final String TAG = "GameController";
     private static final int TABLE_CORNER_COUNT = 4;
 
-    public final double tableWidth;
-    public final double tableHeight;
-    private final int maxBallMemory;
-    private final float goalZoneSize;
+    /**
+     * Table width in centimeters
+     */
+    private final double tableWidth = ConfigManager.getDouble("game.width_table");
+
+    /**
+     * Table height in centimeters
+     */
+    private final double tableHeight = ConfigManager.getDouble("game.height_table");
+
+    /**
+     * Defines how many ball positions we hold in memory
+     */
+    private final int maxBallMemory = ConfigManager.getInt("game.ball_pos_mem");
+
+    /**
+     * Defines the percentage of the top and bottom of the display to be reserved for the goal zone
+     */
+    private final float goalZoneSize = ConfigManager.getFloat("game.goal_zone");
 
     OnGoalEventListener goalListener;
 
@@ -32,25 +47,14 @@ public class GameController {
     private int mTeam1Score;
     private int mTeam2Score;
 
-    private PositionChecker mPositionChecker;
+    private BallPositionManager mBallPositionManager = new BallPositionManager();
 
-    private PointF[] mLastBallCoordinates;
-    private Queue<PointF> mBallCoordinates;
+    private PointF[] mLastBallCoordinates = new PointF[2];
+    private Queue<PointF> mBallCoordinates = new LinkedList<>();
 
     private double mAverageSpeed;
     private long mAverageSpeedCount;
     private double mMaxSpeed;
-
-    public GameController() {
-        tableWidth = ConfigManager.getDouble("game.width_table");
-        tableHeight = ConfigManager.getDouble("game.height_table");
-        maxBallMemory = ConfigManager.getInt("game.ball_pos_mem");
-        goalZoneSize = ConfigManager.getFloat("game.goal_zone");
-
-        mBallCoordinates = new LinkedList<>();
-        mPositionChecker = new PositionChecker();
-        mLastBallCoordinates = new PointF[2];
-    }
 
     /***
      * Calculates the goal zone boundaries using the points given
@@ -60,7 +64,7 @@ public class GameController {
         if (points.length != TABLE_CORNER_COUNT) return;
 
         RectF team1Zone = new RectF(points[0].x,
-                mPositionChecker.getTeam2Zone().bottom +
+                mBallPositionManager.getTeam2GoalZone().bottom +
                         (1.0f - goalZoneSize * 2) * (points[2].y - points[0].y),
                 points[3].x,
                 points[3].y);
@@ -71,16 +75,16 @@ public class GameController {
                 points[1].y + (points[2].y - points[0].y) * goalZoneSize);
 
         // Calculate the different zones, using the points given
-        mPositionChecker.setTeam1Zone(team1Zone);
-        mPositionChecker.setTeam2Zone(team2Zone);
+        mBallPositionManager.setTeam1GoalZone(team1Zone);
+        mBallPositionManager.setTeam2GoalZone(team2Zone);
         mMulX = metersToCentimeters(1) * (tableWidth / (team1Zone.right - team1Zone.left));
         mMulY = metersToCentimeters(1) * (tableHeight / (team1Zone.bottom - team2Zone.top));
 
         RectF table = new RectF(
-                mPositionChecker.getTeam2Zone().left,
-                mPositionChecker.getTeam2Zone().top,
-                mPositionChecker.getTeam1Zone().right,
-                mPositionChecker.getTeam1Zone().bottom);
+                mBallPositionManager.getTeam2GoalZone().left,
+                mBallPositionManager.getTeam2GoalZone().top,
+                mBallPositionManager.getTeam1GoalZone().right,
+                mBallPositionManager.getTeam1GoalZone().bottom);
 
         mHeatmapZones = new HeatMap(table);
     }
@@ -89,6 +93,7 @@ public class GameController {
         return mLastBallCoordinates[0];
     }
 
+    //TODO: review code in detail
     public void setLastBallCoordinates(@Nullable PointF point) {
         if (mBallCoordinates.size() == maxBallMemory) mBallCoordinates.remove();
 
@@ -99,7 +104,7 @@ public class GameController {
 
         mBallCoordinates.add(point);
 
-        mPositionChecker.onNewFrame(point, this);
+        mBallPositionManager.onNewFrame(point, this);
 
         double currentSpeed = calculateSpeed(mLastBallCoordinates[0], mLastBallCoordinates[1],
                 mMulX, mMulY);
@@ -121,16 +126,8 @@ public class GameController {
         return mBallCoordinates;
     }
 
-    public PositionChecker getPositionChecker() {
-        return mPositionChecker;
-    }
-
-    public void setTeam1Score(int score) {
-        mTeam1Score = score;
-    }
-
-    public void setTeam2Score(int score) {
-        mTeam2Score = score;
+    public BallPositionManager getPositionChecker() {
+        return mBallPositionManager;
     }
 
     public int getTeam1Score() {
@@ -142,12 +139,19 @@ public class GameController {
     }
 
     /**
-     * Add score by 1 for team defined in the argument
-     * @param team team identifier
+     * Increment score by 1
      */
     public void incrementScore(@Team.Type int team) {
         if (team == Team.TEAM_1) mTeam1Score++;
         else mTeam2Score++;
+    }
+
+    /**
+     * Decrement score by 1
+     */
+    public void descrementScore(@Team.Type int team) {
+        if (team == Team.TEAM_1) mTeam1Score--;
+        else mTeam2Score--;
     }
 
     public void setOnGoalEventListener(OnGoalEventListener listener) {

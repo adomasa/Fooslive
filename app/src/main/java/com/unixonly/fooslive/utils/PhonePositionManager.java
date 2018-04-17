@@ -12,8 +12,8 @@ import android.util.Log;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class PositionManager implements SensorEventListener {
-    private static final String TAG = "PositionManager";
+public class PhonePositionManager implements SensorEventListener {
+    private static final String TAG = "PhonePositionManager";
 
     // Live mode holding guidelines indication flags
     public static final int EXCEEDS_TOP = 1;
@@ -46,7 +46,7 @@ public class PositionManager implements SensorEventListener {
     private final int maxRollDeviation = ConfigManager.getInt("sensors.roll.max_deviation");
     private boolean mGameStarted;
 
-    public PositionManager(Context context) {
+    public PhonePositionManager(Context context) {
         mContext = context;
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         mRotationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);

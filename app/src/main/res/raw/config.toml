@@ -47,7 +47,7 @@ ind_repeat = 0
     max_deviation = 4
 
 [game]
-# Defines how many last positions we hold in memory
+# Defines how many ball positions we hold in memory
 ball_pos_mem = 100
 # Defines the number of frames the ball has to be lost in order to count as a goal
 goal_frames = 20

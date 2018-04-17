@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 import com.unixonly.fooslive.game.model.Alert;
+import com.unixonly.fooslive.game.model.Team;
 
 import java.io.IOException;
 
@@ -29,33 +30,28 @@ public class SoundAlerts {
         mTeam1WinPlayer = setUpPlayer(team1WinSoundId);
         mTeam2GoalPlayer = setUpPlayer(team2GoalSoundId);
         mTeam2WinPlayer = setUpPlayer(team2WinSoundId);
-
     }
 
 
-    public void play(@Alert.Type int alertType) {
-        MediaPlayer targetPlayer;
+    public void play(@Alert.Type int alertType, @Team.Type int team) {
+        MediaPlayer targetSoundPlayer;
         switch (alertType) {
-            case Alert.TEAM_1_GOAL:
-                targetPlayer = mTeam1GoalPlayer;
+            case Alert.GOAL:
+                if (team == Team.TEAM_1) targetSoundPlayer = mTeam1GoalPlayer;
+                else targetSoundPlayer = mTeam2GoalPlayer;
                 break;
-            case Alert.TEAM_1_WIN:
-                targetPlayer = mTeam1WinPlayer;
-                break;
-            case Alert.TEAM_2_GOAL:
-                targetPlayer = mTeam2GoalPlayer;
-                break;
-            case Alert.TEAM_2_WIN:
-                targetPlayer = mTeam2WinPlayer;
+            case Alert.WIN:
+                if (team == Team.TEAM_1) targetSoundPlayer = mTeam1WinPlayer;
+                else targetSoundPlayer = mTeam2WinPlayer;
                 break;
             default:
                 Log.e(TAG, "Unknown alertType on play()");
                 return;
         }
 
-        if (targetPlayer.isPlaying()) targetPlayer.stop();
+        if (targetSoundPlayer.isPlaying()) targetSoundPlayer.stop();
 
-        targetPlayer.start();
+        targetSoundPlayer.start();
     }
 
     private MediaPlayer setUpPlayer(int resId) throws IOException {
@@ -67,6 +63,9 @@ public class SoundAlerts {
         return mediaPlayer;
     }
 
+    /**
+     * Release mediaPlayer instances
+     */
     public void release() {
         mTeam1GoalPlayer.release();
         mTeam1WinPlayer.release();

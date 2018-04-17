@@ -4,57 +4,69 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.unixonly.fooslive.databinding.ActivityGameBinding;
-import com.unixonly.fooslive.utils.PositionManager;
+import com.unixonly.fooslive.game.model.Mode;
+import com.unixonly.fooslive.utils.PhonePositionManager;
 
 // TODO port activity
-public class GameActivity extends AppCompatActivity implements PositionManager.OnPositionManagerInteractionListener {
+public class GameActivity extends AppCompatActivity implements
+        PhonePositionManager.OnPositionManagerInteractionListener {
     private static final String TAG = "GameActivity";
 
     private ActivityGameBinding mBinding;
 
+    private @Mode.Type int mode;
+
+    private PhonePositionManager phonePositionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hideSystemUI();
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                | View.SYSTEM_UI_FLAG_IMMERSIVE);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setContentView(R.layout.activity_menu);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_game);
+
+        // Determine game mode
+        if (getIntent() == null) {
+            // No video URI attached in intent, so it's live mode
+            mode = Mode.LIVE;
+        } else {
+            mode = Mode.RECORD;
+        }
+
+        // Initialise components
+        phonePositionManager = new PhonePositionManager(this);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        if (GameMode == ECaptureMode.Live)
-//            _positionManager.StopListening();
+        //TODO: check whether guidelines are enabled by user
+        if (mode == Mode.LIVE) phonePositionManager.stopListening();
         finish();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        if (GameMode == ECaptureMode.Live)
-//            _positionManager.StartListening();
+        //TODO: check whether guidelines are enabled by user
+        if (mode == Mode.LIVE) phonePositionManager.startListening();
     }
 
-    /**
-     * TODO: move to separate UI utils class
-     * Update image visibility
-     * @param image ImageView instance reference
-     * @param toVisible visible if true, invisible if false
-     */
-    private void updateVisibility(ImageView image, boolean toVisible) {
-        if (toVisible) image.setVisibility(View.VISIBLE);
+    private void updateVisibility(ImageView image, boolean isVisible) {
+        if (isVisible) image.setVisibility(View.VISIBLE);
         else image.setVisibility(View.INVISIBLE);
-    }
-
-    private void hideSystemUI() {
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     /**
@@ -64,12 +76,12 @@ public class GameActivity extends AppCompatActivity implements PositionManager.O
     @Override
     public void onPositionManagerCallback(int flagSet) {
         updateVisibility(mBinding.imageArrowTop,
-                (flagSet | PositionManager.EXCEEDS_TOP) == flagSet);
+                (flagSet | PhonePositionManager.EXCEEDS_TOP) == flagSet);
         updateVisibility(mBinding.imageArrowBot,
-                (flagSet | PositionManager.EXCEEDS_BOT) == flagSet);
+                (flagSet | PhonePositionManager.EXCEEDS_BOT) == flagSet);
         updateVisibility(mBinding.imageArrowLeft,
-                (flagSet | PositionManager.EXCEEDS_LEFT) == flagSet);
+                (flagSet | PhonePositionManager.EXCEEDS_LEFT) == flagSet);
         updateVisibility(mBinding.imageArrowRight,
-                (flagSet | PositionManager.EXCEEDS_RIGHT) == flagSet);
+                (flagSet | PhonePositionManager.EXCEEDS_RIGHT) == flagSet);
     }
 }
