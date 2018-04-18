@@ -1,8 +1,10 @@
-package com.unixonly.fooslive.utils;
+package com.unixonly.fooslive.guidelines;
 
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+
+import com.unixonly.fooslive.config.ConfigManager;
 
 //TODO: review in detail
 public class VibratorManager {

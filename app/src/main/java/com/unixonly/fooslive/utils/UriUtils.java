@@ -3,9 +3,9 @@ package com.unixonly.fooslive.utils;
 import android.content.Context;
 import android.net.Uri;
 
-public class UriManager {
+public class UriUtils {
 
-    private UriManager() {}
+    private UriUtils() {}
 
     /**
      * Generate URI based on the name

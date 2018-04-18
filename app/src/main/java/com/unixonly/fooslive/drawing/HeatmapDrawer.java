@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils.drawing;
+package com.unixonly.fooslive.drawing;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,14 +8,14 @@ import android.graphics.RectF;
 import android.util.Size;
 
 import com.unixonly.fooslive.game.HeatMap;
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 /**
  * This class is responsible for drawing an informational
  * heatmap using the data collected during the game
  */
 public class HeatmapDrawer {
-    private static int mMaxAlpha;
+    private static final int maxAlpha = ConfigManager.getInt("heatmap.max_zone_alpha");
 
     /**
      * Draws the heatmap, using the data collected during the game
@@ -24,21 +24,19 @@ public class HeatmapDrawer {
      * @return drawn canvas
      */
     public static Canvas drawZones(Canvas canvas, HeatMap heatMap) {
-        mMaxAlpha = ConfigManager.getInt("heatmap.max_zone_alpha");
-
         Size sizeOfBitmap = new Size(canvas.getWidth(), canvas.getHeight());
         PointF topLeftCorner = new PointF(0,0);
 
         int max = findMax(heatMap);
 
         int[] colours = {
-                Color.argb(mMaxAlpha, 0, 0, 0) ,
-                Color.argb(mMaxAlpha, 0, 0, 0xFF) ,
-                Color.argb(mMaxAlpha, 0, 0xFF, 0xFF) ,
-                Color.argb(mMaxAlpha, 0, 0xFF, 0) ,
-                Color.argb(mMaxAlpha, 0xFF, 0xFF, 0) ,
-                Color.argb(mMaxAlpha, 0xFF, 0, 0) ,
-                Color.argb(mMaxAlpha, 0xFF, 0xFF, 0xFF)
+                Color.argb(maxAlpha, 0, 0, 0) ,
+                Color.argb(maxAlpha, 0, 0, 0xFF) ,
+                Color.argb(maxAlpha, 0, 0xFF, 0xFF) ,
+                Color.argb(maxAlpha, 0, 0xFF, 0) ,
+                Color.argb(maxAlpha, 0xFF, 0xFF, 0) ,
+                Color.argb(maxAlpha, 0xFF, 0, 0) ,
+                Color.argb(maxAlpha, 0xFF, 0xFF, 0xFF)
         };
 
         Paint paint = new Paint();
@@ -108,6 +106,6 @@ public class HeatmapDrawer {
         int green = Color.green(target) + (int)(greenDelta * percentageOfColor);
         int blue = Color.blue(target) + (int)(blueDelta * percentageOfColor);
 
-        return Color.argb(mMaxAlpha, red, green, blue);
+        return Color.argb(maxAlpha, red, green, blue);
     }
 }

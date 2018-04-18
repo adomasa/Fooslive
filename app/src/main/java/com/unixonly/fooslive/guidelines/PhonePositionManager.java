@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils;
+package com.unixonly.fooslive.guidelines;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -8,6 +8,8 @@ import android.hardware.SensorManager;
 import android.os.Vibrator;
 import android.support.annotation.IntDef;
 import android.util.Log;
+
+import com.unixonly.fooslive.config.ConfigManager;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -49,6 +51,10 @@ public class PhonePositionManager implements SensorEventListener {
     public PhonePositionManager(Context context) {
         mContext = context;
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+
+        if (mSensorManager == null) {
+            throw new UnsupportedOperationException("Can't retrieve SensorManager");
+        }
         mRotationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
         mVibrator = new VibratorManager((Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE));

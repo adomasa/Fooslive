@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils.video;
+package com.unixonly.fooslive.video;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.Surface;
 
 import java.io.IOException;
 
-public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedListener ,
+public class VideoPlayer extends MediaPlayer implements MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener {
     private boolean mDisposed;
 

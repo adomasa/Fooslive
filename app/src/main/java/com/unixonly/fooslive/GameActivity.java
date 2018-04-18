@@ -3,13 +3,16 @@ package com.unixonly.fooslive;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.unixonly.fooslive.databinding.ActivityGameBinding;
-import com.unixonly.fooslive.game.model.Mode;
-import com.unixonly.fooslive.utils.PhonePositionManager;
+import com.unixonly.fooslive.game.GameController;
+import com.unixonly.fooslive.model.Mode;
+import com.unixonly.fooslive.guidelines.PhonePositionManager;
+import com.unixonly.fooslive.video.SurfaceManager;
 
 // TODO port activity
 public class GameActivity extends AppCompatActivity implements
@@ -37,15 +40,20 @@ public class GameActivity extends AppCompatActivity implements
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_game);
 
         // Determine game mode
-        if (getIntent() == null) {
-            // No video URI attached in intent, so it's live mode
-            mode = Mode.LIVE;
-        } else {
-            mode = Mode.RECORD;
-        }
+        // If there is no video URI attached in intent, so it's live mode
+        mode = getIntent().getData() == null ? Mode.LIVE : Mode.RECORD;
 
         // Initialise components
-        phonePositionManager = new PhonePositionManager(this);
+        try {
+            phonePositionManager = new PhonePositionManager(this);
+        } catch (UnsupportedOperationException e) {
+            Log.e(TAG, e.getMessage());
+            //TODO: disable guidelines in case of exception
+        }
+
+        GameController gameController = new GameController();
+        SurfaceManager surfaceManager = new SurfaceManager(this,
+                mBinding.textureCamera, mBinding.surfaceBallTrace.getHolder(), gameController);
 
     }
 
@@ -65,8 +73,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     private void updateVisibility(ImageView image, boolean isVisible) {
-        if (isVisible) image.setVisibility(View.VISIBLE);
-        else image.setVisibility(View.INVISIBLE);
+        image.setVisibility(isVisible ? View.VISIBLE : View.VISIBLE);
     }
 
     /**

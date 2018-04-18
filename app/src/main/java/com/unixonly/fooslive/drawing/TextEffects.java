@@ -1,11 +1,11 @@
-package com.unixonly.fooslive.utils.drawing;
+package com.unixonly.fooslive.drawing;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 public class TextEffects {
     public static final String TAG = "TextEffects";

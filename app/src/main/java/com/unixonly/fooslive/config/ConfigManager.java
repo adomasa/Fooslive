@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils;
+package com.unixonly.fooslive.config;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.moandjiezana.toml.Toml;
-import com.unixonly.fooslive.R;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -34,7 +34,7 @@ public class MenuActivity extends AppCompatActivity implements OnFragmentInterac
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
 
         setActionBar(mBinding.toolbar);
-        getActionBar().setDisplayShowTitleEnabled(false);
+        if (getActionBar() != null) getActionBar().setDisplayShowTitleEnabled(false);
 
         loadFragment(MainMenuFragment.TAG, false);
     }

@@ -1,10 +1,10 @@
-package com.unixonly.fooslive.game.tracking;
+package com.unixonly.fooslive.tracking;
 
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import org.opencv.core.Core;
 import org.opencv.core.KeyPoint;

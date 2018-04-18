@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils.video;
+package com.unixonly.fooslive.video;
 
 import android.Manifest;
 import android.content.Context;
@@ -21,7 +21,7 @@ import android.view.Surface;
 import android.view.TextureView;
 
 import com.unixonly.fooslive.GameActivity;
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;

@@ -4,8 +4,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
 
-import com.unixonly.fooslive.game.model.Team;
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.model.Team;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import java.util.Iterator;
 import java.util.Queue;

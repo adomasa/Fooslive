@@ -3,7 +3,7 @@ package com.unixonly.fooslive.game;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import java.util.List;
 

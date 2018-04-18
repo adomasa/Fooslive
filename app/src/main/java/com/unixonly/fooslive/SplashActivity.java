@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import java.io.IOException;
 
@@ -21,8 +21,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         try {
-            ConfigManager.load(this, R.raw.config);
             // Initialise high CPU consuming code here
+            ConfigManager.load(this, R.raw.config);
             startActivity(new Intent(SplashActivity.this, MenuActivity.class));
         } catch (IOException e) {
             Log.e(TAG, "Couldn't load configuration file. Terminating application.");

@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.game.model;
+package com.unixonly.fooslive.model;
 
 import android.support.annotation.IntDef;
 

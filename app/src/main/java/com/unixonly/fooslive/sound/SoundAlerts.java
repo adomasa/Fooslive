@@ -1,11 +1,11 @@
-package com.unixonly.fooslive.utils.sound;
+package com.unixonly.fooslive.sound;
 
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
 
-import com.unixonly.fooslive.game.model.Alert;
-import com.unixonly.fooslive.game.model.Team;
+import com.unixonly.fooslive.model.Alert;
+import com.unixonly.fooslive.model.Team;
 
 import java.io.IOException;
 

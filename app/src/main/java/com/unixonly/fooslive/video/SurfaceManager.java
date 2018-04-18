@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils.video;
+package com.unixonly.fooslive.video;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,9 +12,9 @@ import android.view.SurfaceHolder;
 import android.view.TextureView;
 
 import com.unixonly.fooslive.game.GameController;
-import com.unixonly.fooslive.game.tracking.ColorDetector;
-import com.unixonly.fooslive.game.tracking.ObjectDetector;
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.tracking.ColorDetector;
+import com.unixonly.fooslive.tracking.ObjectDetector;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;

@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.utils.drawing;
+package com.unixonly.fooslive.drawing;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,7 +8,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 
 import com.unixonly.fooslive.game.GameController;
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class TableTemplateDrawer {
      * @param controller the GameController, which is given the coordinates of the table
      * @return canvas, which holds the drawn alignment figure
      */
-    public static Canvas DrawZones(Canvas canvas, GameController controller) {
+    public static Canvas drawZones(Canvas canvas, GameController controller) {
         List<List<Float>> multipliers = ConfigManager.getList("template.coordinates");
         List<Integer> recognitionPoints = ConfigManager.getIntList("template.recogPoints");
         Paint paint = new Paint();
@@ -42,7 +42,7 @@ public class TableTemplateDrawer {
                     canvasHeight * (multipliers.get(i)).get(1));
         }
 
-        moveContour(contour, contourCoordinates);
+        addContourPoints(contour, contourCoordinates);
 
         canvas.drawPath(contour, paint);
 
@@ -54,7 +54,8 @@ public class TableTemplateDrawer {
             tablePoints[i] = contourCoordinates[recognitionPoints.get(i)];
         }
 
-
+        //TODO: setting point in controller from drawer violates single responsibility principle
+        //TODO: move out setTable() out of drawer class
         controller.setTable(tablePoints);
 
         return canvas;
@@ -71,7 +72,7 @@ public class TableTemplateDrawer {
         paint.setPathEffect(paintEffect);
     }
 
-    private static void moveContour(Path contour, PointF[] coordinates) {
+    private static void addContourPoints(Path contour, PointF[] coordinates) {
         for (PointF point : coordinates) {
             contour.moveTo(point.x, point.y);
         }

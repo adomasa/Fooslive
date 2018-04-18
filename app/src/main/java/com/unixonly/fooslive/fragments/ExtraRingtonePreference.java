@@ -15,7 +15,7 @@ import android.util.AttributeSet;
 
 
 import com.unixonly.fooslive.R;
-import com.unixonly.fooslive.utils.UriManager;
+import com.unixonly.fooslive.utils.UriUtils;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -36,7 +36,6 @@ public class ExtraRingtonePreference extends DialogPreference {
     private boolean mShowDefault;
     private CharSequence[] mExtraRingtones;
     private CharSequence[] mExtraRingtonesTitles;
-    private UriManager mUriManager;
 
     public ExtraRingtonePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -57,8 +56,6 @@ public class ExtraRingtonePreference extends DialogPreference {
         mExtraRingtonesTitles = attributes.getTextArray(
                 R.styleable.ExtraRingtonePreference_extraRingtoneTitles);
         attributes.recycle();
-
-        mUriManager = new UriManager(context);
     }
 
     public ExtraRingtonePreference(Context context) {
@@ -115,7 +112,7 @@ public class ExtraRingtonePreference extends DialogPreference {
         // Look through custom ringtones from raw folder
         if (mExtraRingtones != null && mExtraRingtonesTitles != null) {
             for (int i = 0; i < mExtraRingtones.length; i++) {
-                Uri uriExtra = mUriManager.uriFromRaw(mExtraRingtones[i].toString());
+                Uri uriExtra = UriUtils.uriFromRaw(mContext, mExtraRingtones[i].toString());
                 if (uriExtra.equals(valueUri)) return mExtraRingtonesTitles[i].toString();
             }
         }
@@ -138,7 +135,7 @@ public class ExtraRingtonePreference extends DialogPreference {
         // Collect custom ringtones
         if (mExtraRingtones != null) {
             for (CharSequence extraRingtone : mExtraRingtones) {
-                Uri uri = mUriManager.uriFromRaw(extraRingtone.toString());
+                Uri uri = UriUtils.uriFromRaw(mContext, extraRingtone.toString());
                 String title = getExtraRingtoneTitle(extraRingtone);
 
                 sounds.put(title, uri);
@@ -215,7 +212,7 @@ public class ExtraRingtonePreference extends DialogPreference {
         if (mExtraRingtones != null && defaultValue != null && !defaultValue.toString().isEmpty()) {
             int index = Arrays.asList(mExtraRingtones).indexOf((CharSequence) defaultValue);
 
-            mValue = (index >= 0) ? mUriManager.uriFromRaw(defaultValue.toString()).toString() :
+            mValue = (index >= 0) ? UriUtils.uriFromRaw(mContext, defaultValue.toString()).toString() :
                     (String)defaultValue;
         } else
             mValue = (String)defaultValue;

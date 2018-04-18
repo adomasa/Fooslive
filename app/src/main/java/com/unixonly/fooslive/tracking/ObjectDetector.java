@@ -1,4 +1,4 @@
-package com.unixonly.fooslive.game.tracking;
+package com.unixonly.fooslive.tracking;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 
 import com.unixonly.fooslive.game.GameController;
-import com.unixonly.fooslive.utils.ConfigManager;
+import com.unixonly.fooslive.config.ConfigManager;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
@@ -29,26 +29,20 @@ public class ObjectDetector {
     private PointF mUpscalingMultipliers;
 
     // Used in painting the ball trace, it defines the width
-    private final int traceStrokeWidth;
+    private final int traceStrokeWidth = ConfigManager.getInt("trace.stroke_rect");
     // Used in painting the ball trace, it defines the preliminary alpha value
-    private final int traceMaxAlpha;
+    private final int traceMaxAlpha = ConfigManager.getInt("trace.max_alpha");
 
     // Defines how much an alpha value decreases for every historic point away from the ball
-    private final int traceDivisor;
+    private final int traceDivisor = ConfigManager.getInt("trace.divisor");
     // Defines how much we compensate for the decreased alpha value
-    private final int traceToAdd;
+    private final int traceToAdd = ConfigManager.getInt("trace.to_add");
     // Defines how much historic points we paint for the ball trace
-    private final int toPaint;
+    private final int toPaint = ConfigManager.getInt("trace.to_paint");
 
     private Scalar mBallHSV;
 
     public ObjectDetector(ColorDetector detector, GameController controller) {
-        traceStrokeWidth = ConfigManager.getInt("trace.stroke_rect");
-        traceMaxAlpha = ConfigManager.getInt("trace.max_alpha");
-        traceDivisor = ConfigManager.getInt("trace.divisor");
-        traceToAdd = ConfigManager.getInt("trace.to_add");
-        toPaint = ConfigManager.getInt("trace.to_paint");
-
         mDetector = detector;
         mGameController = controller;
 
@@ -79,7 +73,6 @@ public class ObjectDetector {
     /**
      * Detects the ball using an HSV value and paints it's trace to a given canvas
      * @param canvas The canvas, on which the trace is drawn
-     * @param hsv The HSV value of the ball
      * @param bitmap The alpha bitmap, used to clear the canvas
      * @return True if a ball was detected. False otherwise
      */
@@ -108,6 +101,8 @@ public class ObjectDetector {
         return ballDetected;
     }
 
+
+    //TODO: move out of ObjectDetector class.
     private void drawBallTrace(Canvas canvas) {
         Path path = new Path();
         PointF[] points = mGameController.getBallCoordinates().toArray(new PointF[0]);
@@ -128,6 +123,7 @@ public class ObjectDetector {
         }
     }
 
+    //TODO: move out of ObjectDetector class.
     private void movePath(Path path, PointF[] points, int i) {
         if (i < points.length - 1 && points[i+1] != null) {
             path.quadTo(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
